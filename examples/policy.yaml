@@ -1,0 +1,39 @@
+# context-budget policy.
+# A request picks its route by the X-Ctxb-Route header, else by the first route whose `models` match, else `default`.
+# Settings a route leaves out come from `defaults`, then from the built-in defaults.
+
+upstream: https://generativelanguage.googleapis.com/v1beta/openai   # where requests are forwarded
+log_path: ctxb-requests.jsonl                                       # one JSON line per request
+
+pricing:   # used for the cost figures in the log and the evaluation
+  input_per_million: 0.10
+  output_per_million: 0.40
+  label: Gemini Flash-Lite list price
+
+defaults:
+  budget_tokens: 8000
+  strategies: [trim, stale, dedup, retrieve]
+  trim:
+    min_tokens: 600        # leave tool outputs shorter than this alone
+    head_lines: 15
+    tail_lines: 15
+    max_match_lines: 80    # lines kept because they match the question
+  stale:
+    after_user_turns: 2    # a tool result is stale once two newer user messages follow it
+    keep_if_referenced: true
+    summariser: rules      # or "model": a small model writes the one-line summary
+  retrieve:
+    method: bm25           # or "embed": rank earlier turns with an /embeddings endpoint
+    top_k: 4
+    keep_recent_turns: 2
+
+routes:
+  agents:                  # long-running tool-using agents: everything on
+    models: ["gemini-*", "gpt-*"]
+  support-bot:             # short chats that quote documents: only dedup and trim
+    models: ["support-*"]
+    budget_tokens: 4000
+    strategies: [trim, dedup]
+  raw:                     # opt out per request with the header  X-Ctxb-Route: raw
+    strategies: []
+  default: {}

@@ -16,6 +16,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
@@ -116,7 +117,9 @@ class LLM:
                 break
             except urllib.error.HTTPError as e:
                 if e.code == 429:
-                    raise RateLimited("the model endpoint returned 429 (quota or rate limit)") from e
+                    detail = e.read().decode("utf-8", "replace")
+                    quota = ", ".join(sorted(set(re.findall(r'"quotaId":\s*"([^"]+)"', detail)))) or "unknown quota"
+                    raise RateLimited(f"the model endpoint returned 429 ({quota})") from e
                 if e.code >= 500 and attempt < 2:
                     time.sleep(5 * (attempt + 1))
                     continue

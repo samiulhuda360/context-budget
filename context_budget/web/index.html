@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>context-budget</title>
+<style>
+:root {
+  --bg: #f6f7f5; --panel: #ffffff; --ink: #14201e; --muted: #5d6b68; --line: #dfe5e2;
+  --teal: #2f6f68; --teal-soft: #e3f0ed; --teal-ink: #174a44;
+  --cut: #b5462f; --cut-soft: #fbe9e4; --add-soft: #e3f0ed; --pin: #8a6d1f; --pin-soft: #f6efd9;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101615; --panel: #172120; --ink: #e4ecea; --muted: #93a39f; --line: #2a3735;
+    --teal: #5fb3a8; --teal-soft: #1d3330; --teal-ink: #b9e3dc;
+    --cut: #ef8f78; --cut-soft: #3a211c; --add-soft: #1d3330; --pin: #d9b95c; --pin-soft: #352d16;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101615; --panel: #172120; --ink: #e4ecea; --muted: #93a39f; --line: #2a3735;
+  --teal: #5fb3a8; --teal-soft: #1d3330; --teal-ink: #b9e3dc;
+  --cut: #ef8f78; --cut-soft: #3a211c; --add-soft: #1d3330; --pin: #d9b95c; --pin-soft: #352d16;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { display: flex; align-items: center; gap: 12px; padding: 14px 24px; border-bottom: 1px solid var(--line); background: var(--panel); }
+header h1 { font-size: 17px; margin: 0; }
+header .sub { color: var(--muted); }
+header nav { margin-left: auto; display: flex; gap: 6px; }
+.tab { border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.tab.on { background: var(--teal); border-color: var(--teal); color: #fff; }
+main { display: grid; grid-template-columns: 300px 1fr; gap: 20px; padding: 20px 24px; max-width: 1500px; margin: 0 auto; }
+aside, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+aside { padding: 16px; align-self: start; position: sticky; top: 12px; }
+aside h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 8px; }
+aside h2:first-child { margin-top: 0; }
+select, textarea, input[type=number] { width: 100%; padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: inherit; }
+textarea { font-family: var(--mono); font-size: 12px; height: 90px; }
+label.chk { display: flex; align-items: center; gap: 8px; padding: 4px 0; cursor: pointer; }
+label.chk small { color: var(--muted); }
+.range { display: flex; align-items: center; gap: 8px; }
+.range input { flex: 1; accent-color: var(--teal); }
+.range b { min-width: 64px; text-align: right; font-variant-numeric: tabular-nums; }
+button.go { width: 100%; margin-top: 14px; padding: 9px; border: 0; border-radius: 7px; background: var(--teal); color: #fff; font-weight: 600; cursor: pointer; }
+.q { margin-top: 10px; padding: 8px 10px; background: var(--bg); border-radius: 6px; color: var(--muted); font-size: 13px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+.stat { padding: 12px 14px; }
+.stat .k { color: var(--muted); font-size: 12px; }
+.stat .v { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.stat .v small { font-size: 13px; color: var(--muted); font-weight: 400; }
+.bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; background: var(--line); margin: 6px 0 4px; }
+.bar span { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.saved { padding: 12px 14px; margin-bottom: 14px; }
+.views { display: flex; gap: 6px; margin: 0 0 10px; align-items: center; }
+.views .hint { margin-left: auto; color: var(--muted); font-size: 12px; }
+.msg { margin-bottom: 10px; overflow: hidden; }
+.msg.dropped { opacity: .62; }
+.mh { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.role { font-weight: 650; text-transform: capitalize; }
+.tool { font: 600 12.5px var(--mono); color: var(--teal-ink); }
+.toks { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; }
+.toks b { color: var(--ink); }
+.chip { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; background: var(--teal-soft); color: var(--teal-ink); }
+.chip.pin { background: var(--pin-soft); color: var(--pin); }
+.chip.drop { background: var(--cut-soft); color: var(--cut); }
+.chip.note { background: transparent; color: var(--muted); padding: 0; }
+pre { margin: 0; padding: 8px 12px; font: 12px/1.5 var(--mono); white-space: pre-wrap; word-break: break-word; max-height: 420px; overflow: auto; }
+.l { display: block; }
+.l.cut { background: var(--cut-soft); color: var(--cut); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--cut) 55%, transparent); }
+.l.add { background: var(--add-soft); color: var(--teal-ink); }
+.fold { display: block; color: var(--muted); cursor: pointer; font-style: italic; }
+.fold.cut { color: var(--cut); background: var(--cut-soft); }
+.calls { padding: 6px 12px; font: 12px var(--mono); color: var(--muted); }
+table.recent { width: 100%; border-collapse: collapse; }
+table.recent th, table.recent td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+table.recent tr.row { cursor: pointer; }
+table.recent tr.row:hover { background: var(--teal-soft); }
+.empty { padding: 30px; text-align: center; color: var(--muted); }
+@media (max-width: 860px) {
+  main { grid-template-columns: 1fr; padding: 16px; }
+  aside { position: static; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  header { flex-wrap: wrap; padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>context-budget</h1><span class="sub">what the proxy cut, and why</span>
+  <nav><button class="tab on" data-tab="analyse">Analyse</button><button class="tab" data-tab="recent">Recent requests</button></nav>
+</header>
+<main>
+  <aside id="controls">
+    <h2>Conversation</h2>
+    <select id="sample"></select>
+    <div class="q" id="question"></div>
+    <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--muted)">or paste your own JSON</summary>
+      <textarea id="paste" placeholder='{"messages": [...]}'></textarea>
+    </details>
+    <h2>Strategies</h2>
+    <div id="strategies"></div>
+    <h2>Token budget</h2>
+    <div class="range"><input type="range" id="budget" min="0" max="5" step="1" value="3"><b id="budgetv">8,000</b></div>
+    <button class="go" id="go">Analyse</button>
+  </aside>
+  <section id="view"></section>
+</main>
+<script>
+const STRAT = {
+  trim: ['Trim tool outputs', 'head, tail, matching lines'],
+  stale: ['Summarise stale results', 'old tool results to one line'],
+  dedup: ['Remove duplicates', 'repeated documents'],
+  retrieve: ['Keep relevant turns', 'drop the least relevant'],
+};
+const COLORS = { trim: '#2f6f68', stale: '#6a9c95', dedup: '#b08d3c', retrieve: '#8a5a44' };
+const BUDGETS = [1000, 2000, 4000, 8000, 16000, 32000];
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => n.toLocaleString('en-NZ');
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+let mode = 'diff', last = null, tab = 'analyse';
+
+function strategyBoxes() {
+  $('#strategies').innerHTML = Object.entries(STRAT).map(([k, [t, d]]) =>
+    `<label class="chk"><input type="checkbox" value="${k}" checked> <span>${t}<br><small>${d}</small></span></label>`).join('');
+}
+$('#budget').oninput = () => { $('#budgetv').textContent = fmt(BUDGETS[$('#budget').value]); };
+
+async function loadSamples() {
+  const list = await (await fetch('/ctxb/samples')).json();
+  $('#sample').innerHTML = list.map((s) => `<option value="${s.id}" data-q="${esc(s.question)}">${s.id} · ${s.family.replace('_', ' ')}</option>`).join('');
+  $('#sample').value = 'log-01';
+  showQuestion();
+}
+function showQuestion() { const o = $('#sample').selectedOptions[0]; $('#question').textContent = o ? 'Question: ' + o.dataset.q : ''; }
+$('#sample').onchange = () => { showQuestion(); analyse(); };
+
+async function analyse() {
+  let messages;
+  const pasted = $('#paste').value.trim();
+  if (pasted) {
+    try { const j = JSON.parse(pasted); messages = Array.isArray(j) ? j : j.messages; }
+    catch (e) { $('#view').innerHTML = `<div class="card empty">That is not valid JSON: ${esc(e.message)}</div>`; return; }
+  } else {
+    messages = (await (await fetch('/ctxb/samples/' + $('#sample').value)).json()).messages;
+  }
+  const strategies = [...document.querySelectorAll('#strategies input:checked')].map((i) => i.value);
+  const r = await fetch('/ctxb/analyse', { method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ messages, strategies, budget: BUDGETS[$('#budget').value] }) });
+  last = await r.json();
+  render(last);
+}
+$('#go').onclick = analyse;
+
+function statCards(d) {
+  const by = d.saved_by, total = d.tokens_before || 1;
+  const parts = Object.keys(STRAT).filter((k) => by[k] > 0);
+  return `<div class="stats">
+    <div class="card stat"><div class="k">Tokens sent by the app</div><div class="v">${fmt(d.tokens_before)}</div></div>
+    <div class="card stat"><div class="k">Tokens sent to the model</div><div class="v">${fmt(d.tokens_after)} <small>budget ${fmt(d.budget)}</small></div></div>
+    <div class="card stat"><div class="k">Saved</div><div class="v">${d.saved_pct.toFixed(1)}%</div></div>
+    <div class="card stat"><div class="k">Time added</div><div class="v">${d.elapsed_ms.toFixed(1)} <small>ms</small></div></div>
+  </div>
+  <div class="card saved"><div class="k" style="color:var(--muted);font-size:12px">Where the saving came from</div>
+    <div class="bar">${parts.map((k) => `<span style="width:${100 * by[k] / total}%;background:${COLORS[k]}" title="${k}: ${fmt(by[k])}"></span>`).join('')}</div>
+    <div class="legend">${parts.map((k) => `<span><i style="background:${COLORS[k]}"></i>${STRAT[k][0]}: ${fmt(by[k])} tokens</span>`).join('') || '<span>Nothing needed cutting.</span>'}</div>
+  </div>`;
+}
+
+function lines(seg, kind) {
+  const n = seg.lines.length;
+  const body = (ls) => ls.map((l) => `<span class="l ${kind}">${esc(l) || ' '}</span>`).join('');
+  if (n <= 8) return body(seg.lines);
+  const id = 'f' + Math.random().toString(36).slice(2);
+  const label = kind === 'cut' ? `${fmt(n)} lines cut, click to show` : `${fmt(n)} unchanged lines, click to show`;
+  return body(seg.lines.slice(0, 2)) + `<span class="fold ${kind}" data-id="${id}">… ${label}</span><span id="${id}" hidden>${body(seg.lines.slice(2, -2))}</span>` + body(seg.lines.slice(-2));
+}
+
+function content(m) {
+  if (mode === 'before') return m.segments.filter((s) => s.op !== 'add').map((s) => lines(s, '')).join('');
+  if (mode === 'after') return m.dropped ? '' : m.segments.filter((s) => s.op !== 'cut').map((s) => lines(s, '')).join('');
+  return m.segments.map((s) => lines(s, s.op === 'keep' ? '' : s.op)).join('');
+}
+
+function render(d) {
+  const msgs = d.messages.map((m) => {
+    const chips = [];
+    if (m.pinned) chips.push(`<span class="chip pin">pinned: ${m.pinned}</span>`);
+    if (m.dropped) chips.push(`<span class="chip drop">dropped by retrieve</span>`);
+    for (const a of m.actions) if (a.strategy !== 'retrieve') chips.push(`<span class="chip" title="${esc(a.note)}">${a.strategy} −${fmt(a.saved)}</span>`);
+    if (m.kept_note) chips.push(`<span class="chip note">${m.kept_note}</span>`);
+    const calls = m.calls.length ? `<div class="calls">→ ${m.calls.map((c) => esc(c.name + '(' + c.arguments + ')')).join(', ')}</div>` : '';
+    const body = content(m);
+    return `<div class="card msg ${m.dropped ? 'dropped' : ''}" id="m${m.index}"><div class="mh"><span class="role">${m.role}</span>${m.tool ? `<span class="tool">${esc(m.tool)}</span>` : ''}${chips.join('')}
+      <span class="toks">${fmt(m.tokens_before)} → <b>${fmt(m.tokens_after)}</b> tokens</span></div>${calls}${body ? `<pre>${body}</pre>` : ''}</div>`;
+  }).join('');
+  $('#view').innerHTML = statCards(d) + `<div class="views">
+    <button class="tab ${mode === 'diff' ? 'on' : ''}" data-mode="diff">Highlight cuts</button>
+    <button class="tab ${mode === 'before' ? 'on' : ''}" data-mode="before">Before</button>
+    <button class="tab ${mode === 'after' ? 'on' : ''}" data-mode="after">After</button>
+    <span class="hint"><span class="l cut" style="display:inline;padding:0 4px">cut</span> <span class="l add" style="display:inline;padding:0 4px">added by the proxy</span></span></div>` + msgs;
+  document.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => { mode = b.dataset.mode; render(last); }));
+  document.querySelectorAll('.fold').forEach((f) => (f.onclick = () => { document.getElementById(f.dataset.id).hidden = false; f.remove(); }));
+}
+
+async function recent() {
+  const rows = await (await fetch('/ctxb/recent')).json();
+  if (!rows.length) { $('#view').innerHTML = '<div class="card empty">No requests yet. Point an app at this proxy\'s /v1 and they appear here.</div>'; return; }
+  $('#view').innerHTML = `<div class="card"><table class="recent"><tr><th>Time</th><th>Model</th><th>Route</th><th>Before</th><th>After</th><th>Saved</th><th>Time added</th></tr>` +
+    rows.map((r) => `<tr class="row" data-n="${r.n}"><td>${r.ts}</td><td>${esc(r.model || '')}</td><td>${r.route}</td><td>${fmt(r.tokens_before)}</td><td>${fmt(r.tokens_after)}</td><td>${r.saved_pct.toFixed(1)}%</td><td>${r.elapsed_ms.toFixed(1)} ms</td></tr>`).join('') + '</table></div>';
+  document.querySelectorAll('tr.row').forEach((tr) => (tr.onclick = async () => { last = await (await fetch('/ctxb/recent/' + tr.dataset.n)).json(); render(last); }));
+}
+
+document.querySelectorAll('[data-tab]').forEach((b) => (b.onclick = () => {
+  tab = b.dataset.tab;
+  document.querySelectorAll('[data-tab]').forEach((x) => x.classList.toggle('on', x === b));
+  $('#controls').style.display = tab === 'analyse' ? '' : 'none';
+  $('main').style.gridTemplateColumns = tab === 'analyse' ? '' : '1fr';
+  if (tab === 'analyse') analyse(); else recent();
+}));
+
+strategyBoxes();
+if (window.CTXB_DATA) {
+  $('#controls').style.display = 'none'; $('main').style.gridTemplateColumns = '1fr'; document.querySelector('header nav').style.display = 'none';
+  last = window.CTXB_DATA; render(last);
+} else {
+  loadSamples().then(analyse);
+}
+</script>
+</body>
+</html>

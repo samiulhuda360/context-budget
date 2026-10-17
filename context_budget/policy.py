@@ -34,6 +34,7 @@ class StaleSettings:
     min_tokens: int = 200
     keep_if_referenced: bool = True  # keep an old result the latest question still refers to
     summariser: str = "rules"  # "rules" or "model" (a small model writes the one-line summary)
+    summary_model: str = "gemini-flash-lite-latest"  # used only with summariser: model
 
 
 @dataclass(frozen=True)
@@ -44,6 +45,7 @@ class DedupSettings:
 @dataclass(frozen=True)
 class RetrieveSettings:
     method: str = "bm25"  # "bm25" or "embed" (an OpenAI-compatible /embeddings endpoint)
+    embed_model: str = "text-embedding-004"  # used only with method: embed
     top_k: int = 4  # earlier turns kept by relevance
     keep_recent_turns: int = 2  # the most recent turns are always kept
     only_over_budget: bool = True  # leave earlier turns alone while the request already fits the budget

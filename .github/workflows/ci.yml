@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Type check
+        run: mypy .
+      - name: Tests
+        run: pytest
+      - name: Benchmark rebuilds identically
+        run: ctxb bench --check
+      - name: Offline evaluation matches the committed results
+        run: ctxb eval offline --check
+      # CI never calls a model: every Gemini reply is replayed from cache/llm.
+      - name: Model evaluation replays from the cache
+        run: ctxb eval model --offline --check --quiet
+      - name: Results page is up to date
+        run: |
+          ctxb eval report
+          git diff --exit-code eval/RESULTS.md
+      - name: Policy and demo
+        run: |
+          ctxb check-policy examples/policy.yaml
+          ctxb demo
