@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Yes, there are high-priority tickets for Acme Coffee Roasters (three in total). As for the Nomad sleeping bag, its weight and materials weren't detailed in the fetched summary.",
+ "latency_s": 0.979,
+ "prompt_tokens": 1144,
+ "completion_tokens": 38
+}

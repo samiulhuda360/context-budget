@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The Nomad sleeping bag weighs 2.3 kg and is built for multi-day trips in changeable weather.",
+ "latency_s": 0.858,
+ "prompt_tokens": 770,
+ "completion_tokens": 22
+}

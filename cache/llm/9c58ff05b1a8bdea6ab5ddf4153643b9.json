@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TG6mpbb/gZXUm5hr46nF47n/Nf/ZyqZdgQC6fFh97YZ61QPC01hczzN3raJpPOG51vszVYrepwDLpF1RdjRPHtGwdlz0tpDHkzrjWAlV0xZ60q7/FYsI67wI=\"}}, \"function\": {\"arguments\": \"{\\\"command\\\":\\\"git grep -i \\\\\\\"retry\\\\\\\" services/\\\",\\\"host\\\":\\\"localhost\\\"}\", \"name\": \"run_command\"}, \"id\": \"call_1410020\", \"type\": \"function\"}]",
+ "latency_s": 1.018,
+ "prompt_tokens": 958,
+ "completion_tokens": 30
+}

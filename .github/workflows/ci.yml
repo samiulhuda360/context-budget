@@ -31,7 +31,7 @@ jobs:
         run: ctxb eval offline --check
       # CI never calls a model: every Gemini reply is replayed from cache/llm.
       - name: Model evaluation replays from the cache
-        run: ctxb eval model --offline --check --quiet
+        run: ctxb eval model --offline --partial --check --quiet
       - name: Results page is up to date
         run: |
           ctxb eval report

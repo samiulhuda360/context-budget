@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "There are 727 SQL migration files under the `db/migrations` directory.",
+ "latency_s": 0.969,
+ "prompt_tokens": 1272,
+ "completion_tokens": 18
+}

@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0ThKmDN70CBeLpFQ4r6oqDJZkBXYlqu3Wcz2Ot5vX2XEDbdHRkvZ8AHN1AmqLDMFE9+69mUW/qytpVJDFZz6/NExfxNXN3DlnHvXeWX334GsBHZIgmXcOHn2I=\"}}, \"function\": {\"arguments\": \"{\\\"url\\\":\\\"https://internal.acmeadventuretours.com/gear/nomad-sleeping-bag\\\"}\", \"name\": \"fetch_url\"}, \"id\": \"call_4691773\", \"type\": \"function\"}]",
+ "latency_s": 1.139,
+ "prompt_tokens": 2522,
+ "completion_tokens": 35
+}

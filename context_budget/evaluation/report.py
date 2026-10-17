@@ -85,33 +85,43 @@ def write_results() -> Path:
         cfg = {c["config"]: c for c in mod["configs"]}
         d, b = cfg["context-budget@8000"], cfg["baseline"]
         w = cfg["window@2000"]
+        judge = f" (judge {d['judge_score_pct']}% vs {b['judge_score_pct']}%)" if d["judge_score_pct"] is not None else ""
         lines += [
             f"- With every strategy on and an 8,000-token budget, requests to {mod['model']} were **{d['prompt_tokens_saved_pct']}% smaller** "
-            f"(tokens Gemini itself reported), and answers scored **{d['checker_accuracy_pct']}%** on the checker against "
-            f"**{b['checker_accuracy_pct']}%** for the untrimmed requests ({d['checker_diff_vs_baseline_pts']:+} points; judge "
-            f"{d['judge_score_pct']}% vs {b['judge_score_pct']}%).",
-            f"- At almost the same saving ({w['prompt_tokens_saved_pct']}%), a plain sliding window scored **{w['checker_accuracy_pct']}%**.",
+            f"(prompt tokens as Gemini reported them), and answers passed the checker **{d['checker_accuracy_pct']}%** of the time against "
+            f"**{b['checker_accuracy_pct']}%** for the untrimmed requests{judge}, on {mod['conversations']} conversations.",
+            f"- At almost the same saving ({w['prompt_tokens_saved_pct']}%), a plain sliding window passed **{w['checker_accuracy_pct']}%**.",
         ]
     best, brk = h["best"], h["break"]
     lines.append(
         f"- Over all {off['conversations']} conversations, the facts each answer needs stayed in the request in {best['evidence_kept_pct']}% of cases "
-        f"(untrimmed: {h['base']}%) up to a **{best['saved_pct']}% token saving** (budget {best['budget']:,})."
+        f"(untrimmed: {h['base']}%) with **{best['saved_pct']}% fewer tokens** (budget {best['budget']:,})."
     )
     if brk:
         lost = sorted({FAMILY_NAMES[f] for f, v in brk["evidence_kept_by_family"].items() if v < 100})
+        worst = min(h["sweep"], key=lambda c: c["budget"])
         lines.append(
-            f"- It breaks at a {brk['budget']:,}-token budget: {brk['saved_pct']}% saved but only {brk['evidence_kept_pct']}% of answers still have their facts (lost in: {', '.join(lost).lower()})."
+            f"- It starts to break at a {brk['budget']:,}-token budget ({brk['saved_pct']}% saved, facts kept {brk['evidence_kept_pct']}%, lost in: "
+            f"{', '.join(lost).lower()}) and clearly breaks at {worst['budget']:,} ({worst['saved_pct']}% saved, facts kept {worst['evidence_kept_pct']}%)."
         )
     lines.append("")
 
     if mod:
         lines += ["## Answer quality with a real model", ""]
+        scope = (
+            f"{mod['conversations']} conversations"
+            if mod.get("complete", True)
+            else f"{mod['conversations']} of the {mod['planned_conversations']} planned conversations (those with recorded replies so far; "
+            "`ctxb eval model` records the rest and resumes from the cache)"
+        )
         lines += [
-            f"{mod['conversations']} conversations (4 from each family) were each sent four ways to `{mod['model']}`. "
-            "The checker passes an answer when every labelled fact is in it; the judge scores 0, 1 or 2 against the reference answer. "
-            "Differences are in percentage points against the untrimmed request, with a 95% paired bootstrap interval.",
+            f"{scope} were each sent four ways to `{mod['model']}`. "
+            'The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another '
+            "tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against "
+            "the untrimmed request, with a 95% paired bootstrap interval.",
             "",
         ]
+        has_judge = mod["configs"][0]["judge_score_pct"] is not None
         rows = []
         for c in mod["configs"]:
             ci = c["checker_diff_95ci_pts"]
@@ -122,11 +132,11 @@ def write_results() -> Path:
                     f"{c['prompt_tokens_saved_pct']}%",
                     f"{c['checker_accuracy_pct']}%",
                     "" if c["config"] == "baseline" else f"{c['checker_diff_vs_baseline_pts']:+} [{ci[0]:+}, {ci[1]:+}]",
-                    f"{c['judge_score_pct']}%",
+                    *([f"{c['judge_score_pct']}%"] if has_judge else []),
+                    f"{c['tool_call_instead_of_answer_pct']}%",
                     f"${c['cost_per_1000_usd']['flash_lite']:.3f}",
                     f"${c['cost_per_1000_usd']['frontier']:.2f}",
                     f"{c['model_latency_s_mean']} s",
-                    f"{c['proxy_ms_p50']} / {c['proxy_ms_p95']} ms",
                 ]
             )
         lines += _table(
@@ -136,16 +146,16 @@ def write_results() -> Path:
                 "Saved",
                 "Checker",
                 "vs untrimmed (pts)",
-                "Judge",
+                *(["Judge"] if has_judge else []),
+                "Tool call",
                 "Cost / 1,000 (Flash-Lite)",
                 "Cost / 1,000 (frontier)",
                 "Model latency",
-                "Proxy time p50 / p95",
             ],
             rows,
             "lrrrrrrrrr",
         )
-        lines += ["", "Checker accuracy by family:", ""]
+        lines += ["", "Checker pass rate by family:", ""]
         fams = list(mod["configs"][0]["by_family_checker_pct"])
         lines += _table(
             ["Request", *[FAMILY_NAMES[f] for f in fams]],
@@ -153,17 +163,21 @@ def write_results() -> Path:
             "l" + "r" * len(fams),
         )
         cal = mod["calibration"]
-        lines += ["", "### Judge calibration", ""]
+        lines += ["", "### Hand labels and the judge", ""]
         if cal.get("labelled"):
-            lines += [
-                f"{cal['labelled']} answers were labelled by hand (0/1/2, same rubric) before looking at the judge's scores.",
-                "",
-                f"- Judge vs hand labels: {cal['judge_exact_agreement_pct']}% exact agreement, Cohen's kappa {cal['judge_kappa']}; "
-                f"{cal['judge_full_marks_agreement_pct']}% agreement on full marks or not.",
-                f"- Checker vs hand labels (full marks or not): {cal['checker_agreement_pct']}% agreement, kappa {cal['checker_kappa']}.",
-            ]
-        else:
-            lines.append("No hand labels yet.")
+            lines.append(
+                f"All {cal['labelled']} distinct answers were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). "
+                f"The checker agrees with the hand labels on full marks or not for {cal['checker_agreement_pct']}% of them (Cohen's kappa {cal['checker_kappa']})."
+            )
+            if "judge_kappa" in cal:
+                lines.append(
+                    f"The model judge agrees exactly with the hand labels for {cal['judge_exact_agreement_pct']}% (kappa {cal['judge_kappa']}), "
+                    f"and on full marks or not for {cal['judge_full_marks_agreement_pct']}%."
+                )
+            else:
+                lines.append(
+                    "The model judge (batches of 16 answers, same 0/1/2 rubric) runs after all answers are recorded, so it has not run on this partial set yet."
+                )
         lines.append("")
 
     lines += ["## Every strategy combination (no model, all conversations)", ""]
@@ -225,7 +239,8 @@ def write_results() -> Path:
         "- **Tokens:** counted with the `o200k_base` tokenizer; the model table also shows the prompt tokens Gemini reported for each request.",
         "- **Facts kept:** a deterministic check that every labelled evidence string (or a computed summary of it, such as a count) is still in the request.",
         "- **Checker:** every labelled answer fact must appear in the model's reply; numbers must match whole.",
-        "- **Judge:** the same model grades batches of 12 answers with a 0/1/2 rubric; the judge's agreement with hand labels is reported above.",
+        "- **Judge:** once every answer is recorded, the same model grades batches of 16 answers with a 0/1/2 rubric, and its agreement with the hand labels is reported.",
+        "- **Hand labels:** `eval/hand_labels.json`, one 0/1/2 score per distinct answer, read against the reference answer.",
         "- **Proxy time:** wall-clock time of the compression step on one laptop core (Python 3.13); model latency is Gemini's response time.",
         f"- **Prices:** {off['prices']['flash_lite']}; {off['prices']['frontier']}.",
         "",

@@ -1,0 +1,302 @@
+{
+ "log-01/1d234531cf": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "log-01/e9dbfd30d0": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "log-01/cfc8cc77ae": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "log-01/c72ac8aef6": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "log-02/45a13b6ec2": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "log-02/5c17278717": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "log-02/0811f1b434": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "log-02/3790c3ac03": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "log-05/76d9fe96cf": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "log-05/1dda266259": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "log-05/527385e84b": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "log-05/d252a398f5": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "log-08/46b97f8f10": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "log-08/7d4e20b045": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "log-08/de2d254e17": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "log-08/3fe8f23339": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "db-01/b2fbc98408": {
+  "score": 0,
+  "config": "baseline",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-01/4d2b5107c2": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "db-01/f3d7d1a357": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "db-02/69e09bd371": {
+  "score": 0,
+  "config": "baseline",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-02/8903856227": {
+  "score": 0,
+  "config": "context-budget@8000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-02/86e787e443": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "db-02/509c7e3a5c": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-05/883edad502": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "db-05/0d0a96e32b": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "db-05/d7ec70c7d1": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-05/4bd7a8ff48": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-08/90d16d2757": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "db-08/6a92372147": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "db-08/b7b1922aef": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "db-08/eba9c4f546": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "web-01/8a557fd01d": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "web-01/7f030d1ec3": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "web-02/8c10e3f40f": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "web-02/9b2654ecd4": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "web-05/8359e60472": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "web-05/3824c3fff7": {
+  "score": 1,
+  "config": "context-budget@1000",
+  "note": "weight right, material missing"
+ },
+ "web-05/0f66d7c028": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "web-08/e90b53cb71": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "web-08/4c464dc68d": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "web-08/9c86f49780": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "wrong or says the information is missing"
+ },
+ "web-08/9ddd8c65c9": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "files-01/527bd01aff": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "files-01/e112e0dfc4": {
+  "score": 0,
+  "config": "context-budget@8000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-01/57857eec9d": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-02/090769eec8": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "files-02/19f71dafb4": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "files-02/9f9fe66f88": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-02/9d4a3cc02f": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "files-05/57e4058363": {
+  "score": 0,
+  "config": "baseline",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-05/5c903e3a84": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "files-05/b83fa9a51f": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "wrong or says the information is missing"
+ },
+ "files-05/d25a803ba4": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-08/037c72ae2c": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "files-08/afa5547508": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "files-08/289f90558d": {
+  "score": 0,
+  "config": "context-budget@1000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "files-08/30a69028fc": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "brief-01/ae276a5163": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "brief-01/792ee338d5": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "brief-01/4e9b360329": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ }
+}

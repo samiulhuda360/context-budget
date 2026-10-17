@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Tom Sutton placed order ORD-68684, and its total was $349.41 NZD.",
+ "latency_s": 5.232,
+ "prompt_tokens": 33765,
+ "completion_tokens": 26
+}

@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0THxtFHyQIl7dP8WNFZ9TKpsZ2VqXt+PGdWta8j67Rd8008H6ck1P578IOOb6Wbs+5LFGP0xHYKJ9ha0J/vfZA3N8uMUz48Bqad3rNC3c47MfqPoLwK4Ekxpw=\"}}, \"function\": {\"arguments\": \"{\\\"service\\\":\\\"inventory-sync\\\"}\", \"name\": \"get_deploys\"}, \"id\": \"call_2998122\", \"type\": \"function\"}]",
+ "latency_s": 1.064,
+ "prompt_tokens": 2978,
+ "completion_tokens": 20
+}

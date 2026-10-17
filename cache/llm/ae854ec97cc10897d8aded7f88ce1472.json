@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "You didn't specify a spend limit or a delivery deadline at the start of our conversation.",
+ "latency_s": 1.109,
+ "prompt_tokens": 2672,
+ "completion_tokens": 19
+}

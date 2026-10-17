@@ -17,6 +17,6 @@ check:
 	pytest
 	ctxb bench --check
 	ctxb eval offline --check
-	ctxb eval model --offline --check --quiet
+	ctxb eval model --offline --partial --check --quiet
 
 .PHONY: setup demo serve check

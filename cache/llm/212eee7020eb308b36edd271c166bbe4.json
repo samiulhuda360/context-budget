@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The Ridgeline down jacket costs NZ$769 and its SKU code is SKU-56475.",
+ "latency_s": 0.961,
+ "prompt_tokens": 946,
+ "completion_tokens": 24
+}

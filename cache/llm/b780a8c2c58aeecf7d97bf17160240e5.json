@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The search-indexer is encountering OOMKilled errors because it exceeds the 512Mi memory limit while loading synonyms.",
+ "latency_s": 1.854,
+ "prompt_tokens": 49985,
+ "completion_tokens": 26
+}

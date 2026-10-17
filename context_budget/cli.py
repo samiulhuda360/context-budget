@@ -137,7 +137,7 @@ def cmd_eval(args: argparse.Namespace) -> int:
         return 0
     llm = LLM(offline=args.offline)
     try:
-        result = model.run(llm, progress=(lambda s: None) if args.quiet else print)
+        result = model.run(llm, progress=(lambda s: None) if args.quiet else print, partial=args.partial)
     except RateLimited as e:
         print(f"stopped: {e}. {llm.live_calls} live calls were made; rerun later and the cache resumes from here.")
         return 3
@@ -201,6 +201,7 @@ def main(argv: list[str] | None = None) -> int:
     e.add_argument("which", choices=["offline", "model", "report"])
     e.add_argument("--offline", action="store_true", help="model: replay from the cache only")
     e.add_argument("--quiet", action="store_true")
+    e.add_argument("--partial", action="store_true", help="model: use only conversations whose replies are all recorded")
     e.add_argument("--check", action="store_true", help="offline/model: compare with the committed results instead of writing them")
     e.set_defaults(func=cmd_eval)
 

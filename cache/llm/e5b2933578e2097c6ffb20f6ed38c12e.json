@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TKH+iqGjA19H/U2Rq25gXaJbcgnvPV2Nee+X7D1Hon+L//QLPcZy1elgB933jZciVlmH2DYxDYpO+KNthkKKH9Zf40oJ8qlLlD0JN180irB19jzEJyc6Wh8k=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"db/migrations\\\"}\", \"name\": \"list_files\"}, \"id\": \"call_4055713\", \"type\": \"function\"}]",
+ "latency_s": 0.88,
+ "prompt_tokens": 959,
+ "completion_tokens": 18
+}

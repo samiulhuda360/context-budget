@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "There was 1 processing order in Canterbury last month (order ORD-86652 for Noah Wallace, totaling 106.32 NZD).",
+ "latency_s": 5.812,
+ "prompt_tokens": 2786,
+ "completion_tokens": 34
+}

@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The logs show that the search indexer is not actually restarting; its uptime values vary widely and continue to run normally without any crash, OOM, or error logs. There is no evidence in the logs that it is hitting any memory limit.",
+ "latency_s": 1.231,
+ "prompt_tokens": 2936,
+ "completion_tokens": 49
+}

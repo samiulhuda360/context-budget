@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The payments were held up because upstream acquirer `acq-nz-3` failed to respond after 30,000ms, causing the circuit breaker to open for card payments.",
+ "latency_s": 1.85,
+ "prompt_tokens": 54324,
+ "completion_tokens": 40
+}

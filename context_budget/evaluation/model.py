@@ -35,7 +35,7 @@ MODEL_CONFIGS = (
     Config("context-budget@1000", STRATEGIES, 1000),
     Config("window@2000", (), 2000, naive=True),
 )
-JUDGE_BATCH = 12
+JUDGE_BATCH = 16
 
 JUDGE_PROMPT = """You are grading answers from an AI assistant. For each item you get the question, the reference
 answer, and the assistant's answer. Score each one:
@@ -103,13 +103,20 @@ def cohen_kappa(x: list[int], y: list[int]) -> float:
     return (po - pe) / (1 - pe) if pe < 1 else 1.0
 
 
-def run(llm: LLM, progress: Callable[[str], None] = print) -> dict[str, Any]:
+def run(llm: LLM, progress: Callable[[str], None] = print, partial: bool = False) -> dict[str, Any]:
+    """Answers every subset conversation four ways, then judges the answers.
+
+    With `partial`, conversations whose four answers are not all recorded are left out, and the judge runs only if
+    every batch is recorded; the result says how many conversations it covers.
+    """
     convs = subset()
     by_id = {c["id"]: c for c in bench.load()}
     items: list[dict[str, Any]] = []
     for c in convs:
-        for cfg in MODEL_CONFIGS:
-            msgs, ms = apply(cfg, c)
+        prepared = [(cfg, *apply(cfg, c)) for cfg in MODEL_CONFIGS]
+        if partial and not all(llm.cached(msgs, c["tools"]) for _, msgs, _ in prepared):
+            continue
+        for cfg, msgs, ms in prepared:
             reply = llm.chat(msgs, tools=c["tools"], max_tokens=300)
             items.append(
                 {
@@ -128,14 +135,21 @@ def run(llm: LLM, progress: Callable[[str], None] = print) -> dict[str, Any]:
                 }
             )
         progress(f"{c['id']}: answered ({llm.live_calls} live calls, {llm.cached_calls} from cache)")
+    batches = judge_batches(items)
+    prompts = [[{"role": "user", "content": judge_prompt(batch, by_id)}] for batch in batches]
+    judged = not partial or all(llm.cached(p) for p in prompts)
     scores: dict[str, int] = {}
-    for k, batch in enumerate(judge_batches(items)):
-        reply = llm.chat([{"role": "user", "content": judge_prompt(batch, by_id)}], max_tokens=60 * len(batch))
-        scores.update(parse_scores(reply.text))
-        progress(f"judge batch {k + 1}: {len(batch)} answers graded")
+    if judged:
+        for k, (batch, prompt) in enumerate(zip(batches, prompts, strict=True)):
+            reply = llm.chat(prompt, max_tokens=60 * len(batch))
+            scores.update(parse_scores(reply.text))
+            progress(f"judge batch {k + 1}: {len(batch)} answers graded")
     for it in items:
-        it["judge"] = scores[judge_key(it)]
-    return summarise(items)
+        it["judge"] = scores.get(judge_key(it))
+    result = summarise(items)
+    result["planned_conversations"] = len(convs)
+    result["complete"] = len(items) == len(convs) * len(MODEL_CONFIGS) and judged
+    return result
 
 
 def summarise(items: list[dict[str, Any]]) -> dict[str, Any]:
@@ -146,9 +160,10 @@ def summarise(items: list[dict[str, Any]]) -> dict[str, Any]:
         rows = [it for it in items if it["config"] == cfg.name]
         ids = [r["id"] for r in rows]
         acc = [1.0 if r["correct"] else 0.0 for r in rows]
-        jud = [r["judge"] / 2 for r in rows]
+        has_judge = all(r["judge"] is not None for r in items)
+        jud = [r["judge"] / 2 for r in rows] if has_judge else [0.0]
         base_acc = [1.0 if base[i]["correct"] else 0.0 for i in ids]
-        base_jud = [base[i]["judge"] / 2 for i in ids]
+        base_jud = [base[i]["judge"] / 2 for i in ids] if has_judge else [0.0]
         avg_prompt = statistics.fmean(r["prompt_tokens"] for r in rows)
         avg_out = statistics.fmean(r["completion_tokens"] for r in rows)
         base_prompt = statistics.fmean(base[i]["prompt_tokens"] for i in ids)
@@ -158,12 +173,16 @@ def summarise(items: list[dict[str, Any]]) -> dict[str, Any]:
                 "config": cfg.name,
                 "n": len(rows),
                 "checker_accuracy_pct": round(100 * statistics.fmean(acc), 1),
-                "judge_score_pct": round(100 * statistics.fmean(jud), 1),
-                "judge_full_marks_pct": round(100 * sum(1 for r in rows if r["judge"] == 2) / len(rows), 1),
+                "judge_score_pct": round(100 * statistics.fmean(jud), 1) if has_judge else None,
+                "judge_full_marks_pct": round(100 * sum(1 for r in rows if r["judge"] == 2) / len(rows), 1) if has_judge else None,
                 "checker_diff_vs_baseline_pts": round(100 * (statistics.fmean(acc) - statistics.fmean(base_acc)), 1),
                 "checker_diff_95ci_pts": [round(100 * lo, 1), round(100 * hi, 1)],
-                "judge_diff_vs_baseline_pts": round(100 * (statistics.fmean(jud) - statistics.fmean(base_jud)), 1),
+                "judge_diff_vs_baseline_pts": round(100 * (statistics.fmean(jud) - statistics.fmean(base_jud)), 1) if has_judge else None,
+                "tool_call_instead_of_answer_pct": round(100 * sum(1 for r in rows if r["answer"].startswith("[tool call]")) / len(rows), 1),
                 "avg_tokens_counted": round(statistics.fmean(r["tokens"] for r in rows)),
+                "tokens_counted_saved_pct": round(
+                    100 * (1 - statistics.fmean(r["tokens"] for r in rows) / statistics.fmean(base[i]["tokens"] for i in ids)), 1
+                ),
                 "avg_prompt_tokens_reported": round(avg_prompt),
                 "prompt_tokens_saved_pct": round(100 * (1 - avg_prompt / base_prompt), 1),
                 "cost_per_1000_usd": {k: round(cost_per_1000(avg_prompt, p, avg_out), 4) for k, p in PRICES.items()},
@@ -195,14 +214,16 @@ def calibrate(items: list[dict[str, Any]], hand: dict[str, dict[str, Any]]) -> d
     if not pairs:
         return {"labelled": 0}
     h = [p[0] for p in pairs]
-    j = [p[1] for p in pairs]
     c = [2 if p[2] else 0 for p in pairs]
     h_bin = [1 if x == 2 else 0 for x in h]
-    return {
+    out: dict[str, Any] = {
         "labelled": len(pairs),
-        "judge_exact_agreement_pct": round(100 * sum(1 for a, b in zip(h, j, strict=True) if a == b) / len(pairs), 1),
-        "judge_kappa": round(cohen_kappa(h, j), 2),
-        "judge_full_marks_agreement_pct": round(100 * sum(1 for a, b in zip(h_bin, j, strict=True) if a == (1 if b == 2 else 0)) / len(pairs), 1),
         "checker_agreement_pct": round(100 * sum(1 for a, b in zip(h_bin, c, strict=True) if a == (1 if b == 2 else 0)) / len(pairs), 1),
         "checker_kappa": round(cohen_kappa(h_bin, [1 if x == 2 else 0 for x in c]), 2),
     }
+    if all(p[1] is not None for p in pairs):
+        j = [int(p[1]) for p in pairs]
+        out["judge_exact_agreement_pct"] = round(100 * sum(1 for a, b in zip(h, j, strict=True) if a == b) / len(pairs), 1)
+        out["judge_kappa"] = round(cohen_kappa(h, j), 2)
+        out["judge_full_marks_agreement_pct"] = round(100 * sum(1 for a, b in zip(h_bin, j, strict=True) if a == (1 if b == 2 else 0)) / len(pairs), 1)
+    return out

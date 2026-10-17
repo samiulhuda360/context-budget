@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TjTnj0iZ5l0cpeCSAOnBx1rQHzPWTQQUvGuuI82sVDOumvOzxREKed5Crj9+S5gR1pfVq2O/phAXKNsvelIcgVfBJl3rRHCHAQQ2rNZGhNw0bHKopyXMVbX4=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"services/gateway/config/settings.yaml\\\"}\", \"name\": \"read_file\"}, \"id\": \"call_190329\", \"type\": \"function\"}]",
+ "latency_s": 0.926,
+ "prompt_tokens": 1077,
+ "completion_tokens": 24
+}

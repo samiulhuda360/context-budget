@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TyCElfl7udxwvkFa9Y1QciLtZQ2rxFomTNfuALSarf7pO/eSrXUfvw9gG69O6eLZ1/BRlST3oJ8/FeEfSRpUEep5sTGHgNClabQKjopIodFxVejqeKCwWuQw=\"}}, \"function\": {\"arguments\": \"{\\\"since\\\":\\\"2026-09-14T02:30:00Z\\\",\\\"service\\\":\\\"payments-worker\\\"}\", \"name\": \"fetch_logs\"}, \"id\": \"call_2560037\", \"type\": \"function\"}]",
+ "latency_s": 1.186,
+ "prompt_tokens": 3015,
+ "completion_tokens": 43
+}

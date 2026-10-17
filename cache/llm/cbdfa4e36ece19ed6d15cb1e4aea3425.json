@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The search indexer is restarting because it is hitting its 512Mi memory limit while loading synonyms.",
+ "latency_s": 1.146,
+ "prompt_tokens": 2764,
+ "completion_tokens": 22
+}

@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tc8TiF5UMhwhcSnyGVPDSAoDVPeWgHLP+ZwMlOEg/fMf0KUZnVT1A/C66WqYC8Th02X9Mw8EM2giE+NoacgaWSQBe4QjDVD/o8hso5I/sjn2wpl/mkqRT5RA=\"}}, \"function\": {\"arguments\": \"{\\\"host\\\":\\\"web-7\\\",\\\"command\\\":\\\"ls -1 db/migrations/ | wc -l\\\"}\", \"name\": \"run_command\"}, \"id\": \"call_2771930\", \"type\": \"function\"}]",
+ "latency_s": 1.279,
+ "prompt_tokens": 11473,
+ "completion_tokens": 34
+}

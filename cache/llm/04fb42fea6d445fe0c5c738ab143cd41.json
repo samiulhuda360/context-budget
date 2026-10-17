@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TiYF6HBJmkwGSC9wn/7D28aPhgcTsM8u+Uv5ZI6NfvIewttpMPCfPKgrUs0M2OTEBYRrGphs3lEYzCCbJsD0iXESr7Hc1kYKasVFvJAx3nsrORqnUuC+c1zY=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT customer, total_nzd FROM orders WHERE order_id = 'ORD-68684'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_3372450\", \"type\": \"function\"}]",
+ "latency_s": 1.214,
+ "prompt_tokens": 2767,
+ "completion_tokens": 38
+}

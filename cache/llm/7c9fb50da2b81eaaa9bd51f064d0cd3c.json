@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The combined value of the refunded Wellington orders last month is $15,118.41 across 33 orders.",
+ "latency_s": 5.995,
+ "prompt_tokens": 1521,
+ "completion_tokens": 27
+}

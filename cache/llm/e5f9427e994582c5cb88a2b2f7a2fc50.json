@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The search-indexer is restarting because it is getting OOMKilled when its 512Mi memory limit is exceeded while loading synonyms.",
+ "latency_s": 0.954,
+ "prompt_tokens": 1074,
+ "completion_tokens": 29
+}

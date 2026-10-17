@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "There were 24 processing orders in Canterbury last month.",
+ "latency_s": 3.813,
+ "prompt_tokens": 3050,
+ "completion_tokens": 12
+}

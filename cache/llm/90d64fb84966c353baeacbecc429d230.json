@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tfq+XVscKCWJHg8jzIQMT6641TRj36pKfdCkTtr6X1bXSRSnHes7769mRqytPAiHbqtU4bQ2WbKBC1HvYPqyCMrissrX7Wl09THYv79rUKjNX0E5hFQD9DD0=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT count(*) FROM orders WHERE region = 'Canterbury' AND placed_at \\\\u003e= '2026-08-01' AND placed_at \\\\u003c '2026-09-01' AND status = 'processing'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_5654085\", \"type\": \"function\"}]",
+ "latency_s": 1.993,
+ "prompt_tokens": 29351,
+ "completion_tokens": 67
+}

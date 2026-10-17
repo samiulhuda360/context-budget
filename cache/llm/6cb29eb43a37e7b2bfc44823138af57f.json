@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TKESIRS8blTnfn5cRADzM33qFNvG6B4NE54ahbnckuIRJUI5weUM4Yi3HA7i7VuId5CYI3oVw/mAuRF45E5eJ/siNNqNQ55y9/TLjO413FkROIZhyAHWqoLA=\"}}, \"function\": {\"arguments\": \"{\\\"url\\\":\\\"https://shop.acme-outfitters.example/p/ridgeline-down-jacket\\\"}\", \"name\": \"fetch_url\"}, \"id\": \"call_3690424\", \"type\": \"function\"}]",
+ "latency_s": 1.682,
+ "prompt_tokens": 2136,
+ "completion_tokens": 37
+}

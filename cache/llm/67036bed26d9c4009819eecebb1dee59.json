@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Sarah Marsh placed order ORD-96547, and its total was 366.09 NZD.",
+ "latency_s": 1.459,
+ "prompt_tokens": 22625,
+ "completion_tokens": 26
+}
