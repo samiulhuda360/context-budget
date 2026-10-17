@@ -89,7 +89,7 @@ class LLM:
             "prompt_tokens": reply.prompt_tokens,
             "completion_tokens": reply.completion_tokens,
         }
-        path.write_text(json.dumps(record, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(record, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
         return reply
 
     def text(self, messages: list[dict[str, Any]]) -> str:
