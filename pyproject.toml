@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "context-budget"
+version = "1.0.0"
+description = "An OpenAI-compatible proxy that shrinks what AI agents send to the model, with a benchmark that shows the answers stay as good."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["PyYAML>=6.0", "tiktoken>=0.7", "starlette>=0.40", "uvicorn>=0.30", "httpx>=0.27"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10", "types-PyYAML"]
+
+[project.scripts]
+ctxb = "context_budget.cli:main"
+
+[tool.setuptools]
+packages = ["context_budget", "context_budget.strategies", "context_budget.bench", "context_budget.evaluation"]
+
+[tool.setuptools.package-data]
+context_budget = ["web/*.html"]
+
+[tool.ruff]
+line-length = 160
+target-version = "py311"
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "BLE", "A", "C4", "SIM", "RUF", "PL"]
+ignore = ["E501", "S101", "RUF001", "RUF002", "RUF003", "PLR0913", "PLR2004", "PLR0912", "PLR0915", "PLR0911", "PLR0917", "PLC0415", "S311", "PLW0603", "PLW2901", "SIM905"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "BLE", "SLF001", "PLR0402"]
+"context_budget/cli.py" = ["T201"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+disallow_any_generics = false
+warn_return_any = false
+exclude = ["tests/", "build/"]
+
+[[tool.mypy.overrides]]
+module = ["tiktoken.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
