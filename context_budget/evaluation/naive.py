@@ -44,6 +44,13 @@ def sliding_window(messages: list[dict[str, Any]], budget: int) -> list[dict[str
                 if any(c.get("id") == msgs[i].get("tool_call_id") for c in msgs[j].get("tool_calls") or []):
                     keep.add(j)
                     break
+    # the window starts at a user message, as chat APIs expect after the system prompt
+    first = min((i for i in keep if i not in system), default=None)
+    if first is not None and msgs[first].get("role") != "user":
+        for j in range(first - 1, -1, -1):
+            if msgs[j].get("role") == "user":
+                keep.add(j)
+                break
     return [m for i, m in enumerate(msgs) if i in keep]
 
 
