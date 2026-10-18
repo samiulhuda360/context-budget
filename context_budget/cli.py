@@ -45,13 +45,13 @@ def cmd_analyse(args: argparse.Namespace) -> int:
     from .tokens import count_text
 
     route = load(args.policy).route(args.route)
-    if args.strategies is not None or args.budget:
+    if args.strategies is not None or args.budget or args.relevance:
         chosen = args.strategies if args.strategies is not None else ",".join(route.enabled)
         enabled = [s.strip() for s in chosen.split(",") if s.strip()]
         unknown = set(enabled) - set(STRATEGIES)
         if unknown:
             raise SystemExit(f"unknown strategy {', '.join(sorted(unknown))}; choose from {', '.join(STRATEGIES)}")
-        route = route.with_strategies(enabled, args.budget)
+        route = route.with_strategies(enabled, args.budget, args.relevance)
     messages = _messages(args.conversation)
     count_text("warm up")  # load the tokenizer first so the timing shows the steady state, as in the running proxy
     result = compress(messages, route)
@@ -69,6 +69,14 @@ def cmd_analyse(args: argparse.Namespace) -> int:
     by = result.saved_by()
     print(f"\ntokens: {result.tokens_before:,} -> {result.tokens_after:,}  (saved {result.saved_pct:.1f}%, {result.elapsed_ms:.1f} ms)")
     print("saved by: " + ", ".join(f"{k} {v:,}" for k, v in by.items() if v) if any(by.values()) else "nothing needed cutting")
+    if result.jev:
+        j = result.jev
+        if j["fallback"]:
+            print(f"Jev was not used ({j['fallback']}); BM25 chose the earlier turns instead")
+        else:
+            print(
+                f"Jev: {j['calls']} call(s), {j['input_tokens']:,} input tokens, {j['latency_ms'] / 1000:.2f} s ({j['model']}{', from cache' if j['cached'] == j['calls'] else ''})"
+            )
     if result.over_budget:
         print(f"still {result.over_budget:,} tokens over budget: the pinned messages alone are larger than the budget")
     return 0
@@ -94,7 +102,9 @@ def cmd_demo(args: argparse.Namespace) -> int:
     log = next(m["content"] for m in conv["messages"] if m["role"] == "tool" and "[payments-worker]" in m["content"])
     print(f"An agent investigating stuck payments: {len(conv['messages'])} messages, including a {log.count(chr(10)) + 1:,}-line log.")
     print(f"The question: {conv['question']}\n")
-    return cmd_analyse(argparse.Namespace(conversation=str(path), policy=args.policy, route=None, strategies=None, budget=None, json=False, html=None))
+    return cmd_analyse(
+        argparse.Namespace(conversation=str(path), policy=args.policy, route=None, strategies=None, budget=None, relevance=None, json=False, html=None)
+    )
 
 
 def cmd_bench(args: argparse.Namespace) -> int:
@@ -125,19 +135,31 @@ def cmd_eval(args: argparse.Namespace) -> int:
     from .evaluation import model, offline, report
 
     if args.which == "offline":
-        data = offline.run()
+        from .jev import Jev, JevError
+
+        jev = Jev(offline=args.offline or args.check, timeout_s=60.0)
+        try:
+            data = offline.run(jev=jev)
+        except (offline.JevFallback, JevError) as e:
+            print(f"stopped: a Jev reply is missing or failed ({e}). Set TYPESAFE_API_KEY to record it, or use the committed cache/jev.")
+            return 2
         if args.check:
             ok = report.matches_committed("offline.json", data)
             print("offline results match eval/offline.json" if ok else "offline results differ from eval/offline.json")
             return 0 if ok else 1
-        print(f"wrote {report.save_json('offline.json', data)}")
+        print(f"wrote {report.save_json('offline.json', data)} ({jev.live_calls} live Jev calls, {jev.cached_calls} from cache)")
         return 0
     if args.which == "report":
         print(f"wrote {report.write_results()}")
         return 0
+    from .jev import Jev, JevError
+
     llm = LLM(offline=args.offline)
     try:
-        result = model.run(llm, progress=(lambda s: None) if args.quiet else print, partial=args.partial)
+        result = model.run(llm, progress=(lambda s: None) if args.quiet else print, partial=args.partial, jev=Jev(offline=args.offline, timeout_s=60.0))
+    except (offline.JevFallback, JevError) as e:
+        print(f"stopped: a Jev reply is missing or failed ({e}). Set TYPESAFE_API_KEY to record it, or use the committed cache/jev.")
+        return 2
     except RateLimited as e:
         print(f"stopped: {e}. {llm.live_calls} live calls were made; rerun later and the cache resumes from here.")
         return 3
@@ -160,7 +182,7 @@ def cmd_check_policy(args: argparse.Namespace) -> int:
         return 1
     for r in policy.routes:
         models = ", ".join(r.models) or "(any)"
-        print(f"route {r.name}: models {models}; budget {r.budget_tokens:,}; strategies {', '.join(r.enabled) or 'none'}")
+        print(f"route {r.name}: models {models}; budget {r.budget_tokens:,}; strategies {', '.join(r.enabled) or 'none'}; relevance {r.relevance}")
     print("policy is valid")
     return 0
 
@@ -175,6 +197,7 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--route", help="route name in the policy")
     a.add_argument("--strategies", help=f"comma-separated subset of {','.join(STRATEGIES)} ('' for none)")
     a.add_argument("--budget", type=int, help="token budget")
+    a.add_argument("--relevance", choices=["bm25", "jev"], help="how earlier turns are ranked when over budget (jev needs TYPESAFE_API_KEY)")
     a.add_argument("--json", action="store_true", help="print the full analysis as JSON")
     a.add_argument("--html", help="also write a before/after page to this file")
     a.set_defaults(func=cmd_analyse)

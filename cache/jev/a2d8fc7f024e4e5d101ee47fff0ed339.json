@@ -1,0 +1,103 @@
+{
+ "answers": {
+  "m1": {
+   "noul": 0.74,
+   "type": "noul"
+  },
+  "m10": {
+   "noul": 0.12,
+   "type": "noul"
+  },
+  "m11": {
+   "noul": 0.08,
+   "type": "noul"
+  },
+  "m12": {
+   "noul": 0.09,
+   "type": "noul"
+  },
+  "m13": {
+   "noul": 0.08,
+   "type": "noul"
+  },
+  "m14": {
+   "noul": 0.08,
+   "type": "noul"
+  },
+  "m15": {
+   "noul": 0.07,
+   "type": "noul"
+  },
+  "m16": {
+   "noul": 0.07,
+   "type": "noul"
+  },
+  "m17": {
+   "noul": 0.13,
+   "type": "noul"
+  },
+  "m18": {
+   "noul": 0.14,
+   "type": "noul"
+  },
+  "m19": {
+   "noul": 0.1,
+   "type": "noul"
+  },
+  "m2": {
+   "noul": 0.58,
+   "type": "noul"
+  },
+  "m20": {
+   "noul": 0.1,
+   "type": "noul"
+  },
+  "m21": {
+   "noul": 0.28,
+   "type": "noul"
+  },
+  "m22": {
+   "noul": 0.24,
+   "type": "noul"
+  },
+  "m23": {
+   "noul": 0.24,
+   "type": "noul"
+  },
+  "m24": {
+   "noul": 0.19,
+   "type": "noul"
+  },
+  "m3": {
+   "noul": 0.94,
+   "type": "noul"
+  },
+  "m4": {
+   "noul": 0.23,
+   "type": "noul"
+  },
+  "m5": {
+   "noul": 0.13,
+   "type": "noul"
+  },
+  "m6": {
+   "noul": 0.12,
+   "type": "noul"
+  },
+  "m7": {
+   "noul": 0.11,
+   "type": "noul"
+  },
+  "m8": {
+   "noul": 0.09,
+   "type": "noul"
+  },
+  "m9": {
+   "noul": 0.1,
+   "type": "noul"
+  }
+ },
+ "input_tokens": 4449,
+ "latency_s": 0.815,
+ "model": "jev-1.13.0"
+}

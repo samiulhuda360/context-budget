@@ -47,6 +47,7 @@ assistant to investigate problems: "payments are stuck, find out why".
 
 - [What it does in technical terms](#what-it-does-in-technical-terms)
 - [Results](#results)
+- [Optional: let Jev decide what to keep](#optional-let-jev-decide-what-to-keep)
 - [Screenshots](#screenshots)
 - [Architecture](#architecture)
 - [How it works](#how-it-works)
@@ -70,7 +71,7 @@ chat request, within a **token budget** (tokens are the word pieces models read 
 | **Tool-output trimming** | Long logs, JSON and HTML keep their head and tail, lines matching the current question, error lines, and per-field counts and sums of JSON lists. Runs of near-identical lines collapse; HTML becomes text. |
 | **Stale tool results** | Tool results the conversation has moved past (two or more newer user messages) become one line naming the tool, its arguments and the record's key fields, unless the latest question still refers to them. An optional small-model summary is available. |
 | **De-duplication** | Repeated documents and messages (whole or paragraph by paragraph) keep their latest copy; earlier copies become pointers. |
-| **Relevance retrieval** | If the request is still over budget, earlier turns are ranked by BM25 (a keyword-relevance formula) or embeddings against the current question, and the least relevant are dropped as whole turns. |
+| **Relevance retrieval** | If the request is still over budget, earlier turns are ranked by BM25 (a keyword-relevance formula), embeddings or, optionally, Jev against the current question, and the least relevant are dropped as whole turns. |
 
 Each strategy can be switched on or off per **route** in a YAML policy. Every request is logged with its tokens before
 and after and what each strategy saved, and the response carries `x-ctxb-tokens-before`, `x-ctxb-tokens-after` and
@@ -98,6 +99,59 @@ token saving (8,000-token budget); facts start to drop at a 2,000-token budget (
 **Headline:** at about a 90% token saving, answer quality stayed level with the untrimmed request (+3.1 points, 95%
 interval −6.2 to +15.6; judge +1.6), while a sliding window at the same saving lost 59 points. It breaks when the budget is
 squeezed to 1,000 tokens.
+
+## Optional: let Jev decide what to keep
+
+When a request is still too big after trimming, context-budget has to leave out some earlier parts of the
+conversation. By default it chooses with BM25, a keyword-matching formula: earlier parts that share words with the
+latest question are kept. As an option, a route can ask **Jev** instead, a decision model from TypeSafe AI that
+answers yes/no questions with a probability. context-budget sends Jev the latest question and the earlier messages,
+each with an id, and asks one question per message in a single call: "is message m7 needed to answer the latest
+question?". The parts Jev rates least needed are left out first.
+
+**Turning it on:** set `relevance: jev` on a route in the policy file and put the key in `TYPESAFE_API_KEY`. If Jev
+returns an error or does not answer within the timeout (20 seconds by default), that request uses BM25 instead and the
+request log says why. Each request's log line also records Jev's calls, tokens and time.
+
+![ctxb analyse with Jev choosing what to keep](docs/screenshots/jev-relevance.png)
+
+*The question is "which file sets the payment retry limit, and what is the limit?", with a 1,000-token budget. Jev
+rates the old file listing and ticket list as not needed (0.44 and 0.06), so those turns are dropped and the settings
+file keeps more of its lines, including `max_attempts: 11`. With BM25 the same request keeps the ticket list, the
+settings file is cut harder to fit, and that line is lost.*
+
+**What it changed**, measured on the same benchmark (all 80 conversations, no answering model; "facts kept" means
+every fact the answer needs is still in the request):
+
+| Token budget | Facts kept, BM25 | Facts kept, Jev | Jev calls (of 80 requests) | Jev cost per 1,000 requests | Extra wait per request that calls Jev (median / 95th pct) |
+|---:|---:|---:|---:|---:|---:|
+| 8,000 | 100% | 100% | 1 | $0.005 | 0.86 s |
+| 4,000 | 100% | 100% | 1 | $0.005 | 0.86 s |
+| 2,000 | 97.5% | 97.5% | 32 | $0.06 | 0.81 / 0.88 s |
+| 1,000 | 80.0% | **87.5%** | 63 | $0.10 | 0.82 / 1.30 s |
+
+And with a real model (`gemini-flash-lite-latest`, the same 32 conversations as above):
+
+| Request | Answers correct, BM25 | Answers correct, Jev | Requests that differed | Prompt tokens, BM25 / Jev |
+|---|---:|---:|---:|---:|
+| 8,000-token budget | 93.8% | 93.8% | 0 of 32 | 2,355 / 2,355 |
+| 2,000-token budget | 87.5% | 87.5% | 7 of 32 | 1,847 / 1,770 |
+
+**In plain words:**
+
+- At the normal budget, Jev changes nothing. Trimming already makes almost every request fit, so the step that Jev
+  helps with runs in 1 request out of 80.
+- When the budget is very tight (1,000 tokens), Jev chose better: the needed facts survived in 6 more conversations
+  out of 80, and it lost none that BM25 kept. At 2,000 tokens the answers were equally good and the requests about 4%
+  smaller. With 32 conversations, a difference that small cannot be told apart from chance.
+- Used on its own, without trimming first, Jev left out more (14 to 22% of the tokens against BM25's 7 to 8%) but lost
+  the facts in 2 conversations out of 80 where BM25 lost none: it judged a page about the "Coastal kayak paddle" not
+  needed for a question about "the Coastal kayak".
+- Jev costs almost nothing (US$0.042 per million tokens it reads), but each call adds about a second of waiting. Turn
+  it on for routes with tight budgets, not everywhere. It is off by default.
+
+Details are in [`eval/RESULTS.md`](eval/RESULTS.md); every Jev reply is recorded in `cache/jev/`, so the comparison
+reruns without a key. context-budget is an independent project and is not affiliated with or endorsed by TypeSafe AI.
 
 ## Screenshots
 
@@ -168,7 +222,7 @@ flowchart TD
     T --> S["4. Stale: old tool results the question<br/>no longer mentions become one line"]
     S --> B{"Still over<br/>the token budget?"}
     B -- no --> F["Forward to the model"]
-    B -- yes --> R["5. Retrieve: drop the earlier turns least<br/>relevant to the question (BM25)"]
+    B -- yes --> R["5. Retrieve: drop the earlier turns least<br/>relevant to the question<br/>(BM25, or Jev if the route asks)"]
     R --> B2{"Still over?"}
     B2 -- no --> F
     B2 -- yes --> X["6. Tighten trimming on the largest<br/>tool outputs, up to three times"]
@@ -198,7 +252,9 @@ Step by step, for one request:
    name or tool) is kept.
 7. **Retrieve** (`strategies/retrieve.py`) runs only while the request is over budget. Earlier turns are scored by
    BM25 against the question; the 2 most recent turns and the 4 best matches are protected; the rest are dropped
-   lowest score first, as whole turns so every tool call keeps its result.
+   lowest score first, as whole turns so every tool call keeps its result. With `relevance: jev` the scores come from
+   Jev instead (see [below](#optional-let-jev-decide-what-to-keep)); if Jev fails or times out, BM25 is used for that
+   request and the log says why.
 8. **Tighten.** If the request is still over budget, trimming re-runs on the largest tool outputs with half the head,
    tail and match allowances, up to three times.
 9. **Forward and log.** The request goes upstream; the reply streams back; one JSON line is written with the tokens
@@ -317,7 +373,7 @@ untrimmed request" means no measurable drop at this sample size. The hand labels
 | Language | Python 3.11+ |
 | Proxy | Starlette and uvicorn, httpx for upstream calls and streaming |
 | Tokens | tiktoken (`o200k_base`) |
-| Relevance | BM25 (built in), or any OpenAI-compatible `/embeddings` endpoint |
+| Relevance | BM25 (built in), any OpenAI-compatible `/embeddings` endpoint, or Jev (TypeSafe's decision model) |
 | Policy | YAML (PyYAML), validated on load |
 | Web page | one HTML file, no build step, light and dark themes |
 | Evaluation model | Gemini `gemini-flash-lite-latest` through its OpenAI-compatible endpoint, every reply cached |
@@ -336,6 +392,7 @@ make demo         # ctxb demo: analyse a sample incident conversation, no key ne
 ```bash
 ctxb analyse my-conversation.json
 ctxb analyse my-conversation.json --budget 2000 --strategies trim,stale
+ctxb analyse my-conversation.json --budget 1000 --relevance jev   # let Jev pick the earlier turns (TYPESAFE_API_KEY)
 ctxb analyse my-conversation.json --html before-after.html   # a standalone before/after page
 ctxb analyse my-conversation.json --json                     # full analysis as JSON
 ```
@@ -367,6 +424,7 @@ ctxb eval offline                   # all strategy combinations and budgets, no 
 ctxb eval model --offline           # replay the model run from cache/llm -> eval/model.json
 ctxb eval report                    # rebuild eval/RESULTS.md
 AI_API_KEY=... ctxb eval model      # record new replies (only needed if prompts change)
+TYPESAFE_API_KEY=... ctxb eval offline   # record new Jev replies for the BM25-vs-Jev comparison (likewise)
 ```
 
 ### Environment variables
@@ -380,6 +438,8 @@ AI_API_KEY=... ctxb eval model      # record new replies (only needed if prompts
 | `AI_API_KEY` | evaluation | model key; without it the evaluation replays from the cache |
 | `AI_BASE_URL`, `AI_MODEL` | evaluation | endpoint and model (default: Gemini, `gemini-flash-lite-latest`) |
 | `AI_MIN_INTERVAL`, `AI_MAX_LIVE_CALLS` | evaluation | spacing between live calls and a hard cap per run |
+| `TYPESAFE_API_KEY` | proxy, evaluation | Jev key, needed only for routes with `relevance: jev`; without it those requests use BM25, and the evaluation replays `cache/jev` |
+| `JEV_BASE_URL` | proxy, evaluation | Jev endpoint (default `https://api.typesafe.ai/v1`) |
 
 ## Configuration
 
@@ -393,9 +453,12 @@ defaults:
   trim:    { min_tokens: 600, head_lines: 15, tail_lines: 15, max_match_lines: 80 }
   stale:   { after_user_turns: 2, keep_if_referenced: true, summariser: rules }   # or: model
   retrieve: { method: bm25, top_k: 4, keep_recent_turns: 2 }                     # or: embed
+  relevance: bm25                                                                # or: jev
+  jev:     { model: jev-latest, timeout_s: 20, keep_threshold: 0.5 }
 routes:
   agents:      { models: ["gemini-*", "gpt-*"] }
   support-bot: { models: ["support-*"], budget_tokens: 4000, strategies: [trim, dedup] }
+  tight-agents: { budget_tokens: 1000, relevance: jev }  # X-Ctxb-Route: tight-agents
   raw:         { strategies: [] }        # opt out per request with  X-Ctxb-Route: raw
   default: {}
 ```
@@ -408,7 +471,7 @@ file and lists its routes.
 ```
 context_budget/
   pipeline.py        the compression pipeline and its per-message report
-  strategies/        trim.py, stale.py, dedup.py, retrieve.py
+  strategies/        trim.py, stale.py, dedup.py, retrieve.py, jev_relevance.py
   terms.py           question terms: stemming, identifiers, names, frequency filter
   messages.py        OpenAI message helpers: text parts, pins, turns
   policy.py          YAML policy, routes and settings
@@ -418,11 +481,13 @@ context_budget/
   web/index.html     the before/after page
   cli.py             the ctxb command
   llm.py             cached OpenAI-compatible client used by the evaluation
+  jev.py             cached Jev client (TypeSafe's /v1/systemone endpoint)
   bench/             the benchmark generator (8 families)
   evaluation/        offline sweep, model run, checker, judge, sliding window, report
-examples/policy.yaml example policy with four routes
+examples/policy.yaml example policy with five routes
 eval/                results (offline.json, model.json, RESULTS.md), hand labels, benchmark manifest
 cache/llm/           every recorded model reply, so CI replays without a key
+cache/jev/           every recorded Jev reply, likewise
 tests/               pytest suite
 docs/screenshots/    images used in this README
 ```
@@ -432,13 +497,13 @@ docs/screenshots/    images used in this README
 `make check` runs the same steps as CI (`.github/workflows/ci.yml`):
 
 - `ruff check`, `ruff format --check` and `mypy` (strict);
-- `pytest`: 54 tests covering each strategy, the pipeline's guarantees (pinned messages unchanged, tool calls
+- `pytest`: 66 tests covering each strategy, the Jev strategy (cache keys, chunking, retries, the BM25 fallback, replay from `cache/jev`), the pipeline's guarantees (pinned messages unchanged, tool calls
   kept with their results, no message made longer, input not mutated), turn order accepted by chat APIs, the proxy
   (forwarding, routes, streaming headers, logging, pass-through) with a mocked upstream, the policy loader, the
   checker and the CLI;
 - `ctxb bench --check`: the benchmark rebuilds byte-for-byte;
 - `ctxb eval offline --check` and `ctxb eval model --offline --check`: the results reproduce exactly from the code
-  and the recorded replies. CI never calls a model.
+  and the recorded replies. CI never calls a model or Jev.
 
 ## Licence
 

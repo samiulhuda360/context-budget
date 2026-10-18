@@ -1,0 +1,23 @@
+{
+ "answers": {
+  "m1": {
+   "noul": 0.26,
+   "type": "noul"
+  },
+  "m2": {
+   "noul": 0.13,
+   "type": "noul"
+  },
+  "m3": {
+   "noul": 0.78,
+   "type": "noul"
+  },
+  "m4": {
+   "noul": 0.2,
+   "type": "noul"
+  }
+ },
+ "input_tokens": 7899,
+ "latency_s": 0.814,
+ "model": "jev-1.13.0"
+}

@@ -11,7 +11,7 @@ All numbers below come from `ctxb eval offline` and `ctxb eval model` and are re
 
 ## Answer quality with a real model
 
-32 conversations were each sent four ways to `gemini-flash-lite-latest`. The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against the untrimmed request, with a 95% paired bootstrap interval.
+32 conversations were each sent 7 ways to `gemini-flash-lite-latest`: untrimmed, compressed at three budgets with BM25 relevance, compressed at two budgets with Jev relevance (`+jev`), and cut by a sliding window. Identical requests share one recorded reply. The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against the untrimmed request, with a 95% paired bootstrap interval.
 
 | Request | Avg prompt tokens | Saved | Checker | vs untrimmed (pts) | Judge | Tool call | Cost / 1,000 (Flash-Lite) | Cost / 1,000 (frontier) | Model latency |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -19,6 +19,9 @@ All numbers below come from `ctxb eval offline` and `ctxb eval model` and are re
 | context-budget@8000 | 2,355 | 89.4% | 93.8% | +3.1 [-6.2, +15.6] | 92.2% | 6.2% | $0.248 | $7.53 | 1.3 s |
 | context-budget@1000 | 1,305 | 94.1% | 65.6% | -25.0 [-43.8, -6.2] | 68.8% | 21.9% | $0.143 | $4.39 | 1.23 s |
 | window@2000 | 2,620 | 88.2% | 31.2% | -59.4 [-75.0, -40.6] | 31.2% | 40.6% | $0.276 | $8.39 | 1.48 s |
+| context-budget@2000 | 1,847 | 91.7% | 87.5% | -3.1 [-12.5, +6.2] | 87.5% | 9.4% | $0.197 | $6.01 | 1.19 s |
+| context-budget+jev@8000 | 2,355 | 89.4% | 93.8% | +3.1 [-6.2, +15.6] | 92.2% | 6.2% | $0.248 | $7.53 | 1.3 s |
+| context-budget+jev@2000 | 1,770 | 92.0% | 87.5% | -3.1 [-12.5, +6.2] | 87.5% | 9.4% | $0.190 | $5.78 | 1.18 s |
 
 Checker pass rate by family:
 
@@ -28,10 +31,20 @@ Checker pass rate by family:
 | context-budget@8000 | 100% | 75% | 100% | 75% | 100% | 100% | 100% | 100% |
 | context-budget@1000 | 75% | 50% | 25% | 0% | 100% | 100% | 100% | 75% |
 | window@2000 | 0% | 0% | 25% | 50% | 0% | 0% | 75% | 100% |
+| context-budget@2000 | 75% | 75% | 100% | 50% | 100% | 100% | 100% | 100% |
+| context-budget+jev@8000 | 100% | 75% | 100% | 75% | 100% | 100% | 100% | 100% |
+| context-budget+jev@2000 | 75% | 75% | 100% | 50% | 100% | 100% | 100% | 100% |
+
+Jev against BM25 at the same budget (paired by conversation):
+
+| Rows | Same request and answer | Checker BM25 / Jev | Jev vs BM25 (pts) | Judge BM25 / Jev | Judge diff (pts) | Prompt tokens BM25 / Jev |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| context-budget+jev@8000 vs context-budget@8000 | 32 of 32 | 93.8% / 93.8% | +0.0 [+0.0, +0.0] | 92.2% / 92.2% | +0.0 | 2,355 / 2,355 |
+| context-budget+jev@2000 vs context-budget@2000 | 25 of 32 | 87.5% / 87.5% | +0.0 [+0.0, +0.0] | 87.5% / 87.5% | +0.0 | 1,847 / 1,770 |
 
 ### Hand labels and the judge
 
-All 114 distinct answers were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). The checker agrees with the hand labels on full marks or not for 100.0% of them (Cohen's kappa 1.0).
+114 of the 127 distinct answers (every answer in the first four rows) were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). The checker agrees with the hand labels on full marks or not for 100.0% of them (Cohen's kappa 1.0).
 The model judge agrees exactly with the hand labels for 99.1% (kappa 0.98), and on full marks or not for 99.1%.
 
 ## Every strategy combination (no model, all conversations)
@@ -78,6 +91,23 @@ Facts kept by family:
 | window@8000 | 0% | 20% | 30% | 80% | 0% | 10% | 100% | 100% |
 | window@2000 | 0% | 0% | 10% | 50% | 0% | 0% | 50% | 100% |
 
+## Relevance: BM25 or Jev (no answering model, all conversations)
+
+The retrieve step drops the earlier turns least relevant to the latest question. Here it ranks them with BM25 or asks Jev (TypeSafe's decision model) one yes/no question per earlier message. "Retrieve only" runs that step alone; "full pipeline" runs it after dedup, trim and stale, which is how the proxy is used. Jev cost is at US$0.042 per million input tokens; its time is the extra wait per request that called it.
+
+| Configuration | Budget | Facts kept BM25 / Jev | Tokens saved BM25 / Jev | Conversations won / lost by Jev | Requests calling Jev | Jev input tokens | Jev cost / 1,000 requests | Jev time p50 / p95 (ms) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| retrieve only | 8,000 | 100.0% / 97.5% | 6.7% / 13.8% | +0 / -2 | 61 (61 calls) | 606,155 | $0.318 | 878 / 1278 |
+| full pipeline | 8,000 | 100.0% / 100.0% | 88.1% / 88.1% | +0 / -0 | 1 (1 call) | 9,972 | $0.005 | 857 / 857 |
+| retrieve only | 4,000 | 100.0% / 97.5% | 7.6% / 20.7% | +0 / -2 | 69 (69 calls) | 658,475 | $0.346 | 876 / 1278 |
+| full pipeline | 4,000 | 100.0% / 100.0% | 88.1% / 88.1% | +0 / -0 | 1 (1 call) | 9,972 | $0.005 | 857 / 857 |
+| retrieve only | 2,000 | 100.0% / 97.5% | 7.7% / 21.6% | +0 / -2 | 70 (70 calls) | 663,850 | $0.348 | 874 / 1278 |
+| full pipeline | 2,000 | 97.5% / 97.5% | 90.5% / 90.9% | +0 / -0 | 32 (32 calls) | 119,356 | $0.063 | 809 / 877 |
+| retrieve only | 1,000 | 100.0% / 97.5% | 7.7% / 21.6% | +0 / -2 | 70 (70 calls) | 663,850 | $0.348 | 874 / 1278 |
+| full pipeline | 1,000 | 80.0% / 87.5% | 93.0% / 93.4% | +6 / -0 | 63 (63 calls) | 189,642 | $0.100 | 820 / 1297 |
+
+Conversations where the two disagree on facts kept: ci-01, files-00, files-02, files-04, files-08, web-02, web-05, web-07.
+
 ## How it is measured
 
 - **Benchmark:** 80 invented conversations in 8 families (`context_budget/bench/`), rebuilt from fixed seeds; `ctxb bench --check` proves they match `eval/bench-manifest.json`.
@@ -87,4 +117,5 @@ Facts kept by family:
 - **Judge:** once every answer is recorded, the same model grades batches of 16 answers with a 0/1/2 rubric, and its agreement with the hand labels is reported.
 - **Hand labels:** `eval/hand_labels.json`, one 0/1/2 score per distinct answer, read against the reference answer.
 - **Proxy time:** wall-clock time of the compression step on one laptop core (Python 3.13); model latency is Gemini's response time.
+- **Jev:** `jev-latest` (answered by jev-1.13.0), one Noul question per earlier message, every reply recorded in `cache/jev`; token counts and times are the ones Jev reported and measured when recorded.
 - **Prices:** Gemini Flash-Lite list price ($0.10 in / $0.40 out per million tokens); frontier-model price ($3 in / $15 out per million tokens).

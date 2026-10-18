@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The 502 errors were caused by the database connection pool becoming exhausted (all 20/20 connections busy). The database host involved was `orders-db-3`.",
+ "latency_s": 1.027,
+ "prompt_tokens": 1705,
+ "completion_tokens": 38
+}

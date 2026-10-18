@@ -115,7 +115,9 @@ def write_results() -> Path:
             "`ctxb eval model` records the rest and resumes from the cache)"
         )
         lines += [
-            f"{scope} were each sent four ways to `{mod['model']}`. "
+            f"{scope} were each sent {len(mod['configs'])} ways to `{mod['model']}`: untrimmed, compressed at three budgets with BM25 "
+            "relevance, compressed at two budgets with Jev relevance (`+jev`), and cut by a sliding window. Identical requests share one "
+            "recorded reply. "
             'The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another '
             "tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against "
             "the untrimmed request, with a 95% paired bootstrap interval.",
@@ -162,11 +164,47 @@ def write_results() -> Path:
             [[c["config"], *[f"{c['by_family_checker_pct'][f]}%" for f in fams]] for c in mod["configs"]],
             "l" + "r" * len(fams),
         )
+        jev_rows = [c for c in mod["configs"] if c.get("relevance") == "jev"]
+        if jev_rows:
+            cfg_by = {c["config"]: c for c in mod["configs"]}
+            lines += ["", "Jev against BM25 at the same budget (paired by conversation):", ""]
+            rows = []
+            for c in jev_rows:
+                b = cfg_by[c["bm25_row"]]
+                ci = c["checker_diff_vs_bm25_95ci_pts"]
+                rows.append(
+                    [
+                        f"{c['config']} vs {b['config']}",
+                        f"{c['same_request_as_bm25']} of {c['n']}",
+                        f"{b['checker_accuracy_pct']}% / {c['checker_accuracy_pct']}%",
+                        f"{c['checker_diff_vs_bm25_pts']:+} [{ci[0]:+}, {ci[1]:+}]",
+                        *([f"{b['judge_score_pct']}% / {c['judge_score_pct']}%", f"{c['judge_diff_vs_bm25_pts']:+}"] if has_judge else []),
+                        f"{b['avg_prompt_tokens_reported']:,} / {c['avg_prompt_tokens_reported']:,}",
+                    ]
+                )
+            lines += _table(
+                [
+                    "Rows",
+                    "Same request and answer",
+                    "Checker BM25 / Jev",
+                    "Jev vs BM25 (pts)",
+                    *(["Judge BM25 / Jev", "Judge diff (pts)"] if has_judge else []),
+                    "Prompt tokens BM25 / Jev",
+                ],
+                rows,
+                "lrrrrrr",
+            )
         cal = mod["calibration"]
         lines += ["", "### Hand labels and the judge", ""]
         if cal.get("labelled"):
+            distinct = cal.get("distinct_answers", cal["labelled"])
+            scope = (
+                f"All {cal['labelled']} distinct answers were"
+                if cal["labelled"] >= distinct
+                else f"{cal['labelled']} of the {distinct} distinct answers (every answer in the first four rows) were"
+            )
             lines.append(
-                f"All {cal['labelled']} distinct answers were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). "
+                f"{scope} read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). "
                 f"The checker agrees with the hand labels on full marks or not for {cal['checker_agreement_pct']}% of them (Cohen's kappa {cal['checker_kappa']})."
             )
             if "judge_kappa" in cal:
@@ -231,6 +269,53 @@ def write_results() -> Path:
         [[c["config"], *[f"{c['evidence_kept_by_family'][f]}%" for f in fams]] for c in pick],
         "l" + "r" * len(fams),
     )
+    rel = off.get("relevance_comparison") or []
+    if rel:
+        by = {c["config"]: c for c in rel}
+        lines += ["", "## Relevance: BM25 or Jev (no answering model, all conversations)", ""]
+        lines += [
+            "The retrieve step drops the earlier turns least relevant to the latest question. Here it ranks them with BM25 "
+            'or asks Jev (TypeSafe\'s decision model) one yes/no question per earlier message. "Retrieve only" runs that step '
+            'alone; "full pipeline" runs it after dedup, trim and stale, which is how the proxy is used. Jev cost is at '
+            "US$0.042 per million input tokens; its time is the extra wait per request that called it.",
+            "",
+        ]
+        rows = []
+        for c in rel:
+            if c["relevance"] != "jev":
+                continue
+            b = by[c["config"].replace("+jev@", "+bm25@")]
+            rows.append(
+                [
+                    "retrieve only" if c["strategies"] == ["retrieve"] else "full pipeline",
+                    f"{c['budget']:,}",
+                    f"{b['evidence_kept_pct']}% / {c['evidence_kept_pct']}%",
+                    f"{b['saved_pct']}% / {c['saved_pct']}%",
+                    f"+{len(c['kept_where_bm25_lost'])} / -{len(c['lost_where_bm25_kept'])}",
+                    f"{c['requests_calling_jev']} ({c['jev_calls']} call{'s' if c['jev_calls'] != 1 else ''})",
+                    f"{c['jev_input_tokens']:,}",
+                    f"${c['jev_cost_per_1000_requests_usd']:.3f}",
+                    f"{c['jev_added_ms_p50']:.0f} / {c['jev_added_ms_p95']:.0f}",
+                ]
+            )
+        lines += _table(
+            [
+                "Configuration",
+                "Budget",
+                "Facts kept BM25 / Jev",
+                "Tokens saved BM25 / Jev",
+                "Conversations won / lost by Jev",
+                "Requests calling Jev",
+                "Jev input tokens",
+                "Jev cost / 1,000 requests",
+                "Jev time p50 / p95 (ms)",
+            ],
+            rows,
+            "lrrrrrrrr",
+        )
+        changed = sorted({i for c in rel if c["relevance"] == "jev" for i in c["kept_where_bm25_lost"] + c["lost_where_bm25_kept"]})
+        if changed:
+            lines += ["", f"Conversations where the two disagree on facts kept: {', '.join(changed)}."]
     lines += [
         "",
         "## How it is measured",
@@ -242,6 +327,8 @@ def write_results() -> Path:
         "- **Judge:** once every answer is recorded, the same model grades batches of 16 answers with a 0/1/2 rubric, and its agreement with the hand labels is reported.",
         "- **Hand labels:** `eval/hand_labels.json`, one 0/1/2 score per distinct answer, read against the reference answer.",
         "- **Proxy time:** wall-clock time of the compression step on one laptop core (Python 3.13); model latency is Gemini's response time.",
+        "- **Jev:** `jev-latest` (answered by jev-1.13.0), one Noul question per earlier message, every reply recorded in `cache/jev`; "
+        "token counts and times are the ones Jev reported and measured when recorded.",
         f"- **Prices:** {off['prices']['flash_lite']}; {off['prices']['frontier']}.",
         "",
     ]

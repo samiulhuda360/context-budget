@@ -52,6 +52,20 @@ class RetrieveSettings:
 
 
 @dataclass(frozen=True)
+class JevSettings:
+    """Used only with `relevance: jev`: TypeSafe's Jev model ranks earlier turns instead of BM25."""
+
+    model: str = "jev-latest"
+    timeout_s: float = 20.0  # per call; on a timeout or any other error the request falls back to BM25
+    keep_threshold: float = 0.5  # the `top_k` turns are protected only if Jev's probability is at least this
+    chunk_tokens: int = 20000  # conversations larger than this are split over several calls (Jev reads 64k per request)
+    message_tokens: int = 6000  # a longer message is shown to Jev as its head and tail
+
+
+RELEVANCE = ("bm25", "jev")
+
+
+@dataclass(frozen=True)
 class Route:
     name: str = "default"
     models: tuple[str, ...] = ()
@@ -61,12 +75,16 @@ class Route:
     stale: StaleSettings = field(default_factory=StaleSettings)
     dedup: DedupSettings = field(default_factory=DedupSettings)
     retrieve: RetrieveSettings = field(default_factory=RetrieveSettings)
+    relevance: str = "bm25"  # "bm25" (retrieve.method decides: bm25 or embed) or "jev"
+    jev: JevSettings = field(default_factory=JevSettings)
 
     def on(self, strategy: str) -> bool:
         return strategy in self.enabled
 
-    def with_strategies(self, enabled: tuple[str, ...] | list[str], budget: int | None = None) -> Route:
-        return replace(self, enabled=tuple(s for s in STRATEGIES if s in enabled), budget_tokens=budget or self.budget_tokens)
+    def with_strategies(self, enabled: tuple[str, ...] | list[str], budget: int | None = None, relevance: str | None = None) -> Route:
+        return replace(
+            self, enabled=tuple(s for s in STRATEGIES if s in enabled), budget_tokens=budget or self.budget_tokens, relevance=relevance or self.relevance
+        )
 
     def describe(self) -> dict[str, Any]:
         return asdict(self)
@@ -124,7 +142,7 @@ def _merge(base: dict[str, Any], over: dict[str, Any]) -> dict[str, Any]:
 
 def _route(name: str, raw: dict[str, Any]) -> Route:
     where = f"route {name!r}"
-    allowed = {"models", "budget_tokens", "strategies", *STRATEGIES}
+    allowed = {"models", "budget_tokens", "strategies", "relevance", "jev", *STRATEGIES}
     unknown = set(raw) - allowed
     if unknown:
         raise PolicyError(f"{where}: unknown setting(s) {', '.join(sorted(unknown))}")
@@ -149,7 +167,15 @@ def _route(name: str, raw: dict[str, Any]) -> Route:
         stale=_build(StaleSettings, raw.get("stale"), f"{where}.stale"),
         dedup=_build(DedupSettings, raw.get("dedup"), f"{where}.dedup"),
         retrieve=_build(RetrieveSettings, raw.get("retrieve"), f"{where}.retrieve"),
+        relevance=str(raw.get("relevance", "bm25")),
+        jev=_build(JevSettings, raw.get("jev"), f"{where}.jev"),
     )
+    if route.relevance not in RELEVANCE:
+        raise PolicyError(f"{where}.relevance must be 'bm25' or 'jev'")
+    if not 0.0 <= route.jev.keep_threshold <= 1.0:
+        raise PolicyError(f"{where}.jev.keep_threshold must be between 0 and 1")
+    if route.jev.chunk_tokens > 48000 or route.jev.message_tokens > route.jev.chunk_tokens:
+        raise PolicyError(f"{where}.jev: chunk_tokens must be at most 48000 (Jev reads 64k per request) and at least message_tokens")
     if route.stale.summariser not in ("rules", "model"):
         raise PolicyError(f"{where}.stale.summariser must be 'rules' or 'model'")
     if route.retrieve.method not in ("bm25", "embed"):

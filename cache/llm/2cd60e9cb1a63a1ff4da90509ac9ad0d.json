@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Your hard limits are a maximum spend of NZ$2,750 and a delivery deadline of 21 October.",
+ "latency_s": 1.209,
+ "prompt_tokens": 2272,
+ "completion_tokens": 25
+}

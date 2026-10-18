@@ -1,0 +1,71 @@
+{
+ "answers": {
+  "m1": {
+   "noul": 0.64,
+   "type": "noul"
+  },
+  "m10": {
+   "noul": 0.34,
+   "type": "noul"
+  },
+  "m11": {
+   "noul": 0.59,
+   "type": "noul"
+  },
+  "m12": {
+   "noul": 0.2,
+   "type": "noul"
+  },
+  "m13": {
+   "noul": 0.06,
+   "type": "noul"
+  },
+  "m14": {
+   "noul": 0.09,
+   "type": "noul"
+  },
+  "m15": {
+   "noul": 0.08,
+   "type": "noul"
+  },
+  "m16": {
+   "noul": 0.07,
+   "type": "noul"
+  },
+  "m2": {
+   "noul": 0.48,
+   "type": "noul"
+  },
+  "m3": {
+   "noul": 0.96,
+   "type": "noul"
+  },
+  "m4": {
+   "noul": 0.2,
+   "type": "noul"
+  },
+  "m5": {
+   "noul": 0.46,
+   "type": "noul"
+  },
+  "m6": {
+   "noul": 0.37,
+   "type": "noul"
+  },
+  "m7": {
+   "noul": 0.51,
+   "type": "noul"
+  },
+  "m8": {
+   "noul": 0.22,
+   "type": "noul"
+  },
+  "m9": {
+   "noul": 0.36,
+   "type": "noul"
+  }
+ },
+ "input_tokens": 7197,
+ "latency_s": 0.803,
+ "model": "jev-1.13.0"
+}

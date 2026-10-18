@@ -26,6 +26,11 @@ defaults:
     method: bm25           # or "embed": rank earlier turns with an /embeddings endpoint
     top_k: 4
     keep_recent_turns: 2
+  relevance: bm25          # or "jev": TypeSafe's Jev model decides which earlier turns to keep (needs TYPESAFE_API_KEY)
+  jev:                     # used only with relevance: jev; any Jev error or timeout falls back to BM25
+    model: jev-latest
+    timeout_s: 20
+    keep_threshold: 0.5    # top_k turns are protected only if Jev gives them at least this probability
 
 routes:
   agents:                  # long-running tool-using agents: everything on
@@ -34,6 +39,9 @@ routes:
     models: ["support-*"]
     budget_tokens: 4000
     strategies: [trim, dedup]
+  tight-agents:            # tight budgets, where choosing what to keep matters most: let Jev decide (header X-Ctxb-Route: tight-agents)
+    budget_tokens: 1000
+    relevance: jev
   raw:                     # opt out per request with the header  X-Ctxb-Route: raw
     strategies: []
   default: {}

@@ -7,6 +7,8 @@ Order matters and is fixed:
 3. **Trim** long tool outputs (logs, JSON, HTML), keeping what matches the question.
 4. **Stale**: old tool results the conversation has moved past become one line.
 5. **Retrieve**: only if the request is still over budget, drop the earlier turns least relevant to the question.
+   Relevance is BM25 (or embeddings) by default; with `relevance: jev` TypeSafe's Jev model scores each earlier
+   message instead, and any Jev error or timeout falls back to BM25 for that request.
 
 Every change is recorded per message with the tokens it saved, so the proxy log and `ctxb analyse` can say
 exactly what was cut and why.
@@ -16,18 +18,23 @@ from __future__ import annotations
 
 import copy
 import json
+import logging
 import time
 from dataclasses import asdict, dataclass, field, replace
 from typing import Any
 
+from .jev import Jev, JevError
 from .messages import is_pinned_by_app, last_user_index, strip_private_fields, text_of, tool_args_for, tool_name_for, turns, with_text
 from .policy import STRATEGIES, Route, TrimSettings
 from .strategies import dedup as dedup_s
+from .strategies import jev_relevance as jev_s
 from .strategies import retrieve as retrieve_s
 from .strategies import stale as stale_s
 from .strategies import trim as trim_s
 from .terms import Query
 from .tokens import count_message, count_messages
+
+log = logging.getLogger("context_budget")
 
 
 @dataclass
@@ -61,6 +68,7 @@ class Result:
     tokens_before: int
     tokens_after: int
     elapsed_ms: float
+    jev: dict[str, Any] | None = None  # Jev calls, tokens, latency and any fallback, when the route uses relevance: jev
 
     @property
     def saved(self) -> int:
@@ -82,7 +90,7 @@ class Result:
         return out
 
     def summary(self) -> dict[str, Any]:
-        return {
+        out = {
             "route": self.route,
             "budget": self.budget,
             "enabled": self.enabled,
@@ -93,6 +101,9 @@ class Result:
             "over_budget": self.over_budget,
             "elapsed_ms": round(self.elapsed_ms, 2),
         }
+        if self.jev is not None:
+            out["jev"] = self.jev
+        return out
 
     def to_dict(self) -> dict[str, Any]:
         return {**self.summary(), "reports": [asdict(r) for r in self.reports], "messages": self.messages, "original": self.original}
@@ -127,6 +138,7 @@ def compress(
     route: Route,
     summariser: stale_s.Summariser | None = None,
     embedder: retrieve_s.Embedder | None = None,
+    jev: Jev | None = None,
 ) -> Result:
     started = time.perf_counter()
     original = strip_private_fields(copy.deepcopy(messages))
@@ -146,6 +158,7 @@ def compress(
     question = text_of(messages[last_user]) if last_user >= 0 else ""
     query = Query.from_text(question)
     dropped: set[int] = set()
+    jev_stats: jev_s.JevStats | None = None
 
     def change(i: int, strategy: str, text: str, note: str) -> None:
         previous = msgs[i]
@@ -218,19 +231,33 @@ def compress(
         cands = [g for k, g in enumerate(groups) if k not in protected_tail and not any(reports[i].pinned for i in g)]
         if cands:
             texts = [_turn_text(msgs, g) for g in cands]
-            if route.retrieve.method == "embed" and embedder is not None:
-                scores = retrieve_s.embed_scores(question, texts, embedder)
-            else:
-                scores = retrieve_s.bm25_scores(question, texts)
+            scores: list[float] = []
+            threshold = 0.0  # a turn is among the protected top_k only if it scores above this
+            if route.relevance == "jev":
+                client = jev or Jev(model=route.jev.model, timeout_s=route.jev.timeout_s, retries=1)
+                try:
+                    scores, jev_stats = jev_s.turn_scores(question, msgs, cands, client, route.jev.chunk_tokens, route.jev.message_tokens)
+                    threshold = route.jev.keep_threshold - 1e-9
+                    label = "Jev"
+                except (JevError, KeyError, ValueError, TypeError) as e:
+                    jev_stats = jev_s.JevStats(fallback=str(e)[:200])
+                    log.warning("Jev relevance failed (%s); falling back to BM25 for this request", jev_stats.fallback)
+                    scores = []
+            if not scores:
+                label = "relevance"
+                if route.retrieve.method == "embed" and embedder is not None:
+                    scores = retrieve_s.embed_scores(question, texts, embedder)
+                else:
+                    scores = retrieve_s.bm25_scores(question, texts)
             ranked = sorted(range(len(cands)), key=lambda k: -scores[k])
-            top = {k for k in ranked[: route.retrieve.top_k] if scores[k] > 0}
+            top = {k for k in ranked[: route.retrieve.top_k] if scores[k] > threshold}
             order = sorted((k for k in range(len(cands)) if k not in top), key=lambda k: (scores[k], k))
             for k in order:
                 if route.retrieve.only_over_budget and total <= route.budget_tokens:
                     break
                 for i in cands[k]:
                     t = count_message(msgs[i])
-                    reports[i].actions.append(Action("retrieve", t, f"earlier turn dropped (relevance {scores[k]:.2f})"))
+                    reports[i].actions.append(Action("retrieve", t, f"earlier turn dropped ({label} {scores[k]:.2f})"))
                     reports[i].dropped = True
                     dropped.add(i)
                     total -= t
@@ -270,4 +297,5 @@ def compress(
         tokens_before=count_messages(original),
         tokens_after=count_messages(out),
         elapsed_ms=(time.perf_counter() - started) * 1000,
+        jev=jev_stats.summary() if jev_stats is not None else None,
     )

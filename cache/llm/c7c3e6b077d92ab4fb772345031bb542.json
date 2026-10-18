@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[\n  {\"id\": \"files-08/6c0b977c4a\", \"score\": 2},\n  {\"id\": \"log-02/f7331f272a\", \"score\": 0},\n  {\"id\": \"log-08/0e6edc378b\", \"score\": 2},\n  {\"id\": \"db-01/6e1c411cca\", \"score\": 2},\n  {\"id\": \"log-05/0d84108e95\", \"score\": 2},\n  {\"id\": \"db-02/5f76809c60\", \"score\": 0},\n  {\"id\": \"stale-05/3e983dd200\", \"score\": 2},\n  {\"id\": \"log-05/7719988f49\", \"score\": 2},\n  {\"id\": \"files-05/df7bfe391c\", \"score\": 0},\n  {\"id\": \"brief-01/01375e9018\", \"score\": 2},\n  {\"id\": \"log-01/e2ea392ca1\", \"score\": 2},\n  {\"id\": \"files-08/8537fd7eb4\", \"score\": 2},\n  {\"id\": \"files-02/7d6e4c837e\", \"score\": 2}\n]",
+ "latency_s": 1.579,
+ "prompt_tokens": 1808,
+ "completion_tokens": 358
+}

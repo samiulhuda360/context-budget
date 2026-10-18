@@ -1,0 +1,39 @@
+{
+ "answers": {
+  "m1": {
+   "noul": 0.06,
+   "type": "noul"
+  },
+  "m2": {
+   "noul": 0.06,
+   "type": "noul"
+  },
+  "m3": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m4": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m5": {
+   "noul": 0.85,
+   "type": "noul"
+  },
+  "m6": {
+   "noul": 0.96,
+   "type": "noul"
+  },
+  "m7": {
+   "noul": 0.98,
+   "type": "noul"
+  },
+  "m8": {
+   "noul": 0.41,
+   "type": "noul"
+  }
+ },
+ "input_tokens": 8322,
+ "latency_s": 0.826,
+ "model": "jev-1.13.0"
+}

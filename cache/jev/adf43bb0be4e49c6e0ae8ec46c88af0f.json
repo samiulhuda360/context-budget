@@ -1,0 +1,47 @@
+{
+ "answers": {
+  "m1": {
+   "noul": 0.1,
+   "type": "noul"
+  },
+  "m10": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m2": {
+   "noul": 0.32,
+   "type": "noul"
+  },
+  "m3": {
+   "noul": 0.57,
+   "type": "noul"
+  },
+  "m4": {
+   "noul": 0.09,
+   "type": "noul"
+  },
+  "m5": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m6": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m7": {
+   "noul": 0.06,
+   "type": "noul"
+  },
+  "m8": {
+   "noul": 0.05,
+   "type": "noul"
+  },
+  "m9": {
+   "noul": 0.05,
+   "type": "noul"
+  }
+ },
+ "input_tokens": 4309,
+ "latency_s": 0.767,
+ "model": "jev-1.13.0"
+}

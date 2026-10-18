@@ -1094,5 +1094,466 @@
     "frontier": 4.7073
    }
   }
+ ],
+ "relevance_comparison": [
+  {
+   "config": "retrieve+bm25@8000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 8000,
+   "saved_pct": 6.7,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "retrieve+jev@8000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 8000,
+   "saved_pct": 13.8,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 80,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [
+    "web-02",
+    "web-07"
+   ],
+   "requests_calling_jev": 61,
+   "jev_calls": 61,
+   "jev_input_tokens": 606155,
+   "jev_cost_usd": 0.02546,
+   "jev_cost_per_1000_requests_usd": 0.3182,
+   "jev_added_ms_p50": 878.0,
+   "jev_added_ms_p95": 1278.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "all+bm25@8000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 8000,
+   "saved_pct": 88.1,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "all+jev@8000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 8000,
+   "saved_pct": 88.1,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [],
+   "requests_calling_jev": 1,
+   "jev_calls": 1,
+   "jev_input_tokens": 9972,
+   "jev_cost_usd": 0.00042,
+   "jev_cost_per_1000_requests_usd": 0.0052,
+   "jev_added_ms_p50": 857.0,
+   "jev_added_ms_p95": 857.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "retrieve+bm25@4000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 4000,
+   "saved_pct": 7.6,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "retrieve+jev@4000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 4000,
+   "saved_pct": 20.7,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 80,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [
+    "web-02",
+    "web-07"
+   ],
+   "requests_calling_jev": 69,
+   "jev_calls": 69,
+   "jev_input_tokens": 658475,
+   "jev_cost_usd": 0.02766,
+   "jev_cost_per_1000_requests_usd": 0.3457,
+   "jev_added_ms_p50": 876.0,
+   "jev_added_ms_p95": 1278.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "all+bm25@4000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 4000,
+   "saved_pct": 88.1,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "all+jev@4000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 4000,
+   "saved_pct": 88.1,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [],
+   "requests_calling_jev": 1,
+   "jev_calls": 1,
+   "jev_input_tokens": 9972,
+   "jev_cost_usd": 0.00042,
+   "jev_cost_per_1000_requests_usd": 0.0052,
+   "jev_added_ms_p50": 857.0,
+   "jev_added_ms_p95": 857.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "retrieve+bm25@2000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 2000,
+   "saved_pct": 7.7,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "retrieve+jev@2000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 2000,
+   "saved_pct": 21.6,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 80,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [
+    "web-02",
+    "web-07"
+   ],
+   "requests_calling_jev": 70,
+   "jev_calls": 70,
+   "jev_input_tokens": 663850,
+   "jev_cost_usd": 0.02788,
+   "jev_cost_per_1000_requests_usd": 0.3485,
+   "jev_added_ms_p50": 874.0,
+   "jev_added_ms_p95": 1278.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "all+bm25@2000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 2000,
+   "saved_pct": 90.5,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 80,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "all+jev@2000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 2000,
+   "saved_pct": 90.9,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 80,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [],
+   "requests_calling_jev": 32,
+   "jev_calls": 32,
+   "jev_input_tokens": 119356,
+   "jev_cost_usd": 0.00501,
+   "jev_cost_per_1000_requests_usd": 0.0627,
+   "jev_added_ms_p50": 809.0,
+   "jev_added_ms_p95": 877.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "retrieve+bm25@1000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 1000,
+   "saved_pct": 7.7,
+   "evidence_kept_pct": 100.0,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 100,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   }
+  },
+  {
+   "config": "retrieve+jev@1000",
+   "strategies": [
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 1000,
+   "saved_pct": 21.6,
+   "evidence_kept_pct": 97.5,
+   "evidence_kept_by_family": {
+    "log_incident": 100,
+    "db_rows": 100,
+    "web_research": 80,
+    "file_listing": 100,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [],
+   "lost_where_bm25_kept": [
+    "web-02",
+    "web-07"
+   ],
+   "requests_calling_jev": 70,
+   "jev_calls": 70,
+   "jev_input_tokens": 663850,
+   "jev_cost_usd": 0.02788,
+   "jev_cost_per_1000_requests_usd": 0.3485,
+   "jev_added_ms_p50": 874.0,
+   "jev_added_ms_p95": 1278.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  },
+  {
+   "config": "all+bm25@1000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "bm25",
+   "budget": 1000,
+   "saved_pct": 93.0,
+   "evidence_kept_pct": 80.0,
+   "evidence_kept_by_family": {
+    "log_incident": 80,
+    "db_rows": 80,
+    "web_research": 70,
+    "file_listing": 20,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 90
+   }
+  },
+  {
+   "config": "all+jev@1000",
+   "strategies": [
+    "trim",
+    "stale",
+    "dedup",
+    "retrieve"
+   ],
+   "relevance": "jev",
+   "budget": 1000,
+   "saved_pct": 93.4,
+   "evidence_kept_pct": 87.5,
+   "evidence_kept_by_family": {
+    "log_incident": 80,
+    "db_rows": 80,
+    "web_research": 80,
+    "file_listing": 60,
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
+   },
+   "kept_where_bm25_lost": [
+    "web-05",
+    "files-00",
+    "files-02",
+    "files-04",
+    "files-08",
+    "ci-01"
+   ],
+   "lost_where_bm25_kept": [],
+   "requests_calling_jev": 63,
+   "jev_calls": 63,
+   "jev_input_tokens": 189642,
+   "jev_cost_usd": 0.00796,
+   "jev_cost_per_1000_requests_usd": 0.0996,
+   "jev_added_ms_p50": 820.0,
+   "jev_added_ms_p95": 1297.0,
+   "jev_model": [
+    "jev-1.13.0"
+   ]
+  }
  ]
 }

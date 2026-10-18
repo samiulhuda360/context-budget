@@ -1,7 +1,10 @@
-"""The offline evaluation: every strategy combination and budget over all 80 conversations, with no model calls.
+"""The offline evaluation: every strategy combination and budget over all 80 conversations, with no answering model.
 
 For each configuration it measures tokens saved, the cost per 1,000 requests, the time the proxy adds, and
 whether the facts each answer needs are still in the request ("evidence kept").
+
+The relevance comparison runs the retrieve step with BM25 and with Jev at four budgets, alone and inside the full
+pipeline. Jev's replies come from cache/jev (recorded once with TYPESAFE_API_KEY), so this also runs offline.
 """
 
 from __future__ import annotations
@@ -12,6 +15,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .. import bench
+from ..jev import Jev, cost_usd
 from ..pipeline import compress
 from ..policy import STRATEGIES, Pricing, Route
 from ..tokens import count_messages
@@ -33,9 +37,10 @@ class Config:
     strategies: tuple[str, ...]
     budget: int
     naive: bool = False
+    relevance: str = "bm25"
 
     def route(self) -> Route:
-        return Route(name=self.name, budget_tokens=self.budget, enabled=self.strategies)
+        return Route(name=self.name, budget_tokens=self.budget, enabled=self.strategies, relevance=self.relevance)
 
 
 def combo_name(strategies: tuple[str, ...]) -> str:
@@ -53,16 +58,27 @@ def cost_per_1000(input_tokens: float, price: Pricing, output_tokens: float = OU
     return 1000 * (input_tokens * price.input_per_million + output_tokens * price.output_per_million) / 1_000_000
 
 
-def apply(cfg: Config, conv: dict[str, Any]) -> tuple[list[dict[str, Any]], float]:
-    """Returns the compressed messages and the milliseconds it took."""
+class JevFallback(RuntimeError):
+    """The evaluation never silently uses BM25 in place of Jev: a missing or failed Jev reply stops the run."""
+
+
+def compress_cfg(cfg: Config, conv: dict[str, Any], jev: Jev | None = None) -> Any:
+    r = compress(conv["messages"], cfg.route(), jev=jev)
+    if r.jev and r.jev["fallback"]:
+        raise JevFallback(f"{conv['id']} ({cfg.name}): {r.jev['fallback']}")
+    return r
+
+
+def apply(cfg: Config, conv: dict[str, Any], jev: Jev | None = None) -> tuple[list[dict[str, Any]], float]:
+    """Returns the compressed messages and the milliseconds it took (Jev's time is reported separately)."""
     import time
 
     if cfg.naive:
         t = time.perf_counter()
         msgs = sliding_window(conv["messages"], cfg.budget)
         return msgs, (time.perf_counter() - t) * 1000
-    r = compress(conv["messages"], cfg.route())
-    return r.messages, r.elapsed_ms
+    r = compress_cfg(cfg, conv, jev)
+    return r.messages, r.elapsed_ms - (r.jev["latency_ms"] if r.jev and not r.jev["cached"] else 0.0)
 
 
 def percentile(values: list[float], p: float) -> float:
@@ -73,7 +89,74 @@ def percentile(values: list[float], p: float) -> float:
     return s[k]
 
 
-def run(convs: list[dict[str, Any]] | None = None, only: list[str] | None = None) -> dict[str, Any]:
+RELEVANCE_BUDGETS = (8000, 4000, 2000, 1000)
+RELEVANCE_SETS = {"retrieve": ("retrieve",), "all": STRATEGIES}
+
+
+def relevance_configs() -> list[Config]:
+    return [
+        Config(f"{label}+{rel}@{b}", strategies, b, relevance=rel)
+        for b in RELEVANCE_BUDGETS
+        for label, strategies in RELEVANCE_SETS.items()
+        for rel in ("bm25", "jev")
+    ]
+
+
+def relevance_comparison(convs: list[dict[str, Any]], jev: Jev) -> list[dict[str, Any]]:
+    """BM25 against Jev for the retrieve step: facts kept and tokens, plus Jev's calls, tokens, cost and latency."""
+    out = []
+    kept_by: dict[str, dict[str, bool]] = {}
+    for cfg in relevance_configs():
+        rows = []
+        for c in convs:
+            r = compress_cfg(cfg, c, jev)
+            rows.append(
+                {
+                    "id": c["id"],
+                    "family": c["family"],
+                    "before": r.tokens_before,
+                    "after": r.tokens_after,
+                    "kept": evidence_kept(r.messages, c["evidence"]),
+                    "jev": r.jev,
+                }
+            )
+        kept_by[cfg.name] = {r["id"]: r["kept"] for r in rows}
+        twin = cfg.name.replace("+jev@", "+bm25@")
+        used = [r["jev"] for r in rows if r["jev"] and r["jev"]["calls"]]
+        tb = sum(r["before"] for r in rows)
+        ta = sum(r["after"] for r in rows)
+        fams: dict[str, list[bool]] = {}
+        for r in rows:
+            fams.setdefault(r["family"], []).append(r["kept"])
+        tokens = sum(u["input_tokens"] for u in used)
+        row: dict[str, Any] = {
+            "config": cfg.name,
+            "strategies": list(cfg.strategies),
+            "relevance": cfg.relevance,
+            "budget": cfg.budget,
+            "saved_pct": round(100 * (tb - ta) / tb, 1),
+            "evidence_kept_pct": round(100 * sum(r["kept"] for r in rows) / len(rows), 1),
+            "evidence_kept_by_family": {f: round(100 * sum(v) / len(v)) for f, v in fams.items()},
+        }
+        if cfg.relevance == "jev":
+            twin_kept = kept_by[twin]
+            row |= {
+                "kept_where_bm25_lost": [r["id"] for r in rows if r["kept"] and not twin_kept[r["id"]]],
+                "lost_where_bm25_kept": [r["id"] for r in rows if not r["kept"] and twin_kept[r["id"]]],
+                "requests_calling_jev": len(used),
+                "jev_calls": sum(u["calls"] for u in used),
+                "jev_input_tokens": tokens,
+                "jev_cost_usd": round(cost_usd(tokens), 5),
+                "jev_cost_per_1000_requests_usd": round(1000 * cost_usd(tokens) / len(rows), 4),
+                "jev_added_ms_p50": round(percentile([u["latency_ms"] for u in used], 50), 1),
+                "jev_added_ms_p95": round(percentile([u["latency_ms"] for u in used], 95), 1),
+                "jev_model": sorted({u["model"] for u in used}),
+            }
+        out.append(row)
+    return out
+
+
+def run(convs: list[dict[str, Any]] | None = None, only: list[str] | None = None, jev: Jev | None = None) -> dict[str, Any]:
     convs = convs or bench.load()
     before = {c["id"]: count_messages(c["messages"]) for c in convs}
     baseline_kept = {c["id"]: evidence_kept(c["messages"], c["evidence"]) for c in convs}
@@ -125,4 +208,5 @@ def run(convs: list[dict[str, Any]] | None = None, only: list[str] | None = None
         "output_tokens_assumed": OUTPUT_TOKENS,
         "prices": {k: p.label for k, p in PRICES.items()},
         "configs": results,
+        "relevance_comparison": relevance_comparison(convs, jev or Jev(offline=True)) if not only else [],
     }

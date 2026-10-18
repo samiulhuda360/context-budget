@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The search indexer keeps restarting because it is hitting an Out-Of-Memory (OOM) error while loading synonyms. It exceeds the 512Mi memory limit.",
+ "latency_s": 1.037,
+ "prompt_tokens": 1617,
+ "completion_tokens": 36
+}

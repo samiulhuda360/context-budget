@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The payment retry limit is configured in `services/payouts/config/settings.yaml` under `payment_retry.max_attempts`, and its value is 11.",
+ "latency_s": 1.082,
+ "prompt_tokens": 1869,
+ "completion_tokens": 38
+}

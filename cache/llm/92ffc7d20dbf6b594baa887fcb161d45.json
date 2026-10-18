@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "There were 24 Canterbury orders with a status of processing.",
+ "latency_s": 1.005,
+ "prompt_tokens": 1963,
+ "completion_tokens": 13
+}
