@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The budget limit for the whole order is NZ$3,700, and it has to arrive in Queenstown by 5 October.",
+ "latency_s": 1.268,
+ "prompt_tokens": 2626,
+ "completion_tokens": 29
+}
