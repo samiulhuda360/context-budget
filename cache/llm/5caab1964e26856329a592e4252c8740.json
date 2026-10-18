@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The Nomad sleeping bag weighs 2.9 kg and is made of 75D polyester.",
+ "latency_s": 1.096,
+ "prompt_tokens": 1688,
+ "completion_tokens": 20
+}

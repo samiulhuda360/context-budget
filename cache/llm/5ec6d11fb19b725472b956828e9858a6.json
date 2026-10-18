@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[\n  {\"id\": \"docs-05/5fba18c317\", \"score\": 2},\n  {\"id\": \"ci-02/5a82be8a62\", \"score\": 2},\n  {\"id\": \"stale-02/9141d7ca97\", \"score\": 2},\n  {\"id\": \"stale-08/d49b3ab16a\", \"score\": 2},\n  {\"id\": \"brief-05/5b688cae98\", \"score\": 2},\n  {\"id\": \"db-08/b7b1922aef\", \"score\": 0},\n  {\"id\": \"web-05/8359e60472\", \"score\": 2},\n  {\"id\": \"brief-08/06c0411031\", \"score\": 2},\n  {\"id\": \"brief-08/f1ce391522\", \"score\": 2},\n  {\"id\": \"stale-02/dd7e10d2b9\", \"score\": 2},\n  {\"id\": \"log-01/39cdad5d20\", \"score\": 2},\n  {\"id\": \"brief-02/3c02e49df3\", \"score\": 0},\n  {\"id\": \"log-08/46b97f8f10\", \"score\": 2},\n  {\"id\": \"stale-08/d7f78646e6\", \"score\": 2},\n  {\"id\": \"db-01/b2fbc98408\", \"score\": 0},\n  {\"id\": \"stale-05/ad1ffe6477\", \"score\": 2}\n]",
+ "latency_s": 1.794,
+ "prompt_tokens": 2150,
+ "completion_tokens": 441
+}

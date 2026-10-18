@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Tom Lowe's account ID is ACB-736375 and their renewal date is 2026-12-27.",
+ "latency_s": 1.037,
+ "prompt_tokens": 1260,
+ "completion_tokens": 32
+}

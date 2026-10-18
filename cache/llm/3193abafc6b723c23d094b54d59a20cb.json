@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Daniel Collins's account ID is ACB-392028 and his plan renews on December 11, 2026.",
+ "latency_s": 1.282,
+ "prompt_tokens": 8178,
+ "completion_tokens": 32
+}

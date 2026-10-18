@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Your spend limit is at most NZ$1,850, and the gear must be delivered by 16 November.",
+ "latency_s": 3.035,
+ "prompt_tokens": 23330,
+ "completion_tokens": 26
+}

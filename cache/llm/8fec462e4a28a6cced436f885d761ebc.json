@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "`tests/test_invoice.py::test_gst_rounding` failed with an `AssertionError`. The log shows it failed because an assertion inside that test did not hold, though the exact compared values were in the cut lines of the test output.",
+ "latency_s": 1.194,
+ "prompt_tokens": 1064,
+ "completion_tokens": 52
+}

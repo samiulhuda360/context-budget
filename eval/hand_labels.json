@@ -4,11 +4,6 @@
   "config": "baseline",
   "note": "all reference facts present"
  },
- "log-01/e9dbfd30d0": {
-  "score": 2,
-  "config": "context-budget@8000",
-  "note": "all reference facts present"
- },
  "log-01/cfc8cc77ae": {
   "score": 2,
   "config": "context-budget@1000",
@@ -99,11 +94,6 @@
   "config": "baseline",
   "note": "asked for another tool call instead of answering"
  },
- "db-02/8903856227": {
-  "score": 0,
-  "config": "context-budget@8000",
-  "note": "asked for another tool call instead of answering"
- },
  "db-02/86e787e443": {
   "score": 2,
   "config": "context-budget@1000",
@@ -192,11 +182,6 @@
  "web-08/e90b53cb71": {
   "score": 2,
   "config": "baseline",
-  "note": "all reference facts present"
- },
- "web-08/4c464dc68d": {
-  "score": 2,
-  "config": "context-budget@8000",
   "note": "all reference facts present"
  },
  "web-08/9c86f49780": {
@@ -298,5 +283,290 @@
   "score": 0,
   "config": "window@2000",
   "note": "wrong or says the information is missing"
+ },
+ "log-01/39cdad5d20": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "db-02/1afcd5cc90": {
+  "score": 0,
+  "config": "context-budget@8000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "web-08/7691681a18": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "brief-02/a7ded80868": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "brief-02/c5a6a9e651": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "brief-02/4ca34999a1": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "brief-02/3c02e49df3": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "brief-05/76ad77fd57": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "brief-05/5b688cae98": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "brief-05/c23ee45686": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "brief-08/06c0411031": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "brief-08/717ea9d7a3": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "brief-08/f1ce391522": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "brief-08/7f7bbd7331": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "stale-01/cfc070619d": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "stale-01/09014a3c3f": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "stale-01/9a6568d9c0": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "stale-01/fb187700ce": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "stale-02/dd7e10d2b9": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "stale-02/9141d7ca97": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "stale-02/8e561383e5": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "stale-02/207c62555e": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "stale-05/7b74299e75": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "stale-05/ca4ce05b4a": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "stale-05/ad1ffe6477": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "stale-05/9c5426973a": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "stale-08/d49b3ab16a": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "stale-08/d7f78646e6": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "stale-08/ce570898a0": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "wrong or says the information is missing"
+ },
+ "docs-01/c6d28dfc8a": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "docs-01/55d1b3960c": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "docs-01/223f68ad11": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "docs-02/c6d28dfc8a": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "docs-02/677896ab95": {
+  "score": 0,
+  "config": "window@2000",
+  "note": "asked for another tool call instead of answering"
+ },
+ "docs-05/7ef8f4b6d1": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "docs-05/0336ebc260": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "docs-05/02c25fd52c": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "docs-05/5fba18c317": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "docs-08/d039b9cf5d": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "docs-08/fe83682d0b": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "docs-08/c617069717": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "docs-08/806db63816": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "ci-01/a80116e1ba": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "ci-01/af7867806d": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "ci-01/ac4c91dc32": {
+  "score": 1,
+  "config": "context-budget@1000",
+  "note": "test right, compared values missing"
+ },
+ "ci-01/bb3c0a2538": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "ci-02/7550df86e7": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "ci-02/e93ffd826f": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "ci-02/3720aefea3": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "ci-02/5a82be8a62": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
+ },
+ "ci-05/07a36cf577": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "ci-05/b5025fb549": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "ci-05/2f354377f5": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "ci-08/b58dee5388": {
+  "score": 2,
+  "config": "baseline",
+  "note": "all reference facts present"
+ },
+ "ci-08/35469a19df": {
+  "score": 2,
+  "config": "context-budget@8000",
+  "note": "all reference facts present"
+ },
+ "ci-08/87ea1105e0": {
+  "score": 2,
+  "config": "context-budget@1000",
+  "note": "all reference facts present"
+ },
+ "ci-08/000d73fed9": {
+  "score": 2,
+  "config": "window@2000",
+  "note": "all reference facts present"
  }
 }

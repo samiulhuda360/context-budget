@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The test `tests/test_invoice.py::test_gst_rounding` failed because of an assertion error. It compared the values 681.71 and 681.72, which were not equal.",
+ "latency_s": 1.296,
+ "prompt_tokens": 2840,
+ "completion_tokens": 49
+}

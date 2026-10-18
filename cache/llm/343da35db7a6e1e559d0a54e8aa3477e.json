@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Olivia Foster's account ID is ACB-583817 and their renewal date is 2026-10-12. Olivia Turner's account ID is ACB-427722 and her renewal date is 2027-01-24.",
+ "latency_s": 1.218,
+ "prompt_tokens": 2823,
+ "completion_tokens": 64
+}

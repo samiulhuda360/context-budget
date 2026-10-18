@@ -191,6 +191,8 @@ def _trim_json(value: Any, query: Query, s: TrimSettings) -> Any:
             ]
         keep = sorted(head | set(matches[: s.json_max_matches]))
         out: list[Any] = [value[i] for i in keep]
+        if len(keep) == n:
+            return out  # every item matched the question: nothing was cut, so no note
         note: dict[str, Any] = {
             "_ctxb": f"{n - len(keep)} of {n} items cut; kept the first {s.json_head_items}, the last {s.json_tail_items} and those matching the question"
         }
@@ -216,7 +218,10 @@ def trim(text: str, query: Query, s: TrimSettings) -> tuple[str, str]:
         return text, ""
     kind = kind_of(text)
     if kind == "json":
-        return trim_json(text, query, s), "JSON list items cut, per-field counts and sums kept"
+        out = trim_json(text, query, s)
+        if '"_ctxb"' in out:
+            return out, "JSON list items cut, per-field counts and sums kept"
+        return out, "JSON compacted; every item matched the question"
     if kind == "html":
         plain = html_to_text(text)
         if count_text(plain) < s.min_tokens:

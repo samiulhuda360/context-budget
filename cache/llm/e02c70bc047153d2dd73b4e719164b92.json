@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[\n  {\"id\": \"db-05/4bd7a8ff48\", \"score\": 0},\n  {\"id\": \"files-02/19f71dafb4\", \"score\": 2}\n]",
+ "latency_s": 0.955,
+ "prompt_tokens": 493,
+ "completion_tokens": 55
+}

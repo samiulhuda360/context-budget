@@ -2,7 +2,7 @@
 
 Counts use the `o200k_base` encoding from tiktoken (the tokenizer of current OpenAI models). Other providers
 tokenize differently, so the counts are a consistent yardstick rather than an exact bill; the evaluation also
-records the prompt tokens that Gemini itself reports, which count about 30% more tokens for the same text, but the percentage saved agrees to within half a point.
+records the prompt tokens that Gemini itself reports, which count about 30% more tokens for the same text, but the percentage saved agrees to within about a point.
 """
 
 from __future__ import annotations

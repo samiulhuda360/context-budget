@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Tom's renewal date is December 27, 2026, and their account ID is ACB-736375.",
+ "latency_s": 1.429,
+ "prompt_tokens": 14696,
+ "completion_tokens": 31
+}

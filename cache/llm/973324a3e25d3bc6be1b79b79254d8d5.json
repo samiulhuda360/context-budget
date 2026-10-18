@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "I'm sorry, but I don't recall the first account you asked about. Could you please let me know whose account you are referring to?",
+ "latency_s": 1.349,
+ "prompt_tokens": 2642,
+ "completion_tokens": 31
+}

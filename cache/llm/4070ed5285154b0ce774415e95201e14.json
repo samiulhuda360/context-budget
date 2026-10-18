@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "You didn't give me a spend limit or a delivery deadline at the start of our conversation. Let me know what your budget and timeframe are, and I'll find the right stove for you!",
+ "latency_s": 1.282,
+ "prompt_tokens": 2657,
+ "completion_tokens": 41
+}

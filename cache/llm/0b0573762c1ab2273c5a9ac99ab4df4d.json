@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Olivia's account ID is ACB-859421 and her renewal date is 2027-05-14.",
+ "latency_s": 1.191,
+ "prompt_tokens": 2708,
+ "completion_tokens": 31
+}

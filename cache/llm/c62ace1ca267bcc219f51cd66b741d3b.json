@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "You haven't specified a budget limit or a delivery deadline in our current session yet. Please let me know what limits and deadlines you'd like to work with!",
+ "latency_s": 1.168,
+ "prompt_tokens": 2653,
+ "completion_tokens": 34
+}

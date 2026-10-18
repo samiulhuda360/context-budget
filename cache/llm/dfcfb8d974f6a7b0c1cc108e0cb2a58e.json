@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The test `test_gst_rounding` failed because `681.71` did not equal `681.72`.",
+ "latency_s": 1.97,
+ "prompt_tokens": 47266,
+ "completion_tokens": 30
+}

@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "You haven't specified a budget limit or a delivery deadline yet. Let me know what constraints you'd like to set for your gear orders!",
+ "latency_s": 1.363,
+ "prompt_tokens": 2675,
+ "completion_tokens": 30
+}

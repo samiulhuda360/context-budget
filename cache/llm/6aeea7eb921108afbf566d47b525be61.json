@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "`tests/test_refund.py::test_payout_batch_limit` failed because an assertion compared `288.86` and `288.87`.",
+ "latency_s": 0.914,
+ "prompt_tokens": 914,
+ "completion_tokens": 40
+}

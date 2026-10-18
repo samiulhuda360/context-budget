@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TeKwb7FFNm5kfnYIph56Rt/ExgmP6WjQbh3C4sJSt80dqaOtxjkOdS88N5WeDGvMvDB9z/TyhQ/z62XWfCIapv+m0udBmj/j5yWX9cBF6o7MH/+tgU6r8+34=\"}}, \"function\": {\"arguments\": \"{\\\"name\\\":\\\"Luke Reid\\\"}\", \"name\": \"get_customer\"}, \"id\": \"call_4853644\", \"type\": \"function\"}]",
+ "latency_s": 1.126,
+ "prompt_tokens": 2639,
+ "completion_tokens": 17
+}

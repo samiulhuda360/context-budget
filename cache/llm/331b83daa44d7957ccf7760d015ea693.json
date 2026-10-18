@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Olivia Foster's account ID is ACB-583817 and their renewal date is October 12, 2026.",
+ "latency_s": 1.562,
+ "prompt_tokens": 15004,
+ "completion_tokens": 31
+}

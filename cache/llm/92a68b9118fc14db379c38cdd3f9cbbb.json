@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "`tests/test_invoice.py::test_refund_partial` failed. The assertion compared 542.50 to 542.51, causing an `AssertionError`.",
+ "latency_s": 1.228,
+ "prompt_tokens": 1329,
+ "completion_tokens": 42
+}

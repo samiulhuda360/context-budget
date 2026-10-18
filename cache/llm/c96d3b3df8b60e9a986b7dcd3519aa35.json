@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "`tests/test_invoice.py::test_refund_partial` failed.\nThe assertion compared `542.50` and `542.51`.",
+ "latency_s": 0.89,
+ "prompt_tokens": 906,
+ "completion_tokens": 38
+}

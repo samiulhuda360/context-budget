@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "```json\n[\n  {\"id\": \"stale-01/9a6568d9c0\", \"score\": 2},\n  {\"id\": \"files-08/037c72ae2c\", \"score\": 2},\n  {\"id\": \"db-08/90d16d2757\", \"score\": 2},\n  {\"id\": \"stale-01/09014a3c3f\", \"score\": 2},\n  {\"id\": \"log-02/45a13b6ec2\", \"score\": 2},\n  {\"id\": \"ci-02/e93ffd826f\", \"score\": 2},\n  {\"id\": \"ci-05/b5025fb549\", \"score\": 2},\n  {\"id\": \"brief-02/a7ded80868\", \"score\": 2},\n  {\"id\": \"web-08/7691681a18\", \"score\": 2},\n  {\"id\": \"db-05/883edad502\", \"score\": 2},\n  {\"id\": \"db-05/d7ec70c7d1\", \"score\": 0},\n  {\"id\": \"ci-08/35469a19df\", \"score\": 2},\n  {\"id\": \"log-05/1dda266259\", \"score\": 2},\n  {\"id\": \"files-08/30a69028fc\", \"score\": 2},\n  {\"id\": \"brief-08/717ea9d7a3\", \"score\": 2},\n  {\"id\": \"brief-02/c5a6a9e651\", \"score\": 2}\n]\n```",
+ "latency_s": 2.033,
+ "prompt_tokens": 2015,
+ "completion_tokens": 442
+}

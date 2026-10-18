@@ -4,35 +4,35 @@ All numbers below come from `ctxb eval offline` and `ctxb eval model` and are re
 
 ## Headline
 
-- With every strategy on and an 8,000-token budget, requests to gemini-flash-lite-latest were **90.1% smaller** (prompt tokens as Gemini reported them), and answers passed the checker **88.2%** of the time against **82.4%** for the untrimmed requests, on 17 conversations.
-- At almost the same saving (89.8%), a plain sliding window passed **17.6%**.
+- With every strategy on and an 8,000-token budget, requests to gemini-flash-lite-latest were **89.4% smaller** (prompt tokens as Gemini reported them), and answers passed the checker **93.8%** of the time against **90.6%** for the untrimmed requests (judge 92.2% vs 90.6%), on 32 conversations.
+- At almost the same saving (88.2%), a plain sliding window passed **31.2%**.
 - Over all 80 conversations, the facts each answer needs stayed in the request in 100.0% of cases (untrimmed: 100.0%) with **88.1% fewer tokens** (budget 8,000).
 - It starts to break at a 2,000-token budget (90.5% saved, facts kept 97.5%, lost in: incident logs) and clearly breaks at 1,000 (93.0% saved, facts kept 80.0%).
 
 ## Answer quality with a real model
 
-17 of the 32 planned conversations (those with recorded replies so far; `ctxb eval model` records the rest and resumes from the cache) were each sent four ways to `gemini-flash-lite-latest`. The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against the untrimmed request, with a 95% paired bootstrap interval.
+32 conversations were each sent four ways to `gemini-flash-lite-latest`. The checker passes an answer when every labelled fact is in it. "Tool call" is how often the model asked to run another tool instead of answering, which in a live agent means another round trip. Differences are in percentage points against the untrimmed request, with a 95% paired bootstrap interval.
 
-| Request | Avg prompt tokens | Saved | Checker | vs untrimmed (pts) | Tool call | Cost / 1,000 (Flash-Lite) | Cost / 1,000 (frontier) | Model latency |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| baseline | 26,049 | 0.0% | 82.4% |  | 17.6% | $2.618 | $78.63 | 2.64 s |
-| context-budget@8000 | 2,574 | 90.1% | 88.2% | +5.9 [-11.8, +29.4] | 11.8% | $0.268 | $8.13 | 1.86 s |
-| context-budget@1000 | 1,125 | 95.7% | 41.2% | -41.2 [-70.6, -5.9] | 41.2% | $0.124 | $3.82 | 1.34 s |
-| window@2000 | 2,649 | 89.8% | 17.6% | -64.7 [-88.2, -41.2] | 58.8% | $0.280 | $8.50 | 1.69 s |
+| Request | Avg prompt tokens | Saved | Checker | vs untrimmed (pts) | Judge | Tool call | Cost / 1,000 (Flash-Lite) | Cost / 1,000 (frontier) | Model latency |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| baseline | 22,200 | 0.0% | 90.6% |  | 90.6% | 9.4% | $2.233 | $67.10 | 2.18 s |
+| context-budget@8000 | 2,355 | 89.4% | 93.8% | +3.1 [-6.2, +15.6] | 92.2% | 6.2% | $0.248 | $7.53 | 1.3 s |
+| context-budget@1000 | 1,305 | 94.1% | 65.6% | -25.0 [-43.8, -6.2] | 68.8% | 21.9% | $0.143 | $4.39 | 1.23 s |
+| window@2000 | 2,620 | 88.2% | 31.2% | -59.4 [-75.0, -40.6] | 31.2% | 40.6% | $0.276 | $8.39 | 1.48 s |
 
 Checker pass rate by family:
 
-| Request | Incident logs | Database rows | Web pages | File listings and config | Constraint stated early |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| baseline | 100% | 50% | 100% | 75% | 100% |
-| context-budget@8000 | 100% | 75% | 100% | 75% | 100% |
-| context-budget@1000 | 75% | 50% | 25% | 0% | 100% |
-| window@2000 | 0% | 0% | 25% | 50% | 0% |
+| Request | Incident logs | Database rows | Web pages | File listings and config | Constraint stated early | Old result asked about later | Repeated documents | CI build logs |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| baseline | 100% | 50% | 100% | 75% | 100% | 100% | 100% | 100% |
+| context-budget@8000 | 100% | 75% | 100% | 75% | 100% | 100% | 100% | 100% |
+| context-budget@1000 | 75% | 50% | 25% | 0% | 100% | 100% | 100% | 75% |
+| window@2000 | 0% | 0% | 25% | 50% | 0% | 0% | 75% | 100% |
 
 ### Hand labels and the judge
 
-All 60 distinct answers were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). The checker agrees with the hand labels on full marks or not for 100.0% of them (Cohen's kappa 1.0).
-The model judge (batches of 16 answers, same 0/1/2 rubric) runs after all answers are recorded, so it has not run on this partial set yet.
+All 114 distinct answers were read and scored by hand (0 wrong or missing, 1 partly right, 2 right and complete). The checker agrees with the hand labels on full marks or not for 100.0% of them (Cohen's kappa 1.0).
+The model judge agrees exactly with the hand labels for 99.1% (kappa 0.98), and on full marks or not for 99.1%.
 
 ## Every strategy combination (no model, all conversations)
 
@@ -41,21 +41,21 @@ The model judge (batches of 16 answers, same 0/1/2 rubric) runs after all answer
 | Strategies (budget 8,000) | Tokens saved | Facts kept | Cost / 1,000 (Flash-Lite) | Cost / 1,000 (frontier) | Time p50 / p95 (ms) |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | none | 0.0% | 100.0% | $1.686 | $50.88 | 0.29 / 0.61 |
-| trim | 81.7% | 100.0% | $0.341 | $10.54 | 8.8 / 31.41 |
-| stale | 29.1% | 100.0% | $1.208 | $36.53 | 0.45 / 3.26 |
-| dedup | 1.1% | 100.0% | $1.667 | $50.32 | 3.48 / 6.6 |
-| retrieve | 6.7% | 100.0% | $1.575 | $47.55 | 1.77 / 3.6 |
-| trim+stale | 87.3% | 100.0% | $0.249 | $7.78 | 7.18 / 16.4 |
-| trim+dedup | 82.8% | 100.0% | $0.323 | $9.99 | 8.98 / 23.92 |
-| trim+retrieve | 81.7% | 100.0% | $0.341 | $10.54 | 5.64 / 16.42 |
-| stale+dedup | 29.8% | 100.0% | $1.195 | $36.15 | 3.94 / 6.61 |
-| stale+retrieve | 29.2% | 100.0% | $1.205 | $36.44 | 0.87 / 3.36 |
-| dedup+retrieve | 7.9% | 100.0% | $1.556 | $46.99 | 5.02 / 9.63 |
-| trim+stale+dedup | 88.1% | 100.0% | $0.236 | $7.39 | 9.47 / 23.96 |
-| trim+stale+retrieve | 87.3% | 100.0% | $0.249 | $7.78 | 7.02 / 17.03 |
-| trim+dedup+retrieve | 82.8% | 100.0% | $0.323 | $9.99 | 8.38 / 23.86 |
-| stale+dedup+retrieve | 30.0% | 100.0% | $1.192 | $36.06 | 4.51 / 7.54 |
-| trim+stale+dedup+retrieve | 88.1% | 100.0% | $0.236 | $7.39 | 9.74 / 24.44 |
+| trim | 81.8% | 100.0% | $0.339 | $10.48 | 9.04 / 32.63 |
+| stale | 29.1% | 100.0% | $1.208 | $36.53 | 0.47 / 3.33 |
+| dedup | 1.1% | 100.0% | $1.667 | $50.32 | 3.58 / 6.82 |
+| retrieve | 6.7% | 100.0% | $1.575 | $47.55 | 1.98 / 3.75 |
+| trim+stale | 87.4% | 100.0% | $0.248 | $7.74 | 9.25 / 20.67 |
+| trim+dedup | 82.9% | 100.0% | $0.321 | $9.92 | 11.94 / 32.28 |
+| trim+retrieve | 81.8% | 100.0% | $0.339 | $10.48 | 5.72 / 17.48 |
+| stale+dedup | 29.8% | 100.0% | $1.195 | $36.15 | 4.68 / 7.04 |
+| stale+retrieve | 29.2% | 100.0% | $1.205 | $36.44 | 0.9 / 3.49 |
+| dedup+retrieve | 7.9% | 100.0% | $1.556 | $46.99 | 5.83 / 11.48 |
+| trim+stale+dedup | 88.1% | 100.0% | $0.235 | $7.36 | 12.3 / 34.36 |
+| trim+stale+retrieve | 87.4% | 100.0% | $0.248 | $7.74 | 7.45 / 22.43 |
+| trim+dedup+retrieve | 82.9% | 100.0% | $0.321 | $9.92 | 9.41 / 25.05 |
+| stale+dedup+retrieve | 30.0% | 100.0% | $1.192 | $36.06 | 4.59 / 8.29 |
+| trim+stale+dedup+retrieve | 88.1% | 100.0% | $0.235 | $7.36 | 10.25 / 25.34 |
 
 ## Budget sweep: where it breaks
 

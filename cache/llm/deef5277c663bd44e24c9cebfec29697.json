@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[\n  {\"id\": \"stale-01/fb187700ce\", \"score\": 0},\n  {\"id\": \"brief-05/c23ee45686\", \"score\": 0},\n  {\"id\": \"stale-05/9c5426973a\", \"score\": 0},\n  {\"id\": \"files-01/57857eec9d\", \"score\": 0},\n  {\"id\": \"ci-01/bb3c0a2538\", \"score\": 2},\n  {\"id\": \"docs-05/02c25fd52c\", \"score\": 2},\n  {\"id\": \"ci-05/2f354377f5\", \"score\": 2},\n  {\"id\": \"ci-01/ac4c91dc32\", \"score\": 1},\n  {\"id\": \"files-05/d25a803ba4\", \"score\": 0},\n  {\"id\": \"brief-05/76ad77fd57\", \"score\": 2},\n  {\"id\": \"files-02/9d4a3cc02f\", \"score\": 2},\n  {\"id\": \"db-08/eba9c4f546\", \"score\": 0},\n  {\"id\": \"docs-08/fe83682d0b\", \"score\": 2},\n  {\"id\": \"docs-01/c6d28dfc8a\", \"score\": 2},\n  {\"id\": \"files-02/090769eec8\", \"score\": 2},\n  {\"id\": \"brief-01/792ee338d5\", \"score\": 2}\n]",
+ "latency_s": 1.734,
+ "prompt_tokens": 2374,
+ "completion_tokens": 435
+}

@@ -23,13 +23,13 @@ assistant to investigate problems: "payments are stuck, find out why".
 
 - **Before:** the assistant pulled a 1,000-line server log into the conversation, then resent it with every
   follow-up question: about 38,000 tokens (the word pieces models read and charge by) per question. At 200 questions a
-  day of the size measured in the tests, on a frontier-priced model, that is roughly US$470 a month, and the one warning line that
+  day of the size measured in the tests, on a frontier-priced model, that is roughly US$400 a month, and the one warning line that
   mattered was buried in the middle of a thousand routine ones.
 - **With context-budget:** the team changed one setting so the assistant talks to the model through context-budget.
   The same question now sends about 2,300 tokens: the warning lines, the start and end of the log, and short notes
   saying how much was left out. In the tests, answers were at least as accurate as with the full log.
-- **What changes:** about 90% fewer tokens per request in the tests, which takes that bill to roughly US$50 a
-  month, and replies came back about 30% faster. A web page shows exactly what was cut from any request.
+- **What changes:** about 90% fewer tokens per request in the tests, which takes that bill to roughly US$45 a
+  month, and replies came back about 40% faster. A web page shows exactly what was cut from any request.
 
 ## How you would use it
 
@@ -85,25 +85,25 @@ Measured on the benchmark described under [Evaluation](#evaluation); full tables
 
 | Request sent to `gemini-flash-lite-latest` | Prompt tokens (avg) | Saved | Answers correct | Asked for another tool call | Cost per 1,000 requests (frontier price) |
 |---|---:|---:|---:|---:|---:|
-| Untrimmed | 26,049 | | 82.4% | 17.6% | $78.63 |
-| **context-budget, 8,000-token budget** | **2,574** | **90.1%** | **88.2%** | 11.8% | **$8.13** |
-| context-budget, 1,000-token budget | 1,125 | 95.7% | 41.2% | 41.2% | $3.82 |
-| Sliding window (keep the newest 2,000 tokens) | 2,649 | 89.8% | 17.6% | 58.8% | $8.50 |
+| Untrimmed | 22,200 | | 90.6% | 9.4% | $67.10 |
+| **context-budget, 8,000-token budget** | **2,355** | **89.4%** | **93.8%** | 6.2% | **$7.53** |
+| context-budget, 1,000-token budget | 1,305 | 94.1% | 65.6% | 21.9% | $4.39 |
+| Sliding window (keep the newest 2,000 tokens) | 2,620 | 88.2% | 31.2% | 40.6% | $8.39 |
 
-*17 conversations × 4 ways; "answers correct" is the deterministic checker, which agreed with hand labels on all 60
-distinct answers. Over all 80 conversations without a model, every labelled fact survived compression at an 88.1%
+*32 conversations (4 per family) × 4 ways; "answers correct" is the deterministic checker, which agreed with hand
+labels on all 114 distinct answers; the model judge agreed with them on 99.1% (Cohen's kappa 0.98). Over all 80 conversations without a model, every labelled fact survived compression at an 88.1%
 token saving (8,000-token budget); facts start to drop at a 2,000-token budget (97.5% kept) and fall to 80% at
 1,000. The compression step takes 9.7 ms at the median and 24 ms at the 95th percentile.*
 
-**Headline:** at about a 90% token saving, answer quality stayed level with the untrimmed request (+5.9 points, 95%
-interval −11.8 to +29.4), while a sliding window at the same saving lost 65 points. It breaks when the budget is
+**Headline:** at about a 90% token saving, answer quality stayed level with the untrimmed request (+3.1 points, 95%
+interval −6.2 to +15.6; judge +1.6), while a sliding window at the same saving lost 59 points. It breaks when the budget is
 squeezed to 1,000 tokens.
 
 ## Screenshots
 
 ![The analysis page for an incident conversation](docs/screenshots/page-analyse.png)
 
-*The analysis page. The top cards show the request shrinking from 37,888 to 2,288 tokens in a few tens of milliseconds; the bar shows
+*The analysis page. The top cards show the request shrinking from 37,888 to 2,261 tokens in a few tens of milliseconds; the bar shows
 which strategy saved what. Below, every message with its tokens before and after.*
 
 ![A 1,000-line log with the cut lines highlighted](docs/screenshots/cut-log.png)
@@ -256,19 +256,18 @@ and the evidence strings that must survive compression for the answer to be poss
 **The naive comparison** is a sliding window: keep the newest messages that fit the budget and cut the oldest. This
 is what many agent frameworks do by default.
 
-**Answer quality** (17 conversations from five families with recorded replies, of the 32 planned; the rest are
-recorded by running `ctxb eval model` again, which resumes from the cache):
+**Answer quality** (32 conversations, 4 from each family, each sent four ways):
 
-| Request | Saved | Checker | vs untrimmed (points, 95% interval) | Asked for another tool call | Model latency |
-|---|---:|---:|---:|---:|---:|
-| Untrimmed | | 82.4% | | 17.6% | 2.64 s |
-| context-budget @ 8,000 | 90.1% | 88.2% | +5.9 [−11.8, +29.4] | 11.8% | 1.86 s |
-| context-budget @ 1,000 | 95.7% | 41.2% | −41.2 [−70.6, −5.9] | 41.2% | 1.34 s |
-| Sliding window @ 2,000 | 89.8% | 17.6% | −64.7 [−88.2, −41.2] | 58.8% | 1.69 s |
+| Request | Saved | Checker | vs untrimmed (points, 95% interval) | Judge | Asked for another tool call | Model latency |
+|---|---:|---:|---:|---:|---:|---:|
+| Untrimmed | | 90.6% | | 90.6% | 9.4% | 2.18 s |
+| context-budget @ 8,000 | 89.4% | 93.8% | +3.1 [−6.2, +15.6] | 92.2% | 6.2% | 1.30 s |
+| context-budget @ 1,000 | 94.1% | 65.6% | −25.0 [−43.8, −6.2] | 68.8% | 21.9% | 1.23 s |
+| Sliding window @ 2,000 | 88.2% | 31.2% | −59.4 [−75.0, −40.6] | 31.2% | 40.6% | 1.48 s |
 
 Most failures are not wrong answers but the model asking to run a tool again because the fact it needs is gone: in
 a live agent that is another round trip, so over-trimming costs more than it saves. The untrimmed request also does
-this sometimes (17.6%), when a fact sits in a 300-row result.
+this sometimes (9.4%), for example when a fact sits in a 300-row result.
 
 **Facts kept, every combination** (80 conversations, no model, 8,000-token budget):
 
@@ -299,18 +298,17 @@ At 1,000 tokens, file listings (counting migration files), web specification tab
 their facts first; the early-constraint and old-result families still keep theirs, because relevance retrieval and
 the one-line record summaries protect them.
 
-**Judge and hand labels.** All 60 distinct answers were scored by hand (0/1/2). The checker agrees with the hand
+**Judge and hand labels.** All 114 distinct answers were scored by hand (0/1/2). The checker agrees with the hand
 labels on full marks or not for 100% of them (Cohen's kappa 1.0). The model judge (0/1/2 rubric, 16 answers per call)
-runs once every planned answer is recorded, and its agreement with the hand labels is then added to
-`eval/RESULTS.md`.
+agrees exactly with the hand labels on 99.1% (kappa 0.98).
 
 Full tables: [`eval/RESULTS.md`](eval/RESULTS.md). Raw results: `eval/offline.json`, `eval/model.json`; hand labels:
 `eval/hand_labels.json`.
 
 **Limits of this evaluation.** The conversations are generated, so their tool outputs are cleaner than many real
-ones, and the strategies and the benchmark were written by the same person. The model run so far covers 17 conversations per
-configuration, so one answer is about 6 points; the 95% intervals show that uncertainty, and "level with the
-untrimmed request" means no measurable drop at this sample size. The hand labels were made by the author.
+ones, and the strategies and the benchmark were written by the same person. The model run covers 32 conversations per
+configuration, so one answer is about 3 points; the 95% intervals show that uncertainty, and "level with the
+untrimmed request" means no measurable drop at this sample size. The hand labels were made by the author, and the judge is the same model family as the answerer.
 
 ## Tech stack
 

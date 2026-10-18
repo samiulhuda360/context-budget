@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Luke Murray's account ID is ACB-749418, and his renewal date is 2026-12-12.",
+ "latency_s": 1.609,
+ "prompt_tokens": 15692,
+ "completion_tokens": 33
+}

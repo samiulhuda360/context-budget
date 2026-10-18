@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "Opened items can be returned within 60 days of delivery if they are in resaleable condition. A 15% restocking fee applies to these opened items.",
+ "latency_s": 1.174,
+ "prompt_tokens": 2121,
+ "completion_tokens": 33
+}

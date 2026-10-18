@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The stock sync stopped because the TLS certificate for `feed2.supplier.acme.example` expired at midnight.",
+ "latency_s": 1.402,
+ "prompt_tokens": 4358,
+ "completion_tokens": 24
+}

@@ -1,144 +1,159 @@
 {
  "model": "gemini-flash-lite-latest",
- "conversations": 17,
+ "conversations": 32,
  "configs": [
   {
    "config": "baseline",
-   "n": 17,
-   "checker_accuracy_pct": 82.4,
-   "judge_score_pct": null,
-   "judge_full_marks_pct": null,
+   "n": 32,
+   "checker_accuracy_pct": 90.6,
+   "judge_score_pct": 90.6,
+   "judge_full_marks_pct": 90.6,
    "checker_diff_vs_baseline_pts": 0.0,
    "checker_diff_95ci_pts": [
     0.0,
     0.0
    ],
-   "judge_diff_vs_baseline_pts": null,
-   "tool_call_instead_of_answer_pct": 17.6,
-   "avg_tokens_counted": 19902,
+   "judge_diff_vs_baseline_pts": 0.0,
+   "tool_call_instead_of_answer_pct": 9.4,
+   "avg_tokens_counted": 17036,
    "tokens_counted_saved_pct": 0.0,
-   "avg_prompt_tokens_reported": 26049,
+   "avg_prompt_tokens_reported": 22200,
    "prompt_tokens_saved_pct": 0.0,
    "cost_per_1000_usd": {
-    "flash_lite": 2.6179,
-    "frontier": 78.6328
+    "flash_lite": 2.2333,
+    "frontier": 67.0976
    },
-   "model_latency_s_mean": 2.64,
-   "model_latency_s_p50": 1.76,
-   "proxy_ms_p50": 7.94,
-   "proxy_ms_p95": 18.88,
+   "model_latency_s_mean": 2.18,
+   "model_latency_s_p50": 1.61,
+   "proxy_ms_p50": 4.77,
+   "proxy_ms_p95": 9.22,
    "by_family_checker_pct": {
     "log_incident": 100,
     "db_rows": 50,
     "web_research": 100,
     "file_listing": 75,
-    "early_constraint": 100
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
    }
   },
   {
    "config": "context-budget@8000",
-   "n": 17,
-   "checker_accuracy_pct": 88.2,
-   "judge_score_pct": null,
-   "judge_full_marks_pct": null,
-   "checker_diff_vs_baseline_pts": 5.9,
+   "n": 32,
+   "checker_accuracy_pct": 93.8,
+   "judge_score_pct": 92.2,
+   "judge_full_marks_pct": 90.6,
+   "checker_diff_vs_baseline_pts": 3.1,
    "checker_diff_95ci_pts": [
-    -11.8,
-    29.4
+    -6.2,
+    15.6
    ],
-   "judge_diff_vs_baseline_pts": null,
-   "tool_call_instead_of_answer_pct": 11.8,
-   "avg_tokens_counted": 2059,
-   "tokens_counted_saved_pct": 89.7,
-   "avg_prompt_tokens_reported": 2574,
-   "prompt_tokens_saved_pct": 90.1,
+   "judge_diff_vs_baseline_pts": 1.6,
+   "tool_call_instead_of_answer_pct": 6.2,
+   "avg_tokens_counted": 1986,
+   "tokens_counted_saved_pct": 88.3,
+   "avg_prompt_tokens_reported": 2355,
+   "prompt_tokens_saved_pct": 89.4,
    "cost_per_1000_usd": {
-    "flash_lite": 0.2684,
-    "frontier": 8.133
+    "flash_lite": 0.2479,
+    "frontier": 7.5288
    },
-   "model_latency_s_mean": 1.86,
-   "model_latency_s_p50": 1.12,
-   "proxy_ms_p50": 20.8,
-   "proxy_ms_p95": 75.29,
+   "model_latency_s_mean": 1.3,
+   "model_latency_s_p50": 1.18,
+   "proxy_ms_p50": 14.28,
+   "proxy_ms_p95": 48.49,
    "by_family_checker_pct": {
     "log_incident": 100,
     "db_rows": 75,
     "web_research": 100,
     "file_listing": 75,
-    "early_constraint": 100
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 100
    }
   },
   {
    "config": "context-budget@1000",
-   "n": 17,
-   "checker_accuracy_pct": 41.2,
-   "judge_score_pct": null,
-   "judge_full_marks_pct": null,
-   "checker_diff_vs_baseline_pts": -41.2,
+   "n": 32,
+   "checker_accuracy_pct": 65.6,
+   "judge_score_pct": 68.8,
+   "judge_full_marks_pct": 65.6,
+   "checker_diff_vs_baseline_pts": -25.0,
    "checker_diff_95ci_pts": [
-    -70.6,
-    -5.9
+    -43.8,
+    -6.2
    ],
-   "judge_diff_vs_baseline_pts": null,
-   "tool_call_instead_of_answer_pct": 41.2,
-   "avg_tokens_counted": 905,
-   "tokens_counted_saved_pct": 95.5,
-   "avg_prompt_tokens_reported": 1125,
-   "prompt_tokens_saved_pct": 95.7,
+   "judge_diff_vs_baseline_pts": -21.9,
+   "tool_call_instead_of_answer_pct": 21.9,
+   "avg_tokens_counted": 1131,
+   "tokens_counted_saved_pct": 93.4,
+   "avg_prompt_tokens_reported": 1305,
+   "prompt_tokens_saved_pct": 94.1,
    "cost_per_1000_usd": {
-    "flash_lite": 0.1244,
-    "frontier": 3.8218
+    "flash_lite": 0.1431,
+    "frontier": 4.387
    },
-   "model_latency_s_mean": 1.34,
-   "model_latency_s_p50": 0.97,
-   "proxy_ms_p50": 33.62,
-   "proxy_ms_p95": 90.95,
+   "model_latency_s_mean": 1.23,
+   "model_latency_s_p50": 1.02,
+   "proxy_ms_p50": 18.52,
+   "proxy_ms_p95": 64.49,
    "by_family_checker_pct": {
     "log_incident": 75,
     "db_rows": 50,
     "web_research": 25,
     "file_listing": 0,
-    "early_constraint": 100
+    "early_constraint": 100,
+    "stale_reference": 100,
+    "duplicate_docs": 100,
+    "ci_failure": 75
    }
   },
   {
    "config": "window@2000",
-   "n": 17,
-   "checker_accuracy_pct": 17.6,
-   "judge_score_pct": null,
-   "judge_full_marks_pct": null,
-   "checker_diff_vs_baseline_pts": -64.7,
+   "n": 32,
+   "checker_accuracy_pct": 31.2,
+   "judge_score_pct": 31.2,
+   "judge_full_marks_pct": 31.2,
+   "checker_diff_vs_baseline_pts": -59.4,
    "checker_diff_95ci_pts": [
-    -88.2,
-    -41.2
+    -75.0,
+    -40.6
    ],
-   "judge_diff_vs_baseline_pts": null,
-   "tool_call_instead_of_answer_pct": 58.8,
-   "avg_tokens_counted": 2083,
-   "tokens_counted_saved_pct": 89.5,
-   "avg_prompt_tokens_reported": 2649,
-   "prompt_tokens_saved_pct": 89.8,
+   "judge_diff_vs_baseline_pts": -59.4,
+   "tool_call_instead_of_answer_pct": 40.6,
+   "avg_tokens_counted": 2067,
+   "tokens_counted_saved_pct": 87.9,
+   "avg_prompt_tokens_reported": 2620,
+   "prompt_tokens_saved_pct": 88.2,
    "cost_per_1000_usd": {
-    "flash_lite": 0.2796,
-    "frontier": 8.4972
+    "flash_lite": 0.276,
+    "frontier": 8.3868
    },
-   "model_latency_s_mean": 1.69,
-   "model_latency_s_p50": 1.14,
-   "proxy_ms_p50": 3.22,
-   "proxy_ms_p95": 11.04,
+   "model_latency_s_mean": 1.48,
+   "model_latency_s_p50": 1.21,
+   "proxy_ms_p50": 1.57,
+   "proxy_ms_p95": 8.48,
    "by_family_checker_pct": {
     "log_incident": 0,
     "db_rows": 0,
     "web_research": 25,
     "file_listing": 50,
-    "early_constraint": 0
+    "early_constraint": 0,
+    "stale_reference": 0,
+    "duplicate_docs": 75,
+    "ci_failure": 100
    }
   }
  ],
  "calibration": {
-  "labelled": 60,
+  "labelled": 114,
   "checker_agreement_pct": 100.0,
-  "checker_kappa": 1.0
+  "checker_kappa": 1.0,
+  "judge_exact_agreement_pct": 99.1,
+  "judge_kappa": 0.98,
+  "judge_full_marks_agreement_pct": 99.1
  },
  "items": [
   {
@@ -149,27 +164,27 @@
    "prompt_tokens": 54324,
    "completion_tokens": 40,
    "latency_s": 1.85,
-   "proxy_ms": 569.35,
+   "proxy_ms": 361.73,
    "answer": "The payments were held up because upstream acquirer `acq-nz-3` failed to respond after 30,000ms, causing the circuit breaker to open for card payments.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-01",
    "family": "log_incident",
    "config": "context-budget@8000",
-   "tokens": 2288,
-   "prompt_tokens": 3105,
-   "completion_tokens": 35,
-   "latency_s": 1.408,
-   "proxy_ms": 75.29,
-   "answer": "Upstream acquirer `acq-nz-3` failed to respond after 30,000ms, causing the circuit breaker to open for card payments.",
+   "tokens": 2261,
+   "prompt_tokens": 3077,
+   "completion_tokens": 37,
+   "latency_s": 1.483,
+   "proxy_ms": 42.3,
+   "answer": "Payments were held up because upstream acquirer `acq-nz-3` stopped responding after 30000ms, causing the circuit breaker to open for card payments.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-01",
@@ -179,12 +194,12 @@
    "prompt_tokens": 1196,
    "completion_tokens": 40,
    "latency_s": 0.99,
-   "proxy_ms": 109.53,
+   "proxy_ms": 62.29,
    "answer": "The upstream acquirer node `acq-nz-3` failed to respond after 30,000ms, which caused the circuit breaker to open and held up the card payments.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-01",
@@ -194,12 +209,12 @@
    "prompt_tokens": 3015,
    "completion_tokens": 43,
    "latency_s": 1.186,
-   "proxy_ms": 17.76,
+   "proxy_ms": 9.29,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TyCElfl7udxwvkFa9Y1QciLtZQ2rxFomTNfuALSarf7pO/eSrXUfvw9gG69O6eLZ1/BRlST3oJ8/FeEfSRpUEep5sTGHgNClabQKjopIodFxVejqeKCwWuQw=\"}}, \"function\": {\"arguments\": \"{\\\"since\\\":\\\"2026-09-14T02:30:00Z\\\",\\\"service\\\":\\\"payments-worker\\\"}\", \"name\": \"fetch_logs\"}, \"id\": \"call_2560037\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "log-02",
@@ -209,27 +224,27 @@
    "prompt_tokens": 42420,
    "completion_tokens": 24,
    "latency_s": 1.936,
-   "proxy_ms": 12.33,
+   "proxy_ms": 7.1,
    "answer": "The stock sync stopped because the TLS certificate expired for `feed2.supplier.acme.example` at midnight.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-02",
    "family": "log_incident",
    "config": "context-budget@8000",
-   "tokens": 3244,
-   "prompt_tokens": 4386,
+   "tokens": 3217,
+   "prompt_tokens": 4358,
    "completion_tokens": 24,
-   "latency_s": 1.079,
-   "proxy_ms": 88.78,
+   "latency_s": 1.402,
+   "proxy_ms": 52.68,
    "answer": "The stock sync stopped because the TLS certificate for `feed2.supplier.acme.example` expired at midnight.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 1
   },
   {
    "id": "log-02",
@@ -239,12 +254,12 @@
    "prompt_tokens": 1588,
    "completion_tokens": 43,
    "latency_s": 0.932,
-   "proxy_ms": 82.33,
+   "proxy_ms": 72.55,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TN9juMPTsWZhVraNFU3QEML2dU5uQJkb32CPjQqf35Jt2dB3bvU4CYv3tVwc4s5Zz6gkP5qmVkpOzltKGlmxdPuZv2giPWbT/iwnvV5NlwhUDkFZDzMZl0Kw=\"}}, \"function\": {\"arguments\": \"{\\\"service\\\":\\\"inventory-sync\\\",\\\"since\\\":\\\"2026-09-14T03:00:00Z\\\"}\", \"name\": \"fetch_logs\"}, \"id\": \"call_1563763\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "log-02",
@@ -254,12 +269,12 @@
    "prompt_tokens": 2978,
    "completion_tokens": 20,
    "latency_s": 1.064,
-   "proxy_ms": 8.62,
+   "proxy_ms": 7.46,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0THxtFHyQIl7dP8WNFZ9TKpsZ2VqXt+PGdWta8j67Rd8008H6ck1P578IOOb6Wbs+5LFGP0xHYKJ9ha0J/vfZA3N8uMUz48Bqad3rNC3c47MfqPoLwK4Ekxpw=\"}}, \"function\": {\"arguments\": \"{\\\"service\\\":\\\"inventory-sync\\\"}\", \"name\": \"get_deploys\"}, \"id\": \"call_2998122\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "log-05",
@@ -269,12 +284,12 @@
    "prompt_tokens": 34452,
    "completion_tokens": 31,
    "latency_s": 1.762,
-   "proxy_ms": 8.37,
+   "proxy_ms": 6.72,
    "answer": "The 502s were caused by a database connection pool exhaustion (`20/20 connections busy`) on `orders-db-3`.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-05",
@@ -284,12 +299,12 @@
    "prompt_tokens": 3108,
    "completion_tokens": 35,
    "latency_s": 1.154,
-   "proxy_ms": 41.79,
+   "proxy_ms": 29.51,
    "answer": "The 502 errors were caused by database connection pool exhaustion on `orders-db-3`, where all 20 out of 20 connections were busy.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-05",
@@ -299,12 +314,12 @@
    "prompt_tokens": 1265,
    "completion_tokens": 30,
    "latency_s": 0.939,
-   "proxy_ms": 85.56,
+   "proxy_ms": 64.49,
    "answer": "The 502s were caused by database connection pool exhaustion on `orders-db-3` (20/20 connections busy).",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-05",
@@ -314,12 +329,12 @@
    "prompt_tokens": 3107,
    "completion_tokens": 85,
    "latency_s": 1.125,
-   "proxy_ms": 11.04,
+   "proxy_ms": 6.24,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TAPstY2JZAKrTHDM45PLEUCCRP6NfGYYWitcmeqRjWjTrQ6H4EoKyailMXQf7c7ARJ6eIF19E04X6Ogzj6t/w81A3W3/3VK8ZSbh/x5NlN1o95QAZg8BV4RE=\"}}, \"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -i \\\\\\\"502\\\\\\\" /var/log/nginx/access.log || journalctl -u checkout-api --since \\\\\\\"2026-09-14 02:00:00\\\\\\\" | grep -E \\\\\\\"502|error|database|connection\\\\\\\"\\\",\\\"host\\\":\\\"localhost\\\"}\", \"name\": \"run_command\"}, \"id\": \"call_4416692\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "log-08",
@@ -329,12 +344,12 @@
    "prompt_tokens": 49985,
    "completion_tokens": 26,
    "latency_s": 1.854,
-   "proxy_ms": 18.88,
+   "proxy_ms": 15.19,
    "answer": "The search-indexer is encountering OOMKilled errors because it exceeds the 512Mi memory limit while loading synonyms.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-08",
@@ -344,12 +359,12 @@
    "prompt_tokens": 2764,
    "completion_tokens": 22,
    "latency_s": 1.146,
-   "proxy_ms": 68.43,
+   "proxy_ms": 52.67,
    "answer": "The search indexer is restarting because it is hitting its 512Mi memory limit while loading synonyms.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-08",
@@ -359,12 +374,12 @@
    "prompt_tokens": 1074,
    "completion_tokens": 29,
    "latency_s": 0.954,
-   "proxy_ms": 90.95,
+   "proxy_ms": 83.35,
    "answer": "The search-indexer is restarting because it is getting OOMKilled when its 512Mi memory limit is exceeded while loading synonyms.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "log-08",
@@ -374,12 +389,12 @@
    "prompt_tokens": 2936,
    "completion_tokens": 49,
    "latency_s": 1.231,
-   "proxy_ms": 10.93,
+   "proxy_ms": 14.68,
    "answer": "The logs show that the search indexer is not actually restarting; its uptime values vary widely and continue to run normally without any crash, OOM, or error logs. There is no evidence in the logs that it is hitting any memory limit.",
    "correct": false,
    "groups_found": 1,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-01",
@@ -389,12 +404,12 @@
    "prompt_tokens": 29351,
    "completion_tokens": 67,
    "latency_s": 1.993,
-   "proxy_ms": 12.35,
+   "proxy_ms": 7.52,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tfq+XVscKCWJHg8jzIQMT6641TRj36pKfdCkTtr6X1bXSRSnHes7769mRqytPAiHbqtU4bQ2WbKBC1HvYPqyCMrissrX7Wl09THYv79rUKjNX0E5hFQD9DD0=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT count(*) FROM orders WHERE region = 'Canterbury' AND placed_at \\\\u003e= '2026-08-01' AND placed_at \\\\u003c '2026-09-01' AND status = 'processing'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_5654085\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-01",
@@ -404,12 +419,12 @@
    "prompt_tokens": 3050,
    "completion_tokens": 12,
    "latency_s": 3.813,
-   "proxy_ms": 28.75,
+   "proxy_ms": 21.12,
    "answer": "There were 24 processing orders in Canterbury last month.",
    "correct": true,
    "groups_found": 1,
    "groups": 1,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-01",
@@ -419,12 +434,12 @@
    "prompt_tokens": 1107,
    "completion_tokens": 12,
    "latency_s": 2.404,
-   "proxy_ms": 44.22,
+   "proxy_ms": 35.19,
    "answer": "There were 24 processing orders in Canterbury last month.",
    "correct": true,
    "groups_found": 1,
    "groups": 1,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-01",
@@ -434,12 +449,12 @@
    "prompt_tokens": 2786,
    "completion_tokens": 34,
    "latency_s": 5.812,
-   "proxy_ms": 6.24,
+   "proxy_ms": 8.48,
    "answer": "There was 1 processing order in Canterbury last month (order ORD-86652 for Noah Wallace, totaling 106.32 NZD).",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-02",
@@ -449,27 +464,27 @@
    "prompt_tokens": 30439,
    "completion_tokens": 64,
    "latency_s": 10.533,
-   "proxy_ms": 7.94,
+   "proxy_ms": 8.61,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Ta7NukrAHyBIrZBGYUcNDkKKSMq1vwFxggHUGXhbdS9dJq987fFsM4XI/W+3rBAkIXSwodjXkmTNSAFeUrj8owI12TOf7Qp3pSZFXEK3raYhLwUjhnpDUlo8=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT sum(total_nzd) AS total_refunded_nzd FROM orders WHERE region = 'Wellington' AND placed_at \\\\u003e= '2026-08-01' AND status = 'refunded'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_3449030\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-02",
    "family": "db_rows",
    "config": "context-budget@8000",
-   "tokens": 3598,
-   "prompt_tokens": 4427,
-   "completion_tokens": 73,
-   "latency_s": 11.449,
-   "proxy_ms": 21.74,
-   "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TZesuXe36I+6kwdVygSV9V1WhlMu6CaMNdls507PwB1etLoRMnFZzEK3ZcLP1hkPnwhrfpgBXYvWOMmi6SLiM9oYeMjd4JH+aTSkc+F62bY+kkE2Pm9MUyAY=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT SUM(total_nzd) FROM orders WHERE region = 'Wellington' AND placed_at \\\\u003e= '2026-08-01' AND placed_at \\\\u003c '2026-09-01' AND status = 'refunded'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_4072610\", \"type\": \"function\"}]",
+   "tokens": 3463,
+   "prompt_tokens": 4290,
+   "completion_tokens": 56,
+   "latency_s": 2.11,
+   "proxy_ms": 18.28,
+   "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TZMxxmk1NfMiHV8bjUzWaBRB2geRVcdAec6tlvxxfYvyxvBfP8jxDzOnPdo5glcHjXmDZIztwrCtTALuTeeJwbwyujFvqPkXKyei54WJGYcutLDIZE/rH6Rg=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT sum(total_nzd) FROM orders WHERE region = 'Wellington' AND placed_at \\\\u003e= '2026-08-01' AND status = 'refunded'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_4476110\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-02",
@@ -479,12 +494,12 @@
    "prompt_tokens": 1521,
    "completion_tokens": 27,
    "latency_s": 5.995,
-   "proxy_ms": 42.24,
+   "proxy_ms": 35.84,
    "answer": "The combined value of the refunded Wellington orders last month is $15,118.41 across 33 orders.",
    "correct": true,
    "groups_found": 1,
    "groups": 1,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-02",
@@ -494,12 +509,12 @@
    "prompt_tokens": 2657,
    "completion_tokens": 56,
    "latency_s": 5.199,
-   "proxy_ms": 7.0,
+   "proxy_ms": 6.71,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TOW001abRjERqjWGEnJrLbUuqazch+LbbukN87okRRkRdIFDiL/sks2BmLHYSABjrk9EoKSu5hhElyFHy+W9UT2fCz2kFBghso593cMTVKwz37Jwnfeopgqw=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT SUM(total_nzd) FROM orders WHERE region = 'Wellington' AND placed_at \\\\u003e= '2026-08-01' AND status = 'refunded'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_91266\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-05",
@@ -509,12 +524,12 @@
    "prompt_tokens": 33765,
    "completion_tokens": 26,
    "latency_s": 5.232,
-   "proxy_ms": 8.9,
+   "proxy_ms": 7.79,
    "answer": "Tom Sutton placed order ORD-68684, and its total was $349.41 NZD.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-05",
@@ -524,12 +539,12 @@
    "prompt_tokens": 2078,
    "completion_tokens": 26,
    "latency_s": 1.172,
-   "proxy_ms": 24.32,
+   "proxy_ms": 20.88,
    "answer": "Tom Sutton placed order ORD-68684, and the total was $349.41 NZD.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-05",
@@ -539,12 +554,12 @@
    "prompt_tokens": 1230,
    "completion_tokens": 42,
    "latency_s": 0.888,
-   "proxy_ms": 47.85,
+   "proxy_ms": 44.21,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TrjBWylp64SmMq0pmnUYuuCepi1je9A9yOnPtj2UcbQeNuczw2Fxx9lt1KnWEJZNHY0lFNqTMk0jowmJz8S35/nsgxXnav+D8V3hJmFMZ8+sLg1uLls5Y3Ps=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT order_id, customer, total_nzd FROM orders WHERE order_id = 'ORD-68684'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_5495204\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-05",
@@ -554,12 +569,12 @@
    "prompt_tokens": 2767,
    "completion_tokens": 38,
    "latency_s": 1.214,
-   "proxy_ms": 8.17,
+   "proxy_ms": 8.05,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TiYF6HBJmkwGSC9wn/7D28aPhgcTsM8u+Uv5ZI6NfvIewttpMPCfPKgrUs0M2OTEBYRrGphs3lEYzCCbJsD0iXESr7Hc1kYKasVFvJAx3nsrORqnUuC+c1zY=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT customer, total_nzd FROM orders WHERE order_id = 'ORD-68684'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_3372450\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-08",
@@ -569,12 +584,12 @@
    "prompt_tokens": 22625,
    "completion_tokens": 26,
    "latency_s": 1.459,
-   "proxy_ms": 7.99,
+   "proxy_ms": 9.22,
    "answer": "Sarah Marsh placed order ORD-96547, and its total was 366.09 NZD.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-08",
@@ -584,12 +599,12 @@
    "prompt_tokens": 1767,
    "completion_tokens": 26,
    "latency_s": 1.031,
-   "proxy_ms": 20.8,
+   "proxy_ms": 14.49,
    "answer": "ORD-96547 was placed by Sarah Marsh with a total of $366.09 NZD.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "db-08",
@@ -599,12 +614,12 @@
    "prompt_tokens": 1218,
    "completion_tokens": 46,
    "latency_s": 1.016,
-   "proxy_ms": 34.76,
+   "proxy_ms": 25.46,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TGO1RgieffG2NvRNiBGPoMOB2a3jwlLo2fAqrikrd5lOD9evkOIE+MTbVfbDDXSCCTC21XSBjxMaTgTGe6AL/995KRst4AA+KpGKqbkTX68lrPK4qYyoRxYo=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT order_id, customer, total_nzd, placed_at FROM orders WHERE order_id = 'ORD-96547'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_1793945\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "db-08",
@@ -614,12 +629,12 @@
    "prompt_tokens": 2728,
    "completion_tokens": 38,
    "latency_s": 0.986,
-   "proxy_ms": 6.23,
+   "proxy_ms": 4.64,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0T45ceLol9IYl77kqpjh+XzzYvl9K88knqf6uB8mOjDhuhnW3/J5PX+X6cJpmHyQc8Q1pPmTCWdyKLEy5OkMNX23HiFCIgXwryJHrbl8yy7T7Tr2EWvbwkcQE=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT customer, total_nzd FROM orders WHERE order_id = 'ORD-96547'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_85246\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "web-01",
@@ -629,12 +644,12 @@
    "prompt_tokens": 20173,
    "completion_tokens": 24,
    "latency_s": 1.374,
-   "proxy_ms": 5.63,
+   "proxy_ms": 5.04,
    "answer": "The Ridgeline down jacket costs NZ$769 and its SKU code is SKU-56475.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-01",
@@ -644,12 +659,12 @@
    "prompt_tokens": 946,
    "completion_tokens": 24,
    "latency_s": 0.961,
-   "proxy_ms": 15.01,
+   "proxy_ms": 12.93,
    "answer": "The Ridgeline down jacket costs NZ$769 and its SKU code is SKU-56475.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-01",
@@ -659,12 +674,12 @@
    "prompt_tokens": 946,
    "completion_tokens": 24,
    "latency_s": 0.961,
-   "proxy_ms": 17.85,
+   "proxy_ms": 10.7,
    "answer": "The Ridgeline down jacket costs NZ$769 and its SKU code is SKU-56475.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-01",
@@ -674,12 +689,12 @@
    "prompt_tokens": 2136,
    "completion_tokens": 37,
    "latency_s": 1.682,
-   "proxy_ms": 3.22,
+   "proxy_ms": 1.57,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TKESIRS8blTnfn5cRADzM33qFNvG6B4NE54ahbnckuIRJUI5weUM4Yi3HA7i7VuId5CYI3oVw/mAuRF45E5eJ/siNNqNQ55y9/TLjO413FkROIZhyAHWqoLA=\"}}, \"function\": {\"arguments\": \"{\\\"url\\\":\\\"https://shop.acme-outfitters.example/p/ridgeline-down-jacket\\\"}\", \"name\": \"fetch_url\"}, \"id\": \"call_3690424\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "web-02",
@@ -689,12 +704,12 @@
    "prompt_tokens": 20667,
    "completion_tokens": 18,
    "latency_s": 6.452,
-   "proxy_ms": 9.24,
+   "proxy_ms": 4.16,
    "answer": "The Coastal kayak paddle weighs 1.6 kg and is made of ripstop nylon.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-02",
@@ -704,12 +719,12 @@
    "prompt_tokens": 1117,
    "completion_tokens": 18,
    "latency_s": 0.943,
-   "proxy_ms": 21.21,
+   "proxy_ms": 10.97,
    "answer": "The Coastal kayak paddle weighs 1.6 kg and is made of ripstop nylon.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-02",
@@ -719,12 +734,12 @@
    "prompt_tokens": 857,
    "completion_tokens": 37,
    "latency_s": 1.099,
-   "proxy_ms": 25.14,
+   "proxy_ms": 12.79,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TtwlupzH32ryBrSj7GU4eTQfrSZ+7mKrujhUZjHIidSMx3bTiAKto4rtkEtFIQwKAeeUpkWZiVKju0FE12ZZL/yLJLgGy5O8gtstVZC0TDHeHK/gRvYEaEC8=\"}}, \"function\": {\"arguments\": \"{\\\"url\\\":\\\"https://shop.acme-outfitters.example/p/coastal-kayak-paddle\\\"}\", \"name\": \"fetch_url\"}, \"id\": \"call_3072138\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "web-02",
@@ -734,12 +749,12 @@
    "prompt_tokens": 2132,
    "completion_tokens": 18,
    "latency_s": 1.067,
-   "proxy_ms": 2.47,
+   "proxy_ms": 1.46,
    "answer": "The Coastal kayak paddle weighs 1.6 kg and is made of ripstop nylon.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-05",
@@ -749,12 +764,12 @@
    "prompt_tokens": 20060,
    "completion_tokens": 18,
    "latency_s": 1.85,
-   "proxy_ms": 6.59,
+   "proxy_ms": 4.16,
    "answer": "The Nomad sleeping bag weighs 2.3 kg and is made of ripstop nylon.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-05",
@@ -764,12 +779,12 @@
    "prompt_tokens": 1130,
    "completion_tokens": 18,
    "latency_s": 0.969,
-   "proxy_ms": 17.4,
+   "proxy_ms": 12.76,
    "answer": "The Nomad sleeping bag weighs 2.3 kg and is made of ripstop nylon.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-05",
@@ -779,12 +794,12 @@
    "prompt_tokens": 770,
    "completion_tokens": 22,
    "latency_s": 0.858,
-   "proxy_ms": 18.27,
+   "proxy_ms": 14.5,
    "answer": "The Nomad sleeping bag weighs 2.3 kg and is built for multi-day trips in changeable weather.",
    "correct": false,
    "groups_found": 1,
    "groups": 2,
-   "judge": null
+   "judge": 1
   },
   {
    "id": "web-05",
@@ -794,12 +809,12 @@
    "prompt_tokens": 2522,
    "completion_tokens": 35,
    "latency_s": 1.139,
-   "proxy_ms": 1.24,
+   "proxy_ms": 0.74,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0ThKmDN70CBeLpFQ4r6oqDJZkBXYlqu3Wcz2Ot5vX2XEDbdHRkvZ8AHN1AmqLDMFE9+69mUW/qytpVJDFZz6/NExfxNXN3DlnHvXeWX334GsBHZIgmXcOHn2I=\"}}, \"function\": {\"arguments\": \"{\\\"url\\\":\\\"https://internal.acmeadventuretours.com/gear/nomad-sleeping-bag\\\"}\", \"name\": \"fetch_url\"}, \"id\": \"call_4691773\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "web-08",
@@ -809,27 +824,27 @@
    "prompt_tokens": 19975,
    "completion_tokens": 20,
    "latency_s": 1.429,
-   "proxy_ms": 7.01,
+   "proxy_ms": 4.23,
    "answer": "The Nomad sleeping bag weighs 2.9 kg and is made of polyester 75D.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-08",
    "family": "web_research",
    "config": "context-budget@8000",
-   "tokens": 1677,
-   "prompt_tokens": 1834,
+   "tokens": 1533,
+   "prompt_tokens": 1688,
    "completion_tokens": 20,
-   "latency_s": 1.216,
-   "proxy_ms": 15.29,
-   "answer": "The Nomad sleeping bag weighs 2.9 kg and is made of Polyester 75D.",
+   "latency_s": 1.096,
+   "proxy_ms": 11.72,
+   "answer": "The Nomad sleeping bag weighs 2.9 kg and is made of 75D polyester.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "web-08",
@@ -839,12 +854,12 @@
    "prompt_tokens": 1144,
    "completion_tokens": 38,
    "latency_s": 0.979,
-   "proxy_ms": 24.1,
+   "proxy_ms": 18.52,
    "answer": "Yes, there are high-priority tickets for Acme Coffee Roasters (three in total). As for the Nomad sleeping bag, its weight and materials weren't detailed in the fetched summary.",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "web-08",
@@ -854,12 +869,12 @@
    "prompt_tokens": 2379,
    "completion_tokens": 34,
    "latency_s": 1.14,
-   "proxy_ms": 1.93,
+   "proxy_ms": 1.41,
    "answer": "Yes, there are high-priority tickets for Acme Coffee Roasters, including an open password reset issue and pending/closed high-priority requests regarding CSV exports and invoices.",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-01",
@@ -869,12 +884,12 @@
    "prompt_tokens": 9847,
    "completion_tokens": 31,
    "latency_s": 1.554,
-   "proxy_ms": 2.81,
+   "proxy_ms": 2.03,
    "answer": "There are 39 SQL migration files located under `db/migrations/`, numbered from `0001` to `0039`.",
    "correct": true,
    "groups_found": 1,
    "groups": 1,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-01",
@@ -884,12 +899,12 @@
    "prompt_tokens": 959,
    "completion_tokens": 18,
    "latency_s": 0.88,
-   "proxy_ms": 15.95,
+   "proxy_ms": 11.86,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TKH+iqGjA19H/U2Rq25gXaJbcgnvPV2Nee+X7D1Hon+L//QLPcZy1elgB933jZciVlmH2DYxDYpO+KNthkKKH9Zf40oJ8qlLlD0JN180irB19jzEJyc6Wh8k=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"db/migrations\\\"}\", \"name\": \"list_files\"}, \"id\": \"call_4055713\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-01",
@@ -899,12 +914,12 @@
    "prompt_tokens": 959,
    "completion_tokens": 18,
    "latency_s": 0.88,
-   "proxy_ms": 10.78,
+   "proxy_ms": 8.72,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TKH+iqGjA19H/U2Rq25gXaJbcgnvPV2Nee+X7D1Hon+L//QLPcZy1elgB933jZciVlmH2DYxDYpO+KNthkKKH9Zf40oJ8qlLlD0JN180irB19jzEJyc6Wh8k=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"db/migrations\\\"}\", \"name\": \"list_files\"}, \"id\": \"call_4055713\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-01",
@@ -914,12 +929,12 @@
    "prompt_tokens": 2563,
    "completion_tokens": 18,
    "latency_s": 1.121,
-   "proxy_ms": 2.73,
+   "proxy_ms": 1.92,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tf3koylZrqzA7NhS1wTP7KNGSk8/EatJjK95eFxFaLqYtjZ7ZMwTcvxtnoVNzmbZXtz9Bp9lHfG1R4U7Esx4VyDWdYo3itofo/1HtBYQZUUhlZBXCmUAq8DI=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"db/migrations\\\"}\", \"name\": \"list_files\"}, \"id\": \"call_621387\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-02",
@@ -929,12 +944,12 @@
    "prompt_tokens": 12011,
    "completion_tokens": 37,
    "latency_s": 1.259,
-   "proxy_ms": 3.21,
+   "proxy_ms": 2.61,
    "answer": "Payment retries are configured in `services/gateway/config/settings.yaml` under `payment_retry.max_attempts`, and the limit is set to 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-02",
@@ -944,12 +959,12 @@
    "prompt_tokens": 3625,
    "completion_tokens": 36,
    "latency_s": 1.116,
-   "proxy_ms": 17.27,
+   "proxy_ms": 14.28,
    "answer": "The payment retry limit is set in `services/gateway/config/settings.yaml` under `payment_retry.max_attempts`, and the limit is 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-02",
@@ -959,12 +974,12 @@
    "prompt_tokens": 1077,
    "completion_tokens": 24,
    "latency_s": 0.926,
-   "proxy_ms": 33.62,
+   "proxy_ms": 25.47,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TjTnj0iZ5l0cpeCSAOnBx1rQHzPWTQQUvGuuI82sVDOumvOzxREKed5Crj9+S5gR1pfVq2O/phAXKNsvelIcgVfBJl3rRHCHAQQ2rNZGhNw0bHKopyXMVbX4=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"services/gateway/config/settings.yaml\\\"}\", \"name\": \"read_file\"}, \"id\": \"call_190329\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 1,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-02",
@@ -974,12 +989,12 @@
    "prompt_tokens": 2541,
    "completion_tokens": 42,
    "latency_s": 1.562,
-   "proxy_ms": 0.11,
+   "proxy_ms": 0.1,
    "answer": "The payment retry limit is configured in `services/gateway/config/settings.yaml` under the `payment_retry.max_attempts` setting.\nThe current limit is set to 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-05",
@@ -989,12 +1004,12 @@
    "prompt_tokens": 11473,
    "completion_tokens": 34,
    "latency_s": 1.279,
-   "proxy_ms": 3.03,
+   "proxy_ms": 2.66,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tc8TiF5UMhwhcSnyGVPDSAoDVPeWgHLP+ZwMlOEg/fMf0KUZnVT1A/C66WqYC8Th02X9Mw8EM2giE+NoacgaWSQBe4QjDVD/o8hso5I/sjn2wpl/mkqRT5RA=\"}}, \"function\": {\"arguments\": \"{\\\"host\\\":\\\"web-7\\\",\\\"command\\\":\\\"ls -1 db/migrations/ | wc -l\\\"}\", \"name\": \"run_command\"}, \"id\": \"call_2771930\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-05",
@@ -1004,12 +1019,12 @@
    "prompt_tokens": 2667,
    "completion_tokens": 15,
    "latency_s": 0.997,
-   "proxy_ms": 15.41,
+   "proxy_ms": 17.04,
    "answer": "There are 46 SQL migration files under `db/migrations/`.",
    "correct": true,
    "groups_found": 1,
    "groups": 1,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-05",
@@ -1019,12 +1034,12 @@
    "prompt_tokens": 1272,
    "completion_tokens": 18,
    "latency_s": 0.969,
-   "proxy_ms": 22.05,
+   "proxy_ms": 18.37,
    "answer": "There are 727 SQL migration files under the `db/migrations` directory.",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-05",
@@ -1034,12 +1049,12 @@
    "prompt_tokens": 2603,
    "completion_tokens": 18,
    "latency_s": 0.934,
-   "proxy_ms": 2.08,
+   "proxy_ms": 1.73,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0Tj3ASRKRaLIe0tR9U7bKTmq45yqUyTdY6fqIhOJ2iQSfGhHp3L2iv7R0HIvMmoUlRtOZY5qGKYpXUsl7VX+MOMlcf2X5FTUfQZxY+aK9UvChwTCvR9UBtGFU=\"}}, \"function\": {\"arguments\": \"{\\\"path\\\":\\\"db/migrations\\\"}\", \"name\": \"list_files\"}, \"id\": \"call_3273558\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 1,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-08",
@@ -1049,12 +1064,12 @@
    "prompt_tokens": 10628,
    "completion_tokens": 38,
    "latency_s": 1.681,
-   "proxy_ms": 3.13,
+   "proxy_ms": 2.36,
    "answer": "The payment retry limit is configured in `services/payouts/config/settings.yaml` under `payment_retry.max_attempts`, and the limit is 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-08",
@@ -1064,12 +1079,12 @@
    "prompt_tokens": 4255,
    "completion_tokens": 40,
    "latency_s": 1.203,
-   "proxy_ms": 15.12,
+   "proxy_ms": 11.08,
    "answer": "The payment retry limit is configured in `services/payouts/config/settings.yaml` under `payment_retry.max_attempts`, and its value is set to 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "files-08",
@@ -1079,12 +1094,12 @@
    "prompt_tokens": 958,
    "completion_tokens": 30,
    "latency_s": 1.018,
-   "proxy_ms": 28.28,
+   "proxy_ms": 22.99,
    "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TG6mpbb/gZXUm5hr46nF47n/Nf/ZyqZdgQC6fFh97YZ61QPC01hczzN3raJpPOG51vszVYrepwDLpF1RdjRPHtGwdlz0tpDHkzrjWAlV0xZ60q7/FYsI67wI=\"}}, \"function\": {\"arguments\": \"{\\\"command\\\":\\\"git grep -i \\\\\\\"retry\\\\\\\" services/\\\",\\\"host\\\":\\\"localhost\\\"}\", \"name\": \"run_command\"}, \"id\": \"call_1410020\", \"type\": \"function\"}]",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
   },
   {
    "id": "files-08",
@@ -1094,12 +1109,12 @@
    "prompt_tokens": 2514,
    "completion_tokens": 39,
    "latency_s": 1.21,
-   "proxy_ms": 2.11,
+   "proxy_ms": 1.78,
    "answer": "Failed card payment retries are configured in `services/payouts/config/settings.yaml` under `payment_retry.max_attempts`, and the limit is 11.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "brief-01",
@@ -1109,12 +1124,12 @@
    "prompt_tokens": 20646,
    "completion_tokens": 25,
    "latency_s": 1.418,
-   "proxy_ms": 5.77,
+   "proxy_ms": 4.98,
    "answer": "Your hard limits are a maximum spend of NZ$2,750 and a delivery deadline of 21 October.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "brief-01",
@@ -1124,12 +1139,12 @@
    "prompt_tokens": 2534,
    "completion_tokens": 25,
    "latency_s": 1.111,
-   "proxy_ms": 18.97,
+   "proxy_ms": 15.2,
    "answer": "Your hard spending limit is at most NZ$2,750, and the delivery deadline is 21 October.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "brief-01",
@@ -1139,12 +1154,12 @@
    "prompt_tokens": 950,
    "completion_tokens": 25,
    "latency_s": 1.001,
-   "proxy_ms": 21.99,
+   "proxy_ms": 13.5,
    "answer": "Your hard limits are a maximum spend of NZ$2,750 and a delivery deadline of 21 October.",
    "correct": true,
    "groups_found": 2,
    "groups": 2,
-   "judge": null
+   "judge": 2
   },
   {
    "id": "brief-01",
@@ -1154,14 +1169,914 @@
    "prompt_tokens": 2672,
    "completion_tokens": 19,
    "latency_s": 1.109,
-   "proxy_ms": 2.43,
+   "proxy_ms": 1.03,
    "answer": "You didn't specify a spend limit or a delivery deadline at the start of our conversation.",
    "correct": false,
    "groups_found": 0,
    "groups": 2,
-   "judge": null
+   "judge": 0
+  },
+  {
+   "id": "brief-02",
+   "family": "early_constraint",
+   "config": "baseline",
+   "tokens": 13010,
+   "prompt_tokens": 16306,
+   "completion_tokens": 29,
+   "latency_s": 1.495,
+   "proxy_ms": 4.58,
+   "answer": "The budget limit is NZ$3,700 for 13 guides, and the delivery deadline to Queenstown is 5 October.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-02",
+   "family": "early_constraint",
+   "config": "context-budget@8000",
+   "tokens": 2267,
+   "prompt_tokens": 2626,
+   "completion_tokens": 29,
+   "latency_s": 1.268,
+   "proxy_ms": 12.88,
+   "answer": "The budget limit for the whole order is NZ$3,700, and it has to arrive in Queenstown by 5 October.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-02",
+   "family": "early_constraint",
+   "config": "context-budget@1000",
+   "tokens": 823,
+   "prompt_tokens": 951,
+   "completion_tokens": 27,
+   "latency_s": 1.002,
+   "proxy_ms": 12.31,
+   "answer": "Your budget limit for the whole order is NZ$3,700 and the delivery deadline is 5 October to Queenstown.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-02",
+   "family": "early_constraint",
+   "config": "window@2000",
+   "tokens": 2053,
+   "prompt_tokens": 2675,
+   "completion_tokens": 30,
+   "latency_s": 1.363,
+   "proxy_ms": 0.85,
+   "answer": "You haven't specified a budget limit or a delivery deadline yet. Let me know what constraints you'd like to set for your gear orders!",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "brief-05",
+   "family": "early_constraint",
+   "config": "baseline",
+   "tokens": 18559,
+   "prompt_tokens": 23330,
+   "completion_tokens": 26,
+   "latency_s": 3.035,
+   "proxy_ms": 6.32,
+   "answer": "Your spend limit is at most NZ$1,850, and the gear must be delivered by 16 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-05",
+   "family": "early_constraint",
+   "config": "context-budget@8000",
+   "tokens": 1741,
+   "prompt_tokens": 1828,
+   "completion_tokens": 23,
+   "latency_s": 2.387,
+   "proxy_ms": 22.18,
+   "answer": "Your hard limits are a maximum spend of NZ$1,850 and delivery by 16 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-05",
+   "family": "early_constraint",
+   "config": "context-budget@1000",
+   "tokens": 987,
+   "prompt_tokens": 1110,
+   "completion_tokens": 23,
+   "latency_s": 1.525,
+   "proxy_ms": 22.76,
+   "answer": "Your hard limits are a maximum spend of NZ$1,850 and delivery by 16 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-05",
+   "family": "early_constraint",
+   "config": "window@2000",
+   "tokens": 2051,
+   "prompt_tokens": 2657,
+   "completion_tokens": 41,
+   "latency_s": 1.282,
+   "proxy_ms": 1.18,
+   "answer": "You didn't give me a spend limit or a delivery deadline at the start of our conversation. Let me know what your budget and timeframe are, and I'll find the right stove for you!",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "brief-08",
+   "family": "early_constraint",
+   "config": "baseline",
+   "tokens": 12529,
+   "prompt_tokens": 15701,
+   "completion_tokens": 29,
+   "latency_s": 1.31,
+   "proxy_ms": 4.77,
+   "answer": "The budget limit for the whole order is NZ$3,350, and it has to arrive in Queenstown by 6 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-08",
+   "family": "early_constraint",
+   "config": "context-budget@8000",
+   "tokens": 1535,
+   "prompt_tokens": 1666,
+   "completion_tokens": 28,
+   "latency_s": 1.093,
+   "proxy_ms": 13.06,
+   "answer": "The budget limit for the whole order is NZ$3,350 and it has to arrive in Queenstown by 6 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-08",
+   "family": "early_constraint",
+   "config": "context-budget@1000",
+   "tokens": 954,
+   "prompt_tokens": 1079,
+   "completion_tokens": 28,
+   "latency_s": 0.937,
+   "proxy_ms": 10.91,
+   "answer": "The budget limit for the whole order is NZ$3,350, and it must arrive in Queenstown by 6 November.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "brief-08",
+   "family": "early_constraint",
+   "config": "window@2000",
+   "tokens": 2051,
+   "prompt_tokens": 2653,
+   "completion_tokens": 34,
+   "latency_s": 1.168,
+   "proxy_ms": 1.1,
+   "answer": "You haven't specified a budget limit or a delivery deadline in our current session yet. Please let me know what limits and deadlines you'd like to work with!",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "stale-01",
+   "family": "stale_reference",
+   "config": "baseline",
+   "tokens": 11687,
+   "prompt_tokens": 15004,
+   "completion_tokens": 31,
+   "latency_s": 1.562,
+   "proxy_ms": 4.27,
+   "answer": "Olivia Foster's account ID is ACB-583817 and their renewal date is October 12, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-01",
+   "family": "stale_reference",
+   "config": "context-budget@8000",
+   "tokens": 2459,
+   "prompt_tokens": 2823,
+   "completion_tokens": 64,
+   "latency_s": 1.218,
+   "proxy_ms": 11.14,
+   "answer": "Olivia Foster's account ID is ACB-583817 and their renewal date is 2026-10-12. Olivia Turner's account ID is ACB-427722 and her renewal date is 2027-01-24.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-01",
+   "family": "stale_reference",
+   "config": "context-budget@1000",
+   "tokens": 1385,
+   "prompt_tokens": 1615,
+   "completion_tokens": 31,
+   "latency_s": 1.07,
+   "proxy_ms": 16.23,
+   "answer": "Olivia Foster's account ID is ACB-583817 and her renewal date is October 12, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-01",
+   "family": "stale_reference",
+   "config": "window@2000",
+   "tokens": 1982,
+   "prompt_tokens": 2708,
+   "completion_tokens": 31,
+   "latency_s": 1.191,
+   "proxy_ms": 0.18,
+   "answer": "Olivia's account ID is ACB-859421 and her renewal date is 2027-05-14.",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "stale-02",
+   "family": "stale_reference",
+   "config": "baseline",
+   "tokens": 11485,
+   "prompt_tokens": 14696,
+   "completion_tokens": 31,
+   "latency_s": 1.429,
+   "proxy_ms": 4.06,
+   "answer": "Tom's renewal date is December 27, 2026, and their account ID is ACB-736375.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-02",
+   "family": "stale_reference",
+   "config": "context-budget@8000",
+   "tokens": 1977,
+   "prompt_tokens": 2112,
+   "completion_tokens": 33,
+   "latency_s": 1.234,
+   "proxy_ms": 11.0,
+   "answer": "Tom Lowe's account ID is ACB-736375 and their plan renews on 2026-12-27.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-02",
+   "family": "stale_reference",
+   "config": "context-budget@1000",
+   "tokens": 1161,
+   "prompt_tokens": 1260,
+   "completion_tokens": 32,
+   "latency_s": 1.037,
+   "proxy_ms": 14.04,
+   "answer": "Tom Lowe's account ID is ACB-736375 and their renewal date is 2026-12-27.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-02",
+   "family": "stale_reference",
+   "config": "window@2000",
+   "tokens": 2067,
+   "prompt_tokens": 2619,
+   "completion_tokens": 16,
+   "latency_s": 1.094,
+   "proxy_ms": 0.93,
+   "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TnAYaqjuxuxhpXdx6PIuLzK2htDmm/Jzo0+BOoP9h8lZBw25FctUOW8oilxRs8z1oC+RHH0Z8qaUOUdOrZ1hGKsqWkcu74ccG6VMTjYnOpmI9u86N5XZ33Q8=\"}}, \"function\": {\"arguments\": \"{\\\"name\\\":\\\"Tom\\\"}\", \"name\": \"get_customer\"}, \"id\": \"call_5423433\", \"type\": \"function\"}]",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "stale-05",
+   "family": "stale_reference",
+   "config": "baseline",
+   "tokens": 12116,
+   "prompt_tokens": 15692,
+   "completion_tokens": 33,
+   "latency_s": 1.609,
+   "proxy_ms": 4.14,
+   "answer": "Luke Murray's account ID is ACB-749418, and his renewal date is 2026-12-12.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-05",
+   "family": "stale_reference",
+   "config": "context-budget@8000",
+   "tokens": 3054,
+   "prompt_tokens": 3646,
+   "completion_tokens": 31,
+   "latency_s": 1.25,
+   "proxy_ms": 11.73,
+   "answer": "Luke Murray's account ID is ACB-749418 and his renewal date is December 12, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-05",
+   "family": "stale_reference",
+   "config": "context-budget@1000",
+   "tokens": 1430,
+   "prompt_tokens": 1644,
+   "completion_tokens": 32,
+   "latency_s": 1.144,
+   "proxy_ms": 15.94,
+   "answer": "Luke Murray's account ID is ACB-749418, and his renewal date is December 12, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-05",
+   "family": "stale_reference",
+   "config": "window@2000",
+   "tokens": 2054,
+   "prompt_tokens": 2639,
+   "completion_tokens": 17,
+   "latency_s": 1.126,
+   "proxy_ms": 0.6,
+   "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TeKwb7FFNm5kfnYIph56Rt/ExgmP6WjQbh3C4sJSt80dqaOtxjkOdS88N5WeDGvMvDB9z/TyhQ/z62XWfCIapv+m0udBmj/j5yWX9cBF6o7MH/+tgU6r8+34=\"}}, \"function\": {\"arguments\": \"{\\\"name\\\":\\\"Luke Reid\\\"}\", \"name\": \"get_customer\"}, \"id\": \"call_4853644\", \"type\": \"function\"}]",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "stale-08",
+   "family": "stale_reference",
+   "config": "baseline",
+   "tokens": 6303,
+   "prompt_tokens": 8178,
+   "completion_tokens": 32,
+   "latency_s": 1.282,
+   "proxy_ms": 2.65,
+   "answer": "Daniel Collins's account ID is ACB-392028 and his plan renews on December 11, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-08",
+   "family": "stale_reference",
+   "config": "context-budget@8000",
+   "tokens": 1072,
+   "prompt_tokens": 1161,
+   "completion_tokens": 31,
+   "latency_s": 0.976,
+   "proxy_ms": 6.35,
+   "answer": "Daniel Collins's account ID is ACB-392028 and its renewal date is December 11, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-08",
+   "family": "stale_reference",
+   "config": "context-budget@1000",
+   "tokens": 942,
+   "prompt_tokens": 986,
+   "completion_tokens": 31,
+   "latency_s": 1.033,
+   "proxy_ms": 5.63,
+   "answer": "Daniel Collins's account ID is ACB-392028 and its renewal date is December 11, 2026.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "stale-08",
+   "family": "stale_reference",
+   "config": "window@2000",
+   "tokens": 2054,
+   "prompt_tokens": 2642,
+   "completion_tokens": 31,
+   "latency_s": 1.349,
+   "proxy_ms": 0.65,
+   "answer": "I'm sorry, but I don't recall the first account you asked about. Could you please let me know whose account you are referring to?",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "docs-01",
+   "family": "duplicate_docs",
+   "config": "baseline",
+   "tokens": 3938,
+   "prompt_tokens": 4045,
+   "completion_tokens": 34,
+   "latency_s": 1.412,
+   "proxy_ms": 1.27,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these returned items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-01",
+   "family": "duplicate_docs",
+   "config": "context-budget@8000",
+   "tokens": 2330,
+   "prompt_tokens": 2388,
+   "completion_tokens": 33,
+   "latency_s": 1.193,
+   "proxy_ms": 4.51,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-01",
+   "family": "duplicate_docs",
+   "config": "context-budget@1000",
+   "tokens": 2313,
+   "prompt_tokens": 2365,
+   "completion_tokens": 35,
+   "latency_s": 1.195,
+   "proxy_ms": 5.47,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these returned opened items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-01",
+   "family": "duplicate_docs",
+   "config": "window@2000",
+   "tokens": 2062,
+   "prompt_tokens": 2119,
+   "completion_tokens": 33,
+   "latency_s": 1.227,
+   "proxy_ms": 0.36,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-02",
+   "family": "duplicate_docs",
+   "config": "baseline",
+   "tokens": 5566,
+   "prompt_tokens": 6091,
+   "completion_tokens": 34,
+   "latency_s": 1.407,
+   "proxy_ms": 1.84,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these returned items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-02",
+   "family": "duplicate_docs",
+   "config": "context-budget@8000",
+   "tokens": 2731,
+   "prompt_tokens": 2859,
+   "completion_tokens": 34,
+   "latency_s": 1.305,
+   "proxy_ms": 5.65,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these returned items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-02",
+   "family": "duplicate_docs",
+   "config": "context-budget@1000",
+   "tokens": 2600,
+   "prompt_tokens": 2708,
+   "completion_tokens": 34,
+   "latency_s": 1.164,
+   "proxy_ms": 10.87,
+   "answer": "Opened items can be returned within 21 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these returned items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-02",
+   "family": "duplicate_docs",
+   "config": "window@2000",
+   "tokens": 2016,
+   "prompt_tokens": 2467,
+   "completion_tokens": 22,
+   "latency_s": 1.207,
+   "proxy_ms": 0.13,
+   "answer": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0T0a2h5PDA/MrRB4GC0yiNm5tJt9r35bMq0a+QKTkzm8LMFkPXEZieBK3ltL2jt0YTtYZ9xAn2HH8FLGT2hUnji+gZWJYHUFuJQzYLp4B2RSz5crkJXsbvTNo=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"return policy opened item days restocking fee\\\"}\", \"name\": \"search_docs\"}, \"id\": \"call_1010015\", \"type\": \"function\"}]",
+   "correct": false,
+   "groups_found": 0,
+   "groups": 2,
+   "judge": 0
+  },
+  {
+   "id": "docs-05",
+   "family": "duplicate_docs",
+   "config": "baseline",
+   "tokens": 3643,
+   "prompt_tokens": 3730,
+   "completion_tokens": 34,
+   "latency_s": 1.384,
+   "proxy_ms": 1.57,
+   "answer": "Sarah can return an opened item within 60 days of delivery if it is in resaleable condition. A restocking fee of 15% applies to opened items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-05",
+   "family": "duplicate_docs",
+   "config": "context-budget@8000",
+   "tokens": 2243,
+   "prompt_tokens": 2301,
+   "completion_tokens": 31,
+   "latency_s": 1.179,
+   "proxy_ms": 5.05,
+   "answer": "Opened items can be returned within 60 days if they are in resaleable condition. A restocking fee of 15% applies to these items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-05",
+   "family": "duplicate_docs",
+   "config": "context-budget@1000",
+   "tokens": 2215,
+   "prompt_tokens": 2269,
+   "completion_tokens": 34,
+   "latency_s": 1.292,
+   "proxy_ms": 6.07,
+   "answer": "Opened items can be returned within 60 days of delivery if they are in resaleable condition. A restocking fee of 15% applies to these opened items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-05",
+   "family": "duplicate_docs",
+   "config": "window@2000",
+   "tokens": 2061,
+   "prompt_tokens": 2121,
+   "completion_tokens": 33,
+   "latency_s": 1.174,
+   "proxy_ms": 0.29,
+   "answer": "Opened items can be returned within 60 days of delivery if they are in resaleable condition. A 15% restocking fee applies to these opened items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-08",
+   "family": "duplicate_docs",
+   "config": "baseline",
+   "tokens": 4157,
+   "prompt_tokens": 4350,
+   "completion_tokens": 42,
+   "latency_s": 1.377,
+   "proxy_ms": 1.49,
+   "answer": "Opened items can be returned within 30 days if they are in resaleable condition, subject to a 25% restocking fee. Refunds are paid to the original payment method within 5 working days.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-08",
+   "family": "duplicate_docs",
+   "config": "context-budget@8000",
+   "tokens": 2585,
+   "prompt_tokens": 2715,
+   "completion_tokens": 34,
+   "latency_s": 1.261,
+   "proxy_ms": 4.67,
+   "answer": "Opened items can be returned within 30 days of delivery if they are in resaleable condition. A restocking fee of 25% applies to these returned items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-08",
+   "family": "duplicate_docs",
+   "config": "context-budget@1000",
+   "tokens": 2504,
+   "prompt_tokens": 2622,
+   "completion_tokens": 28,
+   "latency_s": 1.168,
+   "proxy_ms": 7.31,
+   "answer": "Opened items can be returned within 30 days if they are in resaleable condition, subject to a 25% restocking fee.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "docs-08",
+   "family": "duplicate_docs",
+   "config": "window@2000",
+   "tokens": 2061,
+   "prompt_tokens": 2195,
+   "completion_tokens": 33,
+   "latency_s": 1.267,
+   "proxy_ms": 0.36,
+   "answer": "Opened items can be returned within 30 days of delivery if they are in resaleable condition. A restocking fee of 25% applies to these items.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-01",
+   "family": "ci_failure",
+   "config": "baseline",
+   "tokens": 35085,
+   "prompt_tokens": 47266,
+   "completion_tokens": 30,
+   "latency_s": 1.97,
+   "proxy_ms": 8.85,
+   "answer": "The test `test_gst_rounding` failed because `681.71` did not equal `681.72`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-01",
+   "family": "ci_failure",
+   "config": "context-budget@8000",
+   "tokens": 1357,
+   "prompt_tokens": 1593,
+   "completion_tokens": 39,
+   "latency_s": 1.141,
+   "proxy_ms": 48.49,
+   "answer": "The test `tests/test_invoice.py::test_gst_rounding` failed because an assertion compared `681.71` and `681.72`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-01",
+   "family": "ci_failure",
+   "config": "context-budget@1000",
+   "tokens": 948,
+   "prompt_tokens": 1064,
+   "completion_tokens": 52,
+   "latency_s": 1.194,
+   "proxy_ms": 49.29,
+   "answer": "`tests/test_invoice.py::test_gst_rounding` failed with an `AssertionError`. The log shows it failed because an assertion inside that test did not hold, though the exact compared values were in the cut lines of the test output.",
+   "correct": false,
+   "groups_found": 1,
+   "groups": 2,
+   "judge": 1
+  },
+  {
+   "id": "ci-01",
+   "family": "ci_failure",
+   "config": "window@2000",
+   "tokens": 2056,
+   "prompt_tokens": 2840,
+   "completion_tokens": 49,
+   "latency_s": 1.296,
+   "proxy_ms": 4.64,
+   "answer": "The test `tests/test_invoice.py::test_gst_rounding` failed because of an assertion error. It compared the values 681.71 and 681.72, which were not equal.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-02",
+   "family": "ci_failure",
+   "config": "baseline",
+   "tokens": 22985,
+   "prompt_tokens": 31249,
+   "completion_tokens": 48,
+   "latency_s": 2.13,
+   "proxy_ms": 5.6,
+   "answer": "The test `tests/test_refund.py::test_payout_batch_limit` failed because of an assertion error. It compared the values `288.86` and `288.87`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-02",
+   "family": "ci_failure",
+   "config": "context-budget@8000",
+   "tokens": 1121,
+   "prompt_tokens": 1339,
+   "completion_tokens": 50,
+   "latency_s": 1.097,
+   "proxy_ms": 25.17,
+   "answer": "The test `tests/test_refund.py::test_payout_batch_limit` failed with an AssertionError. It compared the values 288.86 and 288.87, which were not equal.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-02",
+   "family": "ci_failure",
+   "config": "context-budget@1000",
+   "tokens": 798,
+   "prompt_tokens": 914,
+   "completion_tokens": 40,
+   "latency_s": 0.914,
+   "proxy_ms": 27.17,
+   "answer": "`tests/test_refund.py::test_payout_batch_limit` failed because an assertion compared `288.86` and `288.87`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-02",
+   "family": "ci_failure",
+   "config": "window@2000",
+   "tokens": 2056,
+   "prompt_tokens": 2829,
+   "completion_tokens": 47,
+   "latency_s": 1.228,
+   "proxy_ms": 4.09,
+   "answer": "The test `tests/test_refund.py::test_payout_batch_limit` failed. It compared the values 288.86 and 288.87, which caused an AssertionError.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-05",
+   "family": "ci_failure",
+   "config": "baseline",
+   "tokens": 24280,
+   "prompt_tokens": 32939,
+   "completion_tokens": 42,
+   "latency_s": 1.74,
+   "proxy_ms": 5.42,
+   "answer": "The test `tests/test_invoice.py::test_refund_partial` failed.\nThe assertion compared the values `542.50` and `542.51`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-05",
+   "family": "ci_failure",
+   "config": "context-budget@8000",
+   "tokens": 1117,
+   "prompt_tokens": 1329,
+   "completion_tokens": 42,
+   "latency_s": 1.228,
+   "proxy_ms": 25.08,
+   "answer": "`tests/test_invoice.py::test_refund_partial` failed. The assertion compared 542.50 to 542.51, causing an `AssertionError`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-05",
+   "family": "ci_failure",
+   "config": "context-budget@1000",
+   "tokens": 794,
+   "prompt_tokens": 906,
+   "completion_tokens": 38,
+   "latency_s": 0.89,
+   "proxy_ms": 27.77,
+   "answer": "`tests/test_invoice.py::test_refund_partial` failed.\nThe assertion compared `542.50` and `542.51`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-05",
+   "family": "ci_failure",
+   "config": "window@2000",
+   "tokens": 2056,
+   "prompt_tokens": 2790,
+   "completion_tokens": 42,
+   "latency_s": 1.227,
+   "proxy_ms": 3.87,
+   "answer": "The test `tests/test_invoice.py::test_refund_partial` failed.\nThe assertion compared the values `542.50` and `542.51`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-08",
+   "family": "ci_failure",
+   "config": "baseline",
+   "tokens": 21466,
+   "prompt_tokens": 28980,
+   "completion_tokens": 38,
+   "latency_s": 1.725,
+   "proxy_ms": 5.28,
+   "answer": "`test_webhook_signature` failed in `tests/test_fx.py`. The assertion compared `515.05` and `515.06`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-08",
+   "family": "ci_failure",
+   "config": "context-budget@8000",
+   "tokens": 1279,
+   "prompt_tokens": 1558,
+   "completion_tokens": 36,
+   "latency_s": 1.207,
+   "proxy_ms": 22.56,
+   "answer": "`tests/test_fx.py::test_webhook_signature` failed because an assertion compared 515.05 to 515.06.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-08",
+   "family": "ci_failure",
+   "config": "context-budget@1000",
+   "tokens": 960,
+   "prompt_tokens": 1135,
+   "completion_tokens": 37,
+   "latency_s": 1.046,
+   "proxy_ms": 22.85,
+   "answer": "`tests/test_fx.py::test_webhook_signature` failed because an assertion compared `515.05` to `515.06`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
+  },
+  {
+   "id": "ci-08",
+   "family": "ci_failure",
+   "config": "window@2000",
+   "tokens": 2056,
+   "prompt_tokens": 2849,
+   "completion_tokens": 42,
+   "latency_s": 1.287,
+   "proxy_ms": 2.93,
+   "answer": "`test_webhook_signature` in `tests/test_fx.py` failed.\nThe assertion compared the values `515.05` and `515.06`.",
+   "correct": true,
+   "groups_found": 2,
+   "groups": 2,
+   "judge": 2
   }
  ],
  "planned_conversations": 32,
- "complete": false
+ "complete": true
 }

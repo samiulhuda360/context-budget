@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "The test `tests/test_refund.py::test_payout_batch_limit` failed with an AssertionError. It compared the values 288.86 and 288.87, which were not equal.",
+ "latency_s": 1.097,
+ "prompt_tokens": 1339,
+ "completion_tokens": 50
+}

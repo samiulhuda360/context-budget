@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "`test_webhook_signature` in `tests/test_fx.py` failed.\nThe assertion compared the values `515.05` and `515.06`.",
+ "latency_s": 1.287,
+ "prompt_tokens": 2849,
+ "completion_tokens": 42
+}

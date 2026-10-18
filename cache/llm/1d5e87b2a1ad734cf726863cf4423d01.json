@@ -1,0 +1,7 @@
+{
+ "model": "gemini-flash-lite-latest",
+ "text": "[tool call] [{\"extra_content\": {\"google\": {\"thought_signature\": \"EmAKXgFpFH0TZMxxmk1NfMiHV8bjUzWaBRB2geRVcdAec6tlvxxfYvyxvBfP8jxDzOnPdo5glcHjXmDZIztwrCtTALuTeeJwbwyujFvqPkXKyei54WJGYcutLDIZE/rH6Rg=\"}}, \"function\": {\"arguments\": \"{\\\"query\\\":\\\"SELECT sum(total_nzd) FROM orders WHERE region = 'Wellington' AND placed_at \\\\u003e= '2026-08-01' AND status = 'refunded'\\\"}\", \"name\": \"run_sql\"}, \"id\": \"call_4476110\", \"type\": \"function\"}]",
+ "latency_s": 2.11,
+ "prompt_tokens": 4290,
+ "completion_tokens": 56
+}

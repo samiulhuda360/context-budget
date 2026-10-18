@@ -44,9 +44,9 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 241144,
-   "saved_pct": 81.7,
-   "median_saved_pct": 85.1,
+   "tokens_after": 239347,
+   "saved_pct": 81.8,
+   "median_saved_pct": 85.4,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
     "log_incident": 100,
@@ -59,11 +59,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 8.8,
-   "latency_ms_p95": 31.41,
+   "latency_ms_p50": 9.04,
+   "latency_ms_p95": 32.63,
    "cost_per_1000": {
-    "flash_lite": 0.3414,
-    "frontier": 10.5429
+    "flash_lite": 0.3392,
+    "frontier": 10.4755
    }
   },
   {
@@ -89,8 +89,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 0.45,
-   "latency_ms_p95": 3.26,
+   "latency_ms_p50": 0.47,
+   "latency_ms_p95": 3.33,
    "cost_per_1000": {
     "flash_lite": 1.2076,
     "frontier": 36.5286
@@ -119,8 +119,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 3.48,
-   "latency_ms_p95": 6.6,
+   "latency_ms_p50": 3.58,
+   "latency_ms_p95": 6.82,
    "cost_per_1000": {
     "flash_lite": 1.6673,
     "frontier": 50.3199
@@ -149,8 +149,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 1.77,
-   "latency_ms_p95": 3.6,
+   "latency_ms_p50": 1.98,
+   "latency_ms_p95": 3.75,
    "cost_per_1000": {
     "flash_lite": 1.5749,
     "frontier": 47.5458
@@ -165,8 +165,8 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 167413,
-   "saved_pct": 87.3,
+   "tokens_after": 166510,
+   "saved_pct": 87.4,
    "median_saved_pct": 89.1,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
@@ -180,11 +180,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 7.18,
-   "latency_ms_p95": 16.4,
+   "latency_ms_p50": 9.25,
+   "latency_ms_p95": 20.67,
    "cost_per_1000": {
-    "flash_lite": 0.2493,
-    "frontier": 7.778
+    "flash_lite": 0.2481,
+    "frontier": 7.7441
    }
   },
   {
@@ -196,9 +196,9 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 226316,
-   "saved_pct": 82.8,
-   "median_saved_pct": 85.1,
+   "tokens_after": 224519,
+   "saved_pct": 82.9,
+   "median_saved_pct": 85.4,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
     "log_incident": 100,
@@ -211,11 +211,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 8.98,
-   "latency_ms_p95": 23.92,
+   "latency_ms_p50": 11.94,
+   "latency_ms_p95": 32.28,
    "cost_per_1000": {
-    "flash_lite": 0.3229,
-    "frontier": 9.9868
+    "flash_lite": 0.3206,
+    "frontier": 9.9195
    }
   },
   {
@@ -227,9 +227,9 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 241144,
-   "saved_pct": 81.7,
-   "median_saved_pct": 85.1,
+   "tokens_after": 239347,
+   "saved_pct": 81.8,
+   "median_saved_pct": 85.4,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
     "log_incident": 100,
@@ -242,11 +242,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 5.64,
-   "latency_ms_p95": 16.42,
+   "latency_ms_p50": 5.72,
+   "latency_ms_p95": 17.48,
    "cost_per_1000": {
-    "flash_lite": 0.3414,
-    "frontier": 10.5429
+    "flash_lite": 0.3392,
+    "frontier": 10.4755
    }
   },
   {
@@ -273,8 +273,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 3.94,
-   "latency_ms_p95": 6.61,
+   "latency_ms_p50": 4.68,
+   "latency_ms_p95": 7.04,
    "cost_per_1000": {
     "flash_lite": 1.1948,
     "frontier": 36.1454
@@ -304,8 +304,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 0.87,
-   "latency_ms_p95": 3.36,
+   "latency_ms_p50": 0.9,
+   "latency_ms_p95": 3.49,
    "cost_per_1000": {
     "flash_lite": 1.2046,
     "frontier": 36.4388
@@ -335,8 +335,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 5.02,
-   "latency_ms_p95": 9.63,
+   "latency_ms_p50": 5.83,
+   "latency_ms_p95": 11.48,
    "cost_per_1000": {
     "flash_lite": 1.5563,
     "frontier": 46.9898
@@ -352,7 +352,7 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 157196,
+   "tokens_after": 156293,
    "saved_pct": 88.1,
    "median_saved_pct": 89.1,
    "evidence_kept_pct": 100.0,
@@ -367,11 +367,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 9.47,
-   "latency_ms_p95": 23.96,
+   "latency_ms_p50": 12.3,
+   "latency_ms_p95": 34.36,
    "cost_per_1000": {
-    "flash_lite": 0.2365,
-    "frontier": 7.3948
+    "flash_lite": 0.2354,
+    "frontier": 7.361
    }
   },
   {
@@ -384,8 +384,8 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 167413,
-   "saved_pct": 87.3,
+   "tokens_after": 166510,
+   "saved_pct": 87.4,
    "median_saved_pct": 89.1,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
@@ -399,11 +399,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 7.02,
-   "latency_ms_p95": 17.03,
+   "latency_ms_p50": 7.45,
+   "latency_ms_p95": 22.43,
    "cost_per_1000": {
-    "flash_lite": 0.2493,
-    "frontier": 7.778
+    "flash_lite": 0.2481,
+    "frontier": 7.7441
    }
   },
   {
@@ -416,9 +416,9 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 226316,
-   "saved_pct": 82.8,
-   "median_saved_pct": 85.1,
+   "tokens_after": 224519,
+   "saved_pct": 82.9,
+   "median_saved_pct": 85.4,
    "evidence_kept_pct": 100.0,
    "evidence_kept_by_family": {
     "log_incident": 100,
@@ -431,11 +431,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 8.38,
-   "latency_ms_p95": 23.86,
+   "latency_ms_p50": 9.41,
+   "latency_ms_p95": 25.05,
    "cost_per_1000": {
-    "flash_lite": 0.3229,
-    "frontier": 9.9868
+    "flash_lite": 0.3206,
+    "frontier": 9.9195
    }
   },
   {
@@ -463,8 +463,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 4.51,
-   "latency_ms_p95": 7.54,
+   "latency_ms_p50": 4.59,
+   "latency_ms_p95": 8.29,
    "cost_per_1000": {
     "flash_lite": 1.1919,
     "frontier": 36.0556
@@ -481,7 +481,7 @@
    "budget": 8000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 157196,
+   "tokens_after": 156293,
    "saved_pct": 88.1,
    "median_saved_pct": 89.1,
    "evidence_kept_pct": 100.0,
@@ -496,11 +496,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 9.74,
-   "latency_ms_p95": 24.44,
+   "latency_ms_p50": 10.25,
+   "latency_ms_p95": 25.34,
    "cost_per_1000": {
-    "flash_lite": 0.2365,
-    "frontier": 7.3948
+    "flash_lite": 0.2354,
+    "frontier": 7.361
    }
   },
   {
@@ -514,7 +514,7 @@
    "budget": 32000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 169116,
+   "tokens_after": 168213,
    "saved_pct": 87.2,
    "median_saved_pct": 87.9,
    "evidence_kept_pct": 100.0,
@@ -529,11 +529,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 9.85,
-   "latency_ms_p95": 24.09,
+   "latency_ms_p50": 9.45,
+   "latency_ms_p95": 24.1,
    "cost_per_1000": {
-    "flash_lite": 0.2514,
-    "frontier": 7.8418
+    "flash_lite": 0.2503,
+    "frontier": 7.808
    }
   },
   {
@@ -547,7 +547,7 @@
    "budget": 16000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 169116,
+   "tokens_after": 168213,
    "saved_pct": 87.2,
    "median_saved_pct": 87.9,
    "evidence_kept_pct": 100.0,
@@ -562,11 +562,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 9.68,
-   "latency_ms_p95": 23.38,
+   "latency_ms_p50": 10.05,
+   "latency_ms_p95": 24.85,
    "cost_per_1000": {
-    "flash_lite": 0.2514,
-    "frontier": 7.8418
+    "flash_lite": 0.2503,
+    "frontier": 7.808
    }
   },
   {
@@ -580,7 +580,7 @@
    "budget": 4000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 157196,
+   "tokens_after": 156293,
    "saved_pct": 88.1,
    "median_saved_pct": 89.1,
    "evidence_kept_pct": 100.0,
@@ -595,11 +595,11 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 10.34,
-   "latency_ms_p95": 24.8,
+   "latency_ms_p50": 9.77,
+   "latency_ms_p95": 27.1,
    "cost_per_1000": {
-    "flash_lite": 0.2365,
-    "frontier": 7.3948
+    "flash_lite": 0.2354,
+    "frontier": 7.361
    }
   },
   {
@@ -613,9 +613,9 @@
    "budget": 2000,
    "naive": false,
    "tokens_before": 1316691,
-   "tokens_after": 125408,
+   "tokens_after": 125000,
    "saved_pct": 90.5,
-   "median_saved_pct": 90.3,
+   "median_saved_pct": 90.5,
    "evidence_kept_pct": 97.5,
    "evidence_kept_by_family": {
     "log_incident": 80,
@@ -631,11 +631,11 @@
     "log-02",
     "log-07"
    ],
-   "latency_ms_p50": 10.68,
-   "latency_ms_p95": 39.91,
+   "latency_ms_p50": 10.96,
+   "latency_ms_p95": 41.2,
    "cost_per_1000": {
-    "flash_lite": 0.1968,
-    "frontier": 6.2028
+    "flash_lite": 0.1963,
+    "frontier": 6.1875
    }
   },
   {
@@ -681,8 +681,8 @@
     "files-08",
     "ci-01"
    ],
-   "latency_ms_p50": 17.71,
-   "latency_ms_p95": 62.41,
+   "latency_ms_p50": 14.64,
+   "latency_ms_p95": 63.11,
    "cost_per_1000": {
     "flash_lite": 0.1554,
     "frontier": 4.9626
@@ -709,8 +709,8 @@
     "ci_failure": 100
    },
    "lost": [],
-   "latency_ms_p50": 0.12,
-   "latency_ms_p95": 8.62,
+   "latency_ms_p50": 0.11,
+   "latency_ms_p95": 8.76,
    "cost_per_1000": {
     "flash_lite": 1.6522,
     "frontier": 49.8673
@@ -751,8 +751,8 @@
     "brief-05",
     "brief-07"
    ],
-   "latency_ms_p50": 0.2,
-   "latency_ms_p95": 8.03,
+   "latency_ms_p50": 0.39,
+   "latency_ms_p95": 8.62,
    "cost_per_1000": {
     "flash_lite": 1.3011,
     "frontier": 39.3336
@@ -826,8 +826,8 @@
     "stale-07",
     "stale-09"
    ],
-   "latency_ms_p50": 1.28,
-   "latency_ms_p95": 7.3,
+   "latency_ms_p50": 1.44,
+   "latency_ms_p95": 8.43,
    "cost_per_1000": {
     "flash_lite": 0.8038,
     "frontier": 24.4132
@@ -909,8 +909,8 @@
     "stale-09",
     "docs-06"
    ],
-   "latency_ms_p50": 1.55,
-   "latency_ms_p95": 7.88,
+   "latency_ms_p50": 1.77,
+   "latency_ms_p95": 7.91,
    "cost_per_1000": {
     "flash_lite": 0.4454,
     "frontier": 13.6608
@@ -997,8 +997,8 @@
     "docs-07",
     "docs-09"
    ],
-   "latency_ms_p50": 1.63,
-   "latency_ms_p95": 8.17,
+   "latency_ms_p50": 1.48,
+   "latency_ms_p95": 7.61,
    "cost_per_1000": {
     "flash_lite": 0.2468,
     "frontier": 7.7053
@@ -1087,8 +1087,8 @@
     "docs-08",
     "docs-09"
    ],
-   "latency_ms_p50": 1.03,
-   "latency_ms_p95": 8.38,
+   "latency_ms_p50": 0.91,
+   "latency_ms_p95": 7.35,
    "cost_per_1000": {
     "flash_lite": 0.1469,
     "frontier": 4.7073
