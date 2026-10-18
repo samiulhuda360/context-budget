@@ -1,7 +1,0 @@
-{
- "model": "gemini-flash-lite-latest",
- "text": "Upstream acquirer `acq-nz-3` failed to respond after 30,000ms, causing the circuit breaker to open for card payments.",
- "latency_s": 1.408,
- "prompt_tokens": 3105,
- "completion_tokens": 35
-}
