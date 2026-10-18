@@ -110,7 +110,13 @@ def log_incident(i: int, rng: random.Random) -> dict[str, Any]:
     for k in range(rng.randint(2, 5)):  # the same failure repeating a little later
         p = pos + 1 + k * rng.randint(3, 9)
         lines.insert(p, f"{lines[p - 1].split(' ')[0]} {needle}")
-    c.call("fetch_logs", "\n".join(lines), "No deploy in the last 24 hours, so this is not a bad release. Pulling the logs.", service=spec["service"], since="2026-09-14T02:00:00Z")
+    c.call(
+        "fetch_logs",
+        "\n".join(lines),
+        "No deploy in the last 24 hours, so this is not a bad release. Pulling the logs.",
+        service=spec["service"],
+        since="2026-09-14T02:00:00Z",
+    )
     c.assistant("I've got the logs; there's a lot of routine traffic in there.")
     fillers(c, rng, 0, 1)
     c.user(spec["question"])
